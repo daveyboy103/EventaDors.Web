@@ -23,7 +23,6 @@ namespace EventaDors.Entities.Classes
         public DateTime Modified { get; }
         public Guid Uuid { get; }
         public IList<IUserPasswordHistory> Passwords { get; }
-        
         public IList<IQuoteRequest> QuoteRequests { get; }
     }
 }
