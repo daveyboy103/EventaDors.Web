@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using EventaDors.Entities.Classes;
 
-namespace EventaDors.Entities.Classes
+namespace EventaDors.Entities.Interfaces
 {
     public interface IQuoteRequest
     {

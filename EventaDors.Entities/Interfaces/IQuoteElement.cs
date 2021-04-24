@@ -1,4 +1,4 @@
-namespace EventaDors.Entities.Classes
+namespace EventaDors.Entities.Interfaces
 {
     public interface IQuoteElement
     {
