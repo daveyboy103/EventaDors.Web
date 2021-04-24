@@ -5,20 +5,12 @@ namespace EventaDors.Entities.Interfaces
 {
     public interface IUser
     {
-        public long Id { get; }
-        public string UserName { get; set; }
-        public DateTime Created { get; }
-        public DateTime Modified { get; }
-        public Guid Uuid { get; }
-        
-        public IList<IUserPasswordHistory> Passwords { get; }
-    }
-
-    public interface IUserPasswordHistory
-    {
-        public string Password { get; }
-        public Guid Uuid { get; }
-        public DateTime Created { get; }
-        public DateTime Expired { get; }
+        long Id { get; }
+        string UserName { get; set; }
+        DateTime Created { get; }
+        DateTime Modified { get; }
+        Guid Uuid { get; }
+        IList<IUserPasswordHistory> Passwords { get; }
+        IList<IQuoteRequest> QuoteRequests { get; }
     }
 }

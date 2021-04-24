@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using EventaDors.Entities.Interfaces;
 
-namespace EventaDors.Entities.Factories
+namespace EventaDors.Entities.Interfaces
 {
     public interface IUserFactory
     {
