@@ -43,6 +43,20 @@ namespace EventaDors.Web.Controllers
             return _wrapper.ChangePassword(userId, oldPassword, newPassword);
         }
 
+        [HttpGet("BlockUser")]
+        public bool BlockUser(int userId, int blockedUserId)
+        {
+            _wrapper = new Wrapper(_connectionString);
+            return _wrapper.BlockUser(userId, blockedUserId);
+        } 
+        
+        [HttpGet("UnblockUser")]
+        public bool UnblockUser(int userId, int blockedUserId)
+        {
+            _wrapper = new Wrapper(_connectionString);
+            return _wrapper.UnblockUser(userId, blockedUserId);
+        }
+
         [HttpPost("UpdateUser")]
         public User UpdateUser(User user)
         {

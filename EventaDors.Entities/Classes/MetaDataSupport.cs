@@ -3,12 +3,13 @@ using EventaDors.Entities.Interfaces;
 
 namespace EventaDors.Entities.Classes
 {
-    public abstract class MetaDataSupport 
+    public abstract class MetaDataSupport
     {
         protected MetaDataSupport()
         {
             MetaData = new Dictionary<string, MetaDataItem>();
         }
+
         public IDictionary<string, MetaDataItem> MetaData { get; }
     }
 

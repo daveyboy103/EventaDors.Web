@@ -20,14 +20,14 @@ namespace EventaDors.Web.Controllers
             _connectionString = connectionString;
         }
 
-        [HttpGet]
+        [HttpGet("Login")]
         public LoginResult Login(string userName, string password)
         {
             _wrapper = new Wrapper(_connectionString);
             return _wrapper.Authenticate(userName, password);
         }
 
-        [HttpPost]
+        [HttpPost("CreateUser")]
         public long CreateUser(User user)
         {
             _wrapper = new Wrapper(_connectionString);

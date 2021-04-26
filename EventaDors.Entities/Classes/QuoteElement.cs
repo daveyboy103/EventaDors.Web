@@ -2,7 +2,7 @@ using System;
 
 namespace EventaDors.Entities.Classes
 {
-    public class QuoteElement 
+    public class QuoteElement
     {
         public QuoteElementType Type { get; set; }
         public string Name { get; set; }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using EventaDors.Entities.Interfaces;
 
 namespace EventaDors.Entities.Classes
 {
@@ -10,7 +9,7 @@ namespace EventaDors.Entities.Classes
         {
             Elements = new List<QuoteElement>();
         }
-        
+
         public Guid QuoteId { get; set; }
         public int QuoteIdIdentity { get; set; }
         public string Name { get; set; }

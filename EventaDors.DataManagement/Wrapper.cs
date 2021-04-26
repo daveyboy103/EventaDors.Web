@@ -273,6 +273,16 @@ namespace EventaDors.DataManagement
                 return false;
             }
         }
+
+        public bool BlockUser(int userId, int blockedUserId)
+        {
+            return false;
+        }
+
+        public bool UnblockUser(int userId, int blockedUserId)
+        {
+            return false;
+        }
     }
 
     public interface IWrapper

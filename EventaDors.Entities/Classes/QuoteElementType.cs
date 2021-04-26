@@ -1,8 +1,6 @@
-using EventaDors.Entities.Interfaces;
-
 namespace EventaDors.Entities.Classes
 {
-    public class QuoteElementType 
+    public class QuoteElementType
     {
         public string Name { get; set; }
         public string Notes { get; set; }

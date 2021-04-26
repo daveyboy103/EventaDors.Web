@@ -3,31 +3,31 @@ using EventaDors.Entities.Interfaces;
 
 namespace EventaDors.Entities.Factories
 {
-    public class MetaDataTypeFactory 
+    public class MetaDataTypeFactory
     {
         public Type GetType(MetaDataType sourceType)
         {
             Type ret = null;
-            
+
             switch (sourceType)
             {
                 case MetaDataType.Boolean:
-                    ret = typeof(System.Boolean);
-                    break;                
+                    ret = typeof(bool);
+                    break;
                 case MetaDataType.String:
-                    ret = typeof(System.String);
+                    ret = typeof(string);
                     break;
                 case MetaDataType.Double:
-                    ret = typeof(System.Double);
+                    ret = typeof(double);
                     break;
                 case MetaDataType.Long:
-                    ret = typeof(System.Int64);
-                    break;               
+                    ret = typeof(long);
+                    break;
                 case MetaDataType.Integer:
-                    ret = typeof(System.Int32);
+                    ret = typeof(int);
                     break;
                 case MetaDataType.Date:
-                    ret = typeof(System.DateTime);
+                    ret = typeof(DateTime);
                     break;
             }
 

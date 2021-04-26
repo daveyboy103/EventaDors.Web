@@ -8,8 +8,9 @@ namespace EventaDors.Entities.Classes
         public QuoteRequestElementResponse()
         {
             Images = new List<string>();
+            ChatHistory = new List<Chat>();
         }
-        
+
         public int Id { get; set; }
         public User Owner { get; set; }
         public bool Accepted { get; set; }
@@ -22,5 +23,6 @@ namespace EventaDors.Entities.Classes
         public DateTime Submitted { get; set; }
         public QuoteElement ParentElement { get; set; }
         public List<string> Images { get; set; }
+        public List<Chat> ChatHistory { get; }
     }
 }
