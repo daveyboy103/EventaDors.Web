@@ -16,6 +16,7 @@ namespace EventaDors.Web.Controllers
         public AuthenticationController(ILogger<AuthenticationController> logger, string connectionString)
         {
             _logger = logger;
+            _logger.Log(LogLevel.Information, "AuthenticationController ctor called");
             _connectionString = connectionString;
         }
 

@@ -11,12 +11,14 @@ namespace EventaDors.Entities.Classes
             Elements = new List<QuoteElement>();
         }
         
-        public Guid QuoteId { get; }
-        public string Name { get; }
-        public string Notes { get; }
-        public QuoteType Type { get; }
-        public DateTime Created { get; }
-        public DateTime Submitted { get; }
+        public Guid QuoteId { get; set; }
+        public int QuoteIdIdentity { get; set; }
+        public string Name { get; set; }
+        public string Notes { get; set; }
+        public QuoteType Type { get; set; }
+        public QuoteSubType SubType { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
         public IList<QuoteElement> Elements { get; }
     }
 }
