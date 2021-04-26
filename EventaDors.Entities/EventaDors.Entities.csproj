@@ -6,6 +6,21 @@
 
     <ItemGroup>
       <Compile Remove="Class1.cs" />
+      <Compile Remove="Interfaces\IUser.cs" />
+      <Compile Remove="Interfaces\IUserPasswordHistory.cs" />
+      <Compile Remove="Interfaces\IUserType.cs" />
+      <Compile Remove="Interfaces\IUserFactory.cs" />
+      <Compile Remove="Interfaces\IMetaDataItem.cs" />
+      <Compile Remove="Interfaces\IMetaDataSupport.cs" />
+      <Compile Remove="Interfaces\IMetaDataTypeFactory.cs" />
+      <Compile Remove="Interfaces\IQuoteElement.cs" />
+      <Compile Remove="Interfaces\IQuoteElementType.cs" />
+      <Compile Remove="Interfaces\IQuoteRequest.cs" />
+      <Compile Remove="Interfaces\IQuoteSubType.cs" />
+      <Compile Remove="Interfaces\IQuoteTemplate.cs" />
+      <Compile Remove="Interfaces\IQuoteTemplateFactory.cs" />
+      <Compile Remove="Interfaces\IQuoteType.cs" />
+      <Compile Remove="Interfaces\IQuoteTypeFactory.cs" />
     </ItemGroup>
 
 </Project>

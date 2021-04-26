@@ -7,6 +7,25 @@
 
     <ItemGroup>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0-preview.3.21201.4" />
+        <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EventaDors.DataManagement\EventaDors.DataManagement.csproj" />
+      <ProjectReference Include="..\EventaDors.Entities\EventaDors.Entities.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="EventaDors.Web.config">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="EventaDors.Web.config" />
     </ItemGroup>
 
 </Project>

@@ -12,5 +12,6 @@ namespace EventaDors.Entities.Interfaces
         Guid Uuid { get; }
         IList<IUserPasswordHistory> Passwords { get; }
         IList<IQuoteRequest> QuoteRequests { get; }
+        IList<IUserType> UserTypes { get; }
     }
 }

@@ -4,17 +4,17 @@ using EventaDors.Entities.Interfaces;
 
 namespace EventaDors.Entities.Classes
 {
-    public class QuoteTemplate : IQuoteTemplate
+    public class QuoteTemplate 
     {
         public QuoteTemplate()
         {
-            Elements = new List<IQuoteElement>();
+            Elements = new List<QuoteElement>();
         }
         public string Name { get; set;  }
         public string Notes { get; set; }
-        public IQuoteType Type { get; set; }
+        public QuoteType Type { get; set; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
-        public IList<IQuoteElement> Elements { get; }
+        public IList<QuoteElement> Elements { get; }
     }
 }

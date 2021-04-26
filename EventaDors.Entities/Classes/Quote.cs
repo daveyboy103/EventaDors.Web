@@ -4,18 +4,19 @@ using EventaDors.Entities.Interfaces;
 
 namespace EventaDors.Entities.Classes
 {
-    public class Quote : IQuote
+    public class Quote : MetaDataSupport
     {
         public Quote()
         {
-            Elements = new List<IQuoteElement>();
+            Elements = new List<QuoteElement>();
         }
-        public IUser Owner { get; set; }
+        
+        public User Owner { get; set; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
         public DateTime Submitted { get; set; }
         public string Notes { get; set; }
-        public IQuoteType Type { get; set; }
-        public IList<IQuoteElement> Elements { get; }
+        public QuoteType Type { get; set; }
+        public IList<QuoteElement> Elements { get; }
     }
 }

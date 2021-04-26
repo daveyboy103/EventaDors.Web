@@ -4,7 +4,7 @@ namespace EventaDors.Entities.Interfaces
 {
     public interface IUserFactory
     {
-        IUser Create(long? id);
+        IUser Create(IUser user);
         bool Update(IUser user);
         bool Delete(IUser user);
         IList<IUser> List();

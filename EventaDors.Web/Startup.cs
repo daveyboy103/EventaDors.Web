@@ -31,6 +31,8 @@ namespace EventaDors.Web
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "EventaDors.Web", Version = "v1"});
             });
+            var connectionString = Configuration["ConnectionStrings:Sql"];
+            services.AddSingleton(connectionString);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

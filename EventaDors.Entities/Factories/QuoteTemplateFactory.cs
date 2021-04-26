@@ -1,20 +1,20 @@
-using EventaDors.Entities.Interfaces;
+using EventaDors.Entities.Classes;
 
 namespace EventaDors.Entities.Factories
 {
-    public class QuoteTemplateFactory : IQuoteTemplateFactory
+    public class QuoteTemplateFactory 
     {
-        public IQuoteTemplate GetTemplate(string name, int? id)
+        public QuoteTemplate GetTemplate(string name, int? id)
         {
             throw new System.NotImplementedException();
         }
 
-        public IQuoteTemplate Create(IQuoteTemplate quoteTemplate)
+        public QuoteTemplate Create(QuoteTemplate quoteTemplate)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Delete(IQuoteTemplate quoteTemplate)
+        public bool Delete(QuoteTemplate quoteTemplate)
         {
             throw new System.NotImplementedException();
         }

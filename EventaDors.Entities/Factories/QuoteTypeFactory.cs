@@ -1,21 +1,22 @@
 using System.Collections.Generic;
+using EventaDors.Entities.Classes;
 using EventaDors.Entities.Interfaces;
 
 namespace EventaDors.Entities.Factories
 {
-    public class QuoteTypeFactory : IQuoteTypeFactory
+    public class QuoteTypeFactory 
     {
-        public IList<IQuoteType> GetTree(int? quoteTypeId)
+        public IList<QuoteType> GetTree(int? quoteTypeId)
         {
             throw new System.NotImplementedException();
         }
 
-        public int Create(IQuoteType quoteType)
+        public int Create(QuoteType quoteType)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Delete(IQuoteType quoteType)
+        public bool Delete(QuoteType quoteType)
         {
             throw new System.NotImplementedException();
         }

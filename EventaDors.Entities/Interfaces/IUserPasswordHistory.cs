@@ -1,4 +1,6 @@
 using System;
+using System.Runtime.Serialization;
+using EventaDors.Entities.Classes;
 
 namespace EventaDors.Entities.Interfaces
 {

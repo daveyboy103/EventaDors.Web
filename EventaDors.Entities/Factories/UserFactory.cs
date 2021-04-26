@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using EventaDors.Entities.Classes;
 using EventaDors.Entities.Interfaces;
 
 namespace EventaDors.Entities.Factories
 {
-    public class UserFactory : IUserFactory
+    public class UserFactory 
     {
-        public IUser Create(long? id)
+        public User Create(User user)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Update(IUser user)
+        public bool Update(User user)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Delete(IUser user)
+        public bool Delete(User user)
         {
             throw new System.NotImplementedException();
         }
 
-        public IList<IUser> List()
+        public IList<User> List()
         {
             throw new System.NotImplementedException();
         }
