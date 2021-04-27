@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using EventaDors.Entities.Classes;
@@ -82,7 +83,7 @@ namespace EventaDors.DataManagement
             return User.Empty;
         }
 
-        public QuoteRequest CreateRequestFromTemplate(int templateId, int userId, int attendees)
+        public QuoteRequest CreateRequestFromTemplate(int templateId, int userId, int attendees, DateTime dueDate)
         {
             QuoteRequest ret = null;
             using (var cn = new SqlConnection(_connectionString))
@@ -96,6 +97,7 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("TemplateId", templateId);
                     cmd.Parameters.AddWithValue("Attendees", attendees);
                     cmd.Parameters.AddWithValue("OwnerId", userId);
+                    cmd.Parameters.AddWithValue("DueDate", dueDate);
                     cmd.Parameters.Add("return", SqlDbType.Int);
                     cmd.Parameters["return"].Direction = ParameterDirection.ReturnValue;
                     cn.Open();
@@ -139,6 +141,8 @@ namespace EventaDors.DataManagement
                         QuoteId = dr.GetGuid(dr.GetOrdinal("QuoteId")),
                         QuoteIdIdentity = quoteId,
                         Name = dr.GetString(dr.GetOrdinal("Name")),
+                        Notes = GetSafeString(dr, "Notes"),
+                        DueDate = GetSafeDate(dr, "DueDate"),
                         Created = dr.GetDateTime(dr.GetOrdinal("Created")),
                         Modified = dr.GetDateTime(dr.GetOrdinal("Modified")),
                         Type = new QuoteType
@@ -164,8 +168,9 @@ namespace EventaDors.DataManagement
                             {
                                 Name = dr.GetString(dr.GetOrdinal("QuoteElementType")),
                                 Notes = GetSafeString(dr, "QuoteElementNotes"),
-                                Id = dr.GetInt32(dr.GetOrdinal("QuoteElementId"))
+                                Id = dr.GetInt32(dr.GetOrdinal("QuoteRequestElementId"))
                             },
+                            Id = dr.GetInt32(dr.GetOrdinal("Id")),
                             Name = dr.GetString(dr.GetOrdinal("QuoteElementType")),
                             Quantity = dr.GetInt32(dr.GetOrdinal("Quantity")),
                             Budget = GetSafeDbl(dr, "Budget"),
@@ -173,7 +178,10 @@ namespace EventaDors.DataManagement
                             Created = dr.GetDateTime(dr.GetOrdinal("QuoteRequestElementCreated")),
                             Modified = dr.GetDateTime(dr.GetOrdinal("QuoteRequestElementCreated")),
                             Exclude = dr.GetBoolean(dr.GetOrdinal("QuoteRequestElementExclude")),
-                            Submitted = GetSafeDate(dr, "QuoteRequestElementSubmitted")
+                            Submitted = GetSafeDate(dr, "QuoteRequestElementSubmitted"),
+                            DueDate = GetSafeDate(dr, "DueDate"),
+                            LeadWeeks = GetSafeInt(dr, "LeadWeeks"),
+                            Completed = dr.GetBoolean(dr.GetOrdinal("Completed")),
                         };
 
                         ret.Elements.Add(quoteRequestElement);
@@ -181,6 +189,13 @@ namespace EventaDors.DataManagement
             }
 
             return ret;
+        }
+
+        private int? GetSafeInt(SqlDataReader dr, string fieldName)
+        {
+            if (dr[fieldName] != DBNull.Value)
+                return dr.GetInt32(dr.GetOrdinal(fieldName));
+            return null;
         }
 
         private DateTime? GetSafeDate(SqlDataReader dr, string fieldName)
@@ -282,6 +297,49 @@ namespace EventaDors.DataManagement
         public bool UnblockUser(int userId, int blockedUserId)
         {
             return false;
+        }
+
+        public int GetUserTokenBalance(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Deadline> GetDeadlines(int quoteIdIdentity, int alarmThreshold)
+        {
+            var ret = new List<Deadline>();
+            
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand("QUOTE_GetDeadline")
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = cn
+                })
+                {
+                    cmd.Parameters.AddWithValue("QuoteIdIdentity", quoteIdIdentity);
+                    cmd.Parameters.AddWithValue("AlarmThreshold", alarmThreshold);
+                    
+                    cn.Open();
+
+                    var dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        var deadline = new Deadline
+                        {
+                            Name = dr.GetString(dr.GetOrdinal("Name")),
+                            DueDate = GetSafeDate(dr, "DueDate"),
+                            Weeks = GetSafeInt(dr, "In Weeks"),
+                            Status = dr.GetString(dr.GetOrdinal("Status")),
+                            QuoteRequestElementId = dr.GetInt32(dr.GetOrdinal("QuoteRequestElementId"))
+                        };
+                        
+                        ret.Add(deadline);
+                    }
+                }
+            }
+
+            return ret;
         }
     }
 

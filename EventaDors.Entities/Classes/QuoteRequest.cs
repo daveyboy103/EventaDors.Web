@@ -14,6 +14,7 @@ namespace EventaDors.Entities.Classes
         public int QuoteIdIdentity { get; set; }
         public string Name { get; set; }
         public string Notes { get; set; }
+        public DateTime? DueDate { get; set; }
         public QuoteType Type { get; set; }
         public QuoteSubType SubType { get; set; }
         public DateTime Created { get; set; }

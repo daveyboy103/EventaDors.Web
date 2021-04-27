@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using EventaDors.DataManagement;
 using EventaDors.Entities.Classes;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +22,18 @@ namespace EventaDors.Web.Controllers
             _connectionString = connectionString;
         }
 
-        [HttpGet("CreateFromTemplate")]
-        public QuoteRequest CreateFromTemplate(int templateId, int userId, int attendees)
+        [HttpGet("GetDeadlines")]
+        public IList<Deadline> GetDeadline(int quoteIdIdentity, int alarmThreshold)
         {
             _wrapper = new Wrapper(_connectionString);
-            QuoteRequest ret = _wrapper.CreateRequestFromTemplate(templateId, userId, attendees);
+            return _wrapper.GetDeadlines(quoteIdIdentity, alarmThreshold);
+        }
+
+        [HttpGet("CreateFromTemplate")]
+        public QuoteRequest CreateFromTemplate(int templateId, int userId, int attendees, DateTime dueDate)
+        {
+            _wrapper = new Wrapper(_connectionString);
+            QuoteRequest ret = _wrapper.CreateRequestFromTemplate(templateId, userId, attendees, dueDate);
             return ret;
         }
 

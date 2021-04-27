@@ -48,7 +48,14 @@ namespace EventaDors.Web.Controllers
         {
             _wrapper = new Wrapper(_connectionString);
             return _wrapper.BlockUser(userId, blockedUserId);
-        } 
+        }
+
+        [HttpGet("GetUserTokenBalance")]
+        public int GetUserTokenBalance(int userId)
+        {
+            _wrapper = new Wrapper(_connectionString);
+            return _wrapper.GetUserTokenBalance(userId);
+        }
         
         [HttpGet("UnblockUser")]
         public bool UnblockUser(int userId, int blockedUserId)
