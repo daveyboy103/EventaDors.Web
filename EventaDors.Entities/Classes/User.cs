@@ -32,7 +32,6 @@ namespace EventaDors.Entities.Classes
         public IList<QuoteRequest> QuoteRequests { get; set; }
         public IList<UserType> UserTypes { get; }
         public IList<User> BlockedUsers { get; }
-
         public IList<Chat> ChatHistory { get; }
     }
 }

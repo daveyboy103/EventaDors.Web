@@ -22,6 +22,20 @@ namespace EventaDors.Web.Controllers
             _connectionString = connectionString;
         }
 
+        [HttpGet("AssignUserToQuoteElement")]
+        public bool AssignUserToQuoteElement(int userId, int quoteElementId, bool active)
+        {
+            _wrapper = new Wrapper(_connectionString);
+            return _wrapper.AssignUserToQuoteElement(userId, quoteElementId, active);
+        }
+        
+        [HttpGet("AssignUserToQuoteElementType")]
+        public bool AssignUserToQuoteElementType(int userId, int quoteElementTypeId, bool active)
+        {
+            _wrapper = new Wrapper(_connectionString);
+            return _wrapper.AssignUserToElementType(userId, quoteElementTypeId, active);
+        }
+
         [HttpGet("GetUser")]
         public User GetUser(int id)
         {

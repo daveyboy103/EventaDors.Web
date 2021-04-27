@@ -17,7 +17,7 @@ namespace EventaDors.DataManagement
 
         public LoginResult Authenticate(string userName, string password)
         {
-            LoginResult loginResult = null;
+            LoginResult loginResult;
             using (var cn = new SqlConnection(_connectionString))
             {
                 cn.Open();
@@ -43,7 +43,7 @@ namespace EventaDors.DataManagement
                 }
                 else
                 {
-                    var userId = long.Parse(ret.ToString());
+                    var userId = long.Parse(ret.ToString() ?? string.Empty);
 
                     var u = CreateUser(userId);
 
@@ -85,7 +85,7 @@ namespace EventaDors.DataManagement
 
         public QuoteRequest CreateRequestFromTemplate(int templateId, int userId, int attendees, DateTime dueDate)
         {
-            QuoteRequest ret = null;
+            QuoteRequest ret;
             using (var cn = new SqlConnection(_connectionString))
             {
                 using (var cmd = new SqlCommand("dbo.QUOTE_CreateFromTemplate")
@@ -181,10 +181,10 @@ namespace EventaDors.DataManagement
                             Submitted = GetSafeDate(dr, "QuoteRequestElementSubmitted"),
                             DueDate = GetSafeDate(dr, "DueDate"),
                             LeadWeeks = GetSafeInt(dr, "LeadWeeks"),
-                            Completed = dr.GetBoolean(dr.GetOrdinal("Completed")),
+                            Completed = dr.GetBoolean(dr.GetOrdinal("Completed"))
                         };
 
-                        ret.Elements.Add(quoteRequestElement);
+                        ret?.Elements.Add(quoteRequestElement);
                     }
             }
 
@@ -237,7 +237,7 @@ namespace EventaDors.DataManagement
                     cn.Open();
                     cmd.ExecuteNonQuery();
 
-                    long userId = long.Parse(cmd.Parameters["return"].Value.ToString());
+                    var userId = long.Parse(cmd.Parameters["return"].Value.ToString() ?? string.Empty);
 
                     using (var cmdFetch = new SqlCommand("USER_GetUser")
                     {
@@ -259,7 +259,7 @@ namespace EventaDors.DataManagement
                     }
                 }
             }
-            
+
             return user;
         }
 
@@ -307,7 +307,7 @@ namespace EventaDors.DataManagement
         public IList<Deadline> GetDeadlines(int quoteIdIdentity, int alarmThreshold)
         {
             var ret = new List<Deadline>();
-            
+
             using (var cn = new SqlConnection(_connectionString))
             {
                 using (var cmd = new SqlCommand("QUOTE_GetDeadline")
@@ -318,7 +318,7 @@ namespace EventaDors.DataManagement
                 {
                     cmd.Parameters.AddWithValue("QuoteIdIdentity", quoteIdIdentity);
                     cmd.Parameters.AddWithValue("AlarmThreshold", alarmThreshold);
-                    
+
                     cn.Open();
 
                     var dr = cmd.ExecuteReader();
@@ -333,7 +333,7 @@ namespace EventaDors.DataManagement
                             Status = dr.GetString(dr.GetOrdinal("Status")),
                             QuoteRequestElementId = dr.GetInt32(dr.GetOrdinal("QuoteRequestElementId"))
                         };
-                        
+
                         ret.Add(deadline);
                     }
                 }
@@ -341,25 +341,111 @@ namespace EventaDors.DataManagement
 
             return ret;
         }
+
+        public QuoteRequestElementResponse PickupQuoteRequestItem(QuoteRequestElementResponse response)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand("QUOTE_PickupQuoteRequestItem")
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = cn
+                })
+                {
+                    cmd.Parameters.AddWithValue("quoteRequestElementId", response.ParentElement.Id);
+                    cmd.Parameters.AddWithValue("userId", response.Owner.Id);
+                    cmd.Parameters.AddWithValue("accepted", response.Accepted);
+                    cmd.Parameters.AddWithValue("amountLow", response.AmountLow);
+                    cmd.Parameters.AddWithValue("amountHigh", response.AmountHigh);
+                    cmd.Parameters.AddWithValue("notes", response.Notes);
+                    cmd.Parameters.AddWithValue("link", response.Link);
+                    cmd.Parameters.AddWithValue("estimate", response.Estimate);
+                    
+                    cn.Open();
+                    var dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        response.Accepted = dr.GetBoolean(dr.GetOrdinal("Accepted"));
+                        response.Submitted = GetSafeDate(dr, "Submitted");
+                        response.Created = dr.GetDateTime(dr.GetOrdinal("Created"));
+                        response.Modified = dr.GetDateTime(dr.GetOrdinal("Modified"));
+                        response.Owner.UserName = dr.GetString(dr.GetOrdinal("UserName"));
+                        response.Owner.Uuid = dr.GetGuid(dr.GetOrdinal("UserUuid"));
+                        response.Owner.Created = dr.GetDateTime(dr.GetOrdinal("UserCreated"));
+                    }
+                }
+            }
+
+            return response;
+        }
+
+        public bool AssignUserToQuoteElement(int userId, int quoteElementId, bool active)
+        {
+            try
+            {
+                using (var cn = new SqlConnection(_connectionString))
+                {
+                    using (var cmd = new SqlCommand("USER_AssignToQuoteElement")
+                    {
+                        CommandType = CommandType.StoredProcedure,
+                        Connection = cn
+                    })
+                    {
+                        cmd.Parameters.AddWithValue("userId", userId);
+                        cmd.Parameters.AddWithValue("quoteElementId", quoteElementId);
+                        cmd.Parameters.AddWithValue("active", active);
+                    
+                        cn.Open();
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool AssignUserToElementType(int userId, int quoteElementTypeId, bool active)
+        {
+            try
+            {
+                using (var cn = new SqlConnection(_connectionString))
+                {
+                    using (var cmd = new SqlCommand("USER_AssignToQuoteElementType")
+                    {
+                        CommandType = CommandType.StoredProcedure,
+                        Connection = cn
+                    })
+                    {
+                        cmd.Parameters.AddWithValue("userId", userId);
+                        cmd.Parameters.AddWithValue("quoteElementId", quoteElementTypeId);
+                        cmd.Parameters.AddWithValue("active", active);
+                    
+                        cn.Open();
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+            return true;
+        }
     }
 
     public interface IWrapper
     {
         LoginResult Authenticate(string userName, string password);
         User CreateUser(long userId);
-    }
-
-    public class LoginResult
-    {
-        public LoginResult(bool result, string notes, User user)
-        {
-            Result = result;
-            Notes = notes;
-            User = user;
-        }
-
-        public bool Result { get; }
-        public string Notes { get; }
-        public User User { get; }
     }
 }

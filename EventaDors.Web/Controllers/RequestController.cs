@@ -29,6 +29,15 @@ namespace EventaDors.Web.Controllers
             return _wrapper.GetDeadlines(quoteIdIdentity, alarmThreshold);
         }
 
+        [HttpPost("PickupQuoteRequestItem")]
+        public QuoteRequestElementResponse PickupQuoteRequestItem(QuoteRequestElementResponse response)
+        {
+            QuoteRequestElementResponse ret;
+            _wrapper = new Wrapper(_connectionString);
+            ret = _wrapper.PickupQuoteRequestItem(response);
+            return ret;
+        }
+
         [HttpGet("CreateFromTemplate")]
         public QuoteRequest CreateFromTemplate(int templateId, int userId, int attendees, DateTime dueDate)
         {
