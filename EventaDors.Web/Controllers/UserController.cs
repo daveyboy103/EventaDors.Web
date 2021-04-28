@@ -1,5 +1,4 @@
 using System;
-using System.Data.SqlClient;
 using EventaDors.DataManagement;
 using EventaDors.Entities.Classes;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +11,7 @@ namespace EventaDors.Web.Controllers
     public class UserController : ControllerBase
     {
         private readonly string _connectionString;
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly ILogger<UserController> _logger;
         private Wrapper _wrapper;
 
@@ -44,10 +44,10 @@ namespace EventaDors.Web.Controllers
         }
 
         [HttpGet("DeleteUser")]
-        public bool DeleteUser(long userID, bool deactivateOnly)
+        public bool DeleteUser(long userId, bool deactivateOnly)
         {
             _wrapper = new Wrapper(_connectionString);
-            return _wrapper.DeleteUser(userID, deactivateOnly);
+            return _wrapper.DeleteUser(userId, deactivateOnly);
         }
 
         [HttpGet("ChangePassword")]

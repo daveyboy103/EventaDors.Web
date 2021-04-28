@@ -11,11 +11,12 @@ namespace EventaDors.Web.Controllers
     [Route("[controller]")]
     public class RequestController : Controller
     {
-        private readonly ILogger<UserController> _logger;
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+        private readonly ILogger<RequestController> _logger;
         private readonly string _connectionString;
         private Wrapper _wrapper;
 
-        public RequestController(ILogger<UserController> logger, string connectionString)
+        public RequestController(ILogger<RequestController> logger, string connectionString)
         {
             _logger = logger;
             _logger.Log(LogLevel.Information, "RequestController ctor called");

@@ -1,6 +1,6 @@
 namespace EventaDors.Entities.Classes
 {
-    public struct UserType
+    public class UserType
     {
         public int id { get; }
         public string Name { get; }
