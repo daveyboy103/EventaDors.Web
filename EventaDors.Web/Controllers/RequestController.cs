@@ -54,5 +54,14 @@ namespace EventaDors.Web.Controllers
             QuoteRequest ret = _wrapper.LoadQuoteRequest(quoteIdIdentity);
             return ret;
         }
+
+        [HttpPost("AddQuoteElementToQuoteRequest")]
+        public QuoteElement AddQuoteElementToQuoteRequest(QuoteElement quoteElement)
+        {
+            QuoteElement ret;
+            _wrapper = new Wrapper(_connectionString);
+            ret = _wrapper.AddQuoteElementToQuoteRequest(quoteElement);
+            return ret;
+        }
     }
 }

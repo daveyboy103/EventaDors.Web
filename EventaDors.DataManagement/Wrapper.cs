@@ -9,6 +9,7 @@ namespace EventaDors.DataManagement
 {
     public class Wrapper 
     {
+        private const string ReturnParamName = "return";
         private readonly string _connectionString;
 
         public Wrapper(string connectionString)
@@ -150,12 +151,12 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("Attendees", attendees);
                     cmd.Parameters.AddWithValue("OwnerId", userId);
                     cmd.Parameters.AddWithValue("DueDate", dueDate);
-                    cmd.Parameters.Add("return", SqlDbType.Int);
-                    cmd.Parameters["return"].Direction = ParameterDirection.ReturnValue;
+                    cmd.Parameters.Add(ReturnParamName, SqlDbType.Int);
+                    cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
                     cn.Open();
                     cmd.ExecuteNonQuery();
 
-                    var quoteId = (int) cmd.Parameters["return"].Value;
+                    var quoteId = (int) cmd.Parameters[ReturnParamName].Value;
 
                     ret = LoadQuoteRequest(cn, quoteId);
                 }
@@ -284,12 +285,12 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("UserName", user.UserName);
                     cmd.Parameters.AddWithValue("Email", user.PrimaryEmail);
                     cmd.Parameters.AddWithValue("Password", user.CurrentPassword);
-                    cmd.Parameters.Add("return", SqlDbType.BigInt);
-                    cmd.Parameters["return"].Direction = ParameterDirection.ReturnValue;
+                    cmd.Parameters.Add(ReturnParamName, SqlDbType.BigInt);
+                    cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
                     cn.Open();
                     cmd.ExecuteNonQuery();
 
-                    var userId = long.Parse(cmd.Parameters["return"].Value.ToString() ?? string.Empty);
+                    var userId = long.Parse(cmd.Parameters[ReturnParamName].Value.ToString() ?? string.Empty);
 
                     using (var cmdFetch = new SqlCommand("USER_GetUser")
                     {
@@ -511,14 +512,14 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("elementTypeId", quoteElement.Type.Id);
                     cmd.Parameters.AddWithValue("inheritTopLevelQuantity", quoteElement.InheritTopLevelQuantity);
                     cmd.Parameters.AddWithValue("leadWeeks", quoteElement.LeadWeeks);
-                    cmd.Parameters.Add("return");
-                    cmd.Parameters["return"].Direction = ParameterDirection.ReturnValue;
-                    cmd.Parameters["return"].DbType = DbType.Int32;
+                    cmd.Parameters.Add(ReturnParamName, SqlDbType.Int);
+                    cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
+                    cmd.Parameters[ReturnParamName].DbType = DbType.Int32;
                     
                     cn.Open();
                     cmd.ExecuteNonQuery();
 
-                    int id = int.Parse(cmd.Parameters["return"].Value.ToString());
+                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
 
                     quoteElement = LoadQuoteElement(id);
                 }
@@ -546,16 +547,16 @@ namespace EventaDors.DataManagement
                         ret = new QuoteElement
                         {
                             Name = dr.GetString(dr.GetOrdinal("Name")),
-                            Notes = dr.GetString(dr.GetOrdinal("Notes")),
-                            BudgetTolerance = dr.GetFloat(dr.GetOrdinal("BudgeTolerance")),
+                            Notes = GetSafeString(dr,"Notes"),
+                            BudgetTolerance = dr.GetDouble(dr.GetOrdinal("BudgetTolerance")),
                             Quantity = dr.GetInt32(dr.GetOrdinal("Quantity")),
                             LeadWeeks = dr.GetInt32(dr.GetOrdinal("LeadWeeks")),
                             InheritTopLevelQuantity = dr.GetBoolean(dr.GetOrdinal("InheritTopLevelQuantity")),
                             Type = new QuoteElementType()
                             {
-                                Notes = dr.GetString(dr.GetOrdinal("ElementTypeNotes")),
+                                Notes = GetSafeString(dr,"ElementTypeNotes"),
                                 Name = dr.GetString(dr.GetOrdinal("ElementTypeName")),
-                                Link = dr.GetString(dr.GetOrdinal("ElementTypeLink")),
+                                Link = GetSafeString(dr,"ElementTypeLink"),
                                 Id = dr.GetInt32(dr.GetOrdinal("ElementTypeId"))
                             }
                         };
@@ -563,17 +564,20 @@ namespace EventaDors.DataManagement
 
                     if (dr.NextResult())
                     {
-                        var metaData = new MetaDataItem
+                        while (dr.Read())
                         {
-                            Name = dr.GetString(dr.GetOrdinal("Name")),
-                            Value = dr.GetString(dr.GetOrdinal("Value")),
-                            Type = Enum.Parse<MetaDataType>(dr.GetString(dr.GetOrdinal("Type"))),
-                            Created = dr.GetDateTime(dr.GetOrdinal("Created")),
-                            Modified = dr.GetDateTime(dr.GetOrdinal("Created")),
-                            MandatoryWhenUsed = dr.GetBoolean(dr.GetOrdinal("MandatoryWhenUsed"))
-                        };
-                        
-                        ret.MetaData.Add(metaData.Name, metaData);
+                            var metaData = new MetaDataItem
+                            {
+                                Name = dr.GetString(dr.GetOrdinal("Name")),
+                                Value = dr.GetString(dr.GetOrdinal("Value")),
+                                Type = Enum.Parse<MetaDataType>(dr.GetString(dr.GetOrdinal("Type"))),
+                                Created = dr.GetDateTime(dr.GetOrdinal("Created")),
+                                Modified = dr.GetDateTime(dr.GetOrdinal("Created")),
+                                MandatoryWhenUsed = dr.GetBoolean(dr.GetOrdinal("MandatoryWhenUsed"))
+                            };
+
+                            ret.MetaData.Add(metaData.Name, metaData);
+                        }
                     }
                 }
             }
@@ -583,17 +587,85 @@ namespace EventaDors.DataManagement
 
         public QuoteElementType AddUpdateQuoteElementType(QuoteElementType quoteElementType)
         {
-            throw new NotImplementedException();
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand("STATIC_AddUpdateQuoteElementType"))
+                {
+                    cmd.Connection = cn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("id", quoteElementType.Id);
+                    cmd.Parameters.AddWithValue("name", quoteElementType.Name);
+                    cmd.Parameters.AddWithValue("notes", quoteElementType.Notes);
+                    cmd.Parameters.AddWithValue("link", quoteElementType.Link);
+                    cmd.Parameters.Add(ReturnParamName, SqlDbType.Int);
+                    cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
+                    
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
+                    quoteElementType.Id = id;
+                }
+            }
+
+            return quoteElementType;
         }
 
         public QuoteType AddUpdateQuoteType(QuoteType quoteType)
         {
-            throw new NotImplementedException();
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand("STATIC_AddUpdateQuoteType"))
+                {
+                    cmd.Connection = cn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("id", quoteType.Id);
+                    cmd.Parameters.AddWithValue("name", quoteType.Name);
+                    cmd.Parameters.AddWithValue("notes", quoteType.Notes);
+                    cmd.Parameters.AddWithValue("link", quoteType.Link);
+                    cmd.Parameters.Add(ReturnParamName, SqlDbType.Int);
+                    cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
+                    
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
+                    quoteType.Id = id;
+                }
+            }
+
+            return quoteType;
         }
 
         public QuoteSubType AddUpdateQuoteSubType(QuoteSubType quoteSubType)
         {
-            throw new NotImplementedException();
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand("STATIC_AddUpdateQuoteSubType"))
+                {
+                    cmd.Connection = cn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("id", quoteSubType.Id);
+                    cmd.Parameters.AddWithValue("name", quoteSubType.Name);
+                    cmd.Parameters.AddWithValue("notes", quoteSubType.Notes);
+                    cmd.Parameters.AddWithValue("link", quoteSubType.Link);
+                    cmd.Parameters.Add(ReturnParamName, SqlDbType.Int);
+                    cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
+                    
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
+                    quoteSubType.Id = id;
+                }
+            }
+
+            return quoteSubType;
         }
 
         public QuoteTemplate AddUpdateQuoteTemplate(QuoteTemplate quoteTemplate)
@@ -619,17 +691,22 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("userName", user.UserName);
                     cmd.Parameters.AddWithValue("email", user.PrimaryEmail);
                     cmd.Parameters.AddWithValue("password", user.CurrentPassword);
-                    cmd.Parameters.Add("return", SqlDbType.BigInt);
-                    cmd.Parameters["return"].Direction = ParameterDirection.ReturnValue;
+                    cmd.Parameters.Add(ReturnParamName, SqlDbType.BigInt);
+                    cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
                     cn.Open();
 
                     cmd.ExecuteNonQuery();
 
-                    long userId = long.Parse(cmd.Parameters["return"].Value.ToString());
+                    long userId = long.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
 
                     return userId;
                 }
             }
+        }
+
+        public QuoteElement AddQuoteElementToQuoteRequest(QuoteElement quoteElement)
+        {
+            throw new NotImplementedException();
         }
     }
 

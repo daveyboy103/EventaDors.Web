@@ -40,7 +40,7 @@ namespace EventaDors.Web.Controllers
             return _wrapper.AddUpdateQuoteType(quoteType);
         }
         
-        [HttpPost("AddUpdateQuoteElementSubType")]
+        [HttpPost("AddUpdateQuoteSubType")]
         public QuoteSubType AddUpdateQuoteSubType(QuoteSubType quoteSubType)
         {
             _wrapper = new Wrapper(_connectionString);
