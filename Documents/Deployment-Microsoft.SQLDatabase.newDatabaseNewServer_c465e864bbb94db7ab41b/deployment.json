@@ -1,0 +1,364 @@
+{
+  "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Resources/deployments/Microsoft.SQLDatabase.newDatabaseNewServer_c465e864bbb94db7ab41b",
+  "name": "Microsoft.SQLDatabase.newDatabaseNewServer_c465e864bbb94db7ab41b",
+  "type": "Microsoft.Resources/deployments",
+  "tags": {
+    "primaryResourceId": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1/databases/EventaDors",
+    "marketplaceItemId": "Microsoft.SQLDatabase"
+  },
+  "properties": {
+    "templateHash": "9798705451531045080",
+    "parameters": {
+      "administratorLogin": {
+        "type": "String",
+        "value": "dharrin4"
+      },
+      "administratorLoginPassword": {
+        "type": "SecureString"
+      },
+      "collation": {
+        "type": "String",
+        "value": "SQL_Latin1_General_CP1_CI_AS"
+      },
+      "databaseName": {
+        "type": "String",
+        "value": "EventaDors"
+      },
+      "tier": {
+        "type": "String",
+        "value": "Standard"
+      },
+      "skuName": {
+        "type": "String",
+        "value": "S0"
+      },
+      "location": {
+        "type": "String",
+        "value": "westeurope"
+      },
+      "maxSizeBytes": {
+        "type": "Int",
+        "value": 268435456000
+      },
+      "serverName": {
+        "type": "String",
+        "value": "eventadors1"
+      },
+      "sampleName": {
+        "type": "String",
+        "value": ""
+      },
+      "zoneRedundant": {
+        "type": "Bool",
+        "value": false
+      },
+      "licenseType": {
+        "type": "String",
+        "value": ""
+      },
+      "readScaleOut": {
+        "type": "String",
+        "value": "Disabled"
+      },
+      "numberOfReplicas": {
+        "type": "Int",
+        "value": 0
+      },
+      "minCapacity": {
+        "type": "String",
+        "value": ""
+      },
+      "autoPauseDelay": {
+        "type": "String",
+        "value": ""
+      },
+      "enableADS": {
+        "type": "Bool",
+        "value": false
+      },
+      "allowAzureIps": {
+        "type": "Bool",
+        "value": true
+      },
+      "databaseTags": {
+        "type": "Object",
+        "value": {}
+      },
+      "serverTags": {
+        "type": "Object",
+        "value": {}
+      },
+      "enableVA": {
+        "type": "Bool",
+        "value": false
+      },
+      "useVAManagedIdentity": {
+        "type": "Bool",
+        "value": false
+      },
+      "enablePrivateEndpoint": {
+        "type": "Bool",
+        "value": false
+      },
+      "privateEndpointNestedTemplateId": {
+        "type": "String",
+        "value": "pe-7d305d07-fae2-42f2-9494-10b6a2b5a012"
+      },
+      "privateEndpointSubscriptionId": {
+        "type": "String",
+        "value": ""
+      },
+      "privateEndpointResourceGroup": {
+        "type": "String",
+        "value": ""
+      },
+      "privateEndpointName": {
+        "type": "String",
+        "value": ""
+      },
+      "privateEndpointLocation": {
+        "type": "String",
+        "value": ""
+      },
+      "privateEndpointSubnetId": {
+        "type": "String",
+        "value": ""
+      },
+      "privateLinkServiceName": {
+        "type": "String",
+        "value": ""
+      },
+      "privateLinkServiceServiceId": {
+        "type": "String",
+        "value": ""
+      },
+      "privateEndpointVnetSubscriptionId": {
+        "type": "String",
+        "value": ""
+      },
+      "privateEndpointVnetResourceGroup": {
+        "type": "String",
+        "value": ""
+      },
+      "privateEndpointVnetName": {
+        "type": "String",
+        "value": ""
+      },
+      "privateEndpointSubnetName": {
+        "type": "String",
+        "value": ""
+      },
+      "enablePrivateDnsZone": {
+        "type": "Bool",
+        "value": true
+      },
+      "privateLinkPrivateDnsZoneFQDN": {
+        "type": "String",
+        "value": "privatelink.database.windows.net"
+      },
+      "privateEndpointDnsRecordUniqueId": {
+        "type": "String",
+        "value": "7d305d07-fae2-42f2-9494-10b6a2b5a015"
+      },
+      "privateEndpointTemplateLink": {
+        "type": "String",
+        "value": "https://sqlazureextension.hosting.portal.azure.net/sqlazureextension/Content/2.1.01572140/DeploymentTemplates/PrivateEndpoint.json"
+      },
+      "privateDnsForPrivateEndpointTemplateLink": {
+        "type": "String",
+        "value": "https://sqlazureextension.hosting.portal.azure.net/sqlazureextension/Content/2.1.01572140/DeploymentTemplates/PrivateDnsForPrivateEndpoint.json"
+      },
+      "privateDnsForPrivateEndpointNicTemplateLink": {
+        "type": "String",
+        "value": "https://sqlazureextension.hosting.portal.azure.net/sqlazureextension/Content/2.1.01572140/DeploymentTemplates/PrivateDnsForPrivateEndpointNic.json"
+      },
+      "privateDnsForPrivateEndpointIpConfigTemplateLink": {
+        "type": "String",
+        "value": "https://sqlazureextension.hosting.portal.azure.net/sqlazureextension/Content/2.1.01572140/DeploymentTemplates/PrivateDnsForPrivateEndpointIpConfig.json"
+      },
+      "allowClientIp": {
+        "type": "Bool",
+        "value": true
+      },
+      "clientIpRuleName": {
+        "type": "String",
+        "value": "ClientIp-2021-4-29_7-56-17"
+      },
+      "clientIpValue": {
+        "type": "String",
+        "value": "194.36.110.230"
+      },
+      "storageAccountType": {
+        "type": "String",
+        "value": ""
+      },
+      "maintenanceConfigurationId": {
+        "type": "String",
+        "value": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/providers/Microsoft.Maintenance/publicMaintenanceConfigurations/SQL_Default"
+      }
+    },
+    "mode": "Incremental",
+    "debugSetting": {
+      "detailLevel": "None"
+    },
+    "provisioningState": "Running",
+    "timestamp": "2021-04-29T06:57:08.8180519Z",
+    "duration": "PT49.3819423S",
+    "correlationId": "c3681790-4475-45e7-9d00-a4cdda6619f6",
+    "providers": [
+      {
+        "namespace": "Microsoft.Sql",
+        "resourceTypes": [
+          {
+            "resourceType": "servers",
+            "locations": [
+              "westeurope"
+            ]
+          },
+          {
+            "resourceType": "servers/databases",
+            "locations": [
+              "westeurope"
+            ]
+          },
+          {
+            "resourceType": "servers/firewallrules",
+            "locations": [
+              "westeurope"
+            ]
+          }
+        ]
+      }
+    ],
+    "dependencies": [
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1",
+            "resourceType": "Microsoft.Sql/servers",
+            "resourceName": "eventadors1"
+          },
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Storage/storageAccounts/sqlvaqd6urxqgdovmi",
+            "resourceType": "Microsoft.Storage/storageAccounts",
+            "resourceName": "sqlvaqd6urxqgdovmi"
+          },
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1",
+            "resourceType": "Microsoft.Sql/servers",
+            "resourceName": "eventadors1",
+            "apiVersion": "2018-06-01-preview"
+          }
+        ],
+        "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Storage/storageAccounts/sqlvaqd6urxqgdovmi/providers/Microsoft.Authorization/roleAssignments/4faebaef-222e-5864-9192-12810315b17e",
+        "resourceType": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
+        "resourceName": "sqlvaqd6urxqgdovmi/Microsoft.Authorization/4faebaef-222e-5864-9192-12810315b17e"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1",
+            "resourceType": "Microsoft.Sql/servers",
+            "resourceName": "eventadors1"
+          }
+        ],
+        "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1/databases/EventaDors",
+        "resourceType": "Microsoft.Sql/servers/databases",
+        "resourceName": "eventadors1/EventaDors"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1",
+            "resourceType": "Microsoft.Sql/servers",
+            "resourceName": "eventadors1"
+          }
+        ],
+        "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1/firewallrules/AllowAllWindowsAzureIps",
+        "resourceType": "Microsoft.Sql/servers/firewallrules",
+        "resourceName": "eventadors1/AllowAllWindowsAzureIps"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1",
+            "resourceType": "Microsoft.Sql/servers",
+            "resourceName": "eventadors1"
+          }
+        ],
+        "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1/firewallrules/ClientIp-2021-4-29_7-56-17",
+        "resourceType": "Microsoft.Sql/servers/firewallrules",
+        "resourceName": "eventadors1/ClientIp-2021-4-29_7-56-17"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1",
+            "resourceType": "Microsoft.Sql/servers",
+            "resourceName": "eventadors1"
+          },
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1/databases/EventaDors",
+            "resourceType": "Microsoft.Sql/servers/databases",
+            "resourceName": "eventadors1/EventaDors"
+          }
+        ],
+        "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1/securityAlertPolicies/Default",
+        "resourceType": "Microsoft.Sql/servers/securityAlertPolicies",
+        "resourceName": "eventadors1/Default"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1",
+            "resourceType": "Microsoft.Sql/servers",
+            "resourceName": "eventadors1"
+          },
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Storage/storageAccounts/sqlvaqd6urxqgdovmi",
+            "resourceType": "Microsoft.Storage/storageAccounts",
+            "resourceName": "sqlvaqd6urxqgdovmi"
+          },
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1/securityAlertPolicies/Default",
+            "resourceType": "Microsoft.Sql/servers/securityAlertPolicies",
+            "resourceName": "eventadors1/Default"
+          }
+        ],
+        "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1/vulnerabilityAssessments/Default",
+        "resourceType": "Microsoft.Sql/servers/vulnerabilityAssessments",
+        "resourceName": "eventadors1/Default"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1/databases/EventaDors",
+            "resourceType": "Microsoft.Sql/servers/databases",
+            "resourceName": "eventadors1/EventaDors"
+          },
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Resources/deployments/SubnetPolicies-",
+            "resourceType": "Microsoft.Resources/deployments",
+            "resourceName": "SubnetPolicies-"
+          }
+        ],
+        "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Resources/deployments/PrivateEndpoint-",
+        "resourceType": "Microsoft.Resources/deployments",
+        "resourceName": "PrivateEndpoint-"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Resources/deployments/PrivateEndpoint-",
+            "resourceType": "Microsoft.Resources/deployments",
+            "resourceName": "PrivateEndpoint-"
+          }
+        ],
+        "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Resources/deployments/PrivateDns-pe-7d305d07-fae2-42f2-9494-10b6a2b5a012",
+        "resourceType": "Microsoft.Resources/deployments",
+        "resourceName": "PrivateDns-pe-7d305d07-fae2-42f2-9494-10b6a2b5a012"
+      }
+    ],
+    "validationLevel": "Template"
+  }
+}

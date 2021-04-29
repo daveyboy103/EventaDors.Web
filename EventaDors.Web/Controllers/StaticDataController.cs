@@ -22,37 +22,43 @@ namespace EventaDors.Web.Controllers
         [HttpPost("AddUpdateQuoteElement")]
         public QuoteElement AddUpdateQuoteElement(QuoteElement quoteElement)
         {
-            return null;
+            _wrapper = new Wrapper(_connectionString);
+            return _wrapper.AddUpdateQuoteElement(quoteElement);
         }        
         
         [HttpPost("AddUpdateQuoteElementType")]
         public QuoteElementType AddUpdateQuoteElementType(QuoteElementType quoteElementType)
         {
-            return null;
+            _wrapper = new Wrapper(_connectionString);
+            return _wrapper.AddUpdateQuoteElementType(quoteElementType);
         } 
         
         [HttpPost("AddUpdateQuoteType")]
         public QuoteType AddUpdateQuoteType(QuoteType quoteType)
         {
-            return null;
+            _wrapper = new Wrapper(_connectionString);
+            return _wrapper.AddUpdateQuoteType(quoteType);
         }
         
         [HttpPost("AddUpdateQuoteElementSubType")]
         public QuoteSubType AddUpdateQuoteSubType(QuoteSubType quoteSubType)
         {
-            return null;
+            _wrapper = new Wrapper(_connectionString);
+            return _wrapper.AddUpdateQuoteSubType(quoteSubType);
         }       
         
         [HttpPost("AddUpdateQuoteTemplate")]
         public QuoteTemplate AddUpdateQuoteTemplate(QuoteTemplate quoteTemplate)
         {
-            return null;
+            _wrapper = new Wrapper(_connectionString);
+            return _wrapper.AddUpdateQuoteTemplate(quoteTemplate);
         }        
         
         [HttpPost("AddUpdateUserType")]
         public UserType AddUpdateUserType(UserType userType)
         {
-            return null;
+            _wrapper = new Wrapper(_connectionString);
+            return _wrapper.AddUpdateUserType(userType);
         }
     }
 }

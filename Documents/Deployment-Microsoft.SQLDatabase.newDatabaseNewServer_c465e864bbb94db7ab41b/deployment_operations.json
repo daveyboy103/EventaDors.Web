@@ -1,0 +1,20 @@
+[
+  {
+    "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Resources/deployments/Microsoft.SQLDatabase.newDatabaseNewServer_c465e864bbb94db7ab41b/operations/520355979F196A75",
+    "operationId": "520355979F196A75",
+    "properties": {
+      "provisioningOperation": "Create",
+      "provisioningState": "Running",
+      "timestamp": "2021-04-29T06:57:08.8570319Z",
+      "duration": "PT48.6845493S",
+      "trackingId": "3c8d6550-0460-4033-b0e9-cece0a49d3a0",
+      "serviceRequestId": "6594e29e-2bf6-45e6-914d-c72a814a5047",
+      "statusCode": "Accepted",
+      "targetResource": {
+        "id": "/subscriptions/65ad76a0-b8c2-466c-9ce2-c6b7548e153f/resourceGroups/EventaDors/providers/Microsoft.Sql/servers/eventadors1",
+        "resourceType": "Microsoft.Sql/servers",
+        "resourceName": "eventadors1"
+      }
+    }
+  }
+]

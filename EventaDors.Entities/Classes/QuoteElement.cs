@@ -2,10 +2,11 @@ using System;
 
 namespace EventaDors.Entities.Classes
 {
-    public class QuoteElement
+    public class QuoteElement : MetaDataSupport
     {
         public QuoteElementType Type { get; set; }
         public string Name { get; set; }
+        
         public string Notes { get; set; }
         public double? Budget { get; set; }
         public double? BudgetTolerance { get; set; }
@@ -18,5 +19,6 @@ namespace EventaDors.Entities.Classes
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
         public DateTime? Submitted { get; set; }
+        public bool InheritTopLevelQuantity { get; set; }
     }
 }

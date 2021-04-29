@@ -31,7 +31,7 @@ namespace EventaDors.Web.Controllers
         public long CreateUser(User user)
         {
             _wrapper = new Wrapper(_connectionString);
-            return _wrapper.CreateUser(user.Id).Id;
+            return _wrapper.CreateNewUser(user);
         }
     }
 }
