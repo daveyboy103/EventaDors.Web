@@ -706,7 +706,35 @@ namespace EventaDors.DataManagement
 
         public QuoteElement AddQuoteElementToQuoteRequest(QuoteElement quoteElement)
         {
-            throw new NotImplementedException();
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand("STATIC_AddUpdateQuoteElementToQuoteRequest")
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = cn
+                })
+                {
+                    cmd.Parameters.AddWithValue("quoteId", quoteElement.QuoteId);
+                    cmd.Parameters.AddWithValue("quoteElementId", quoteElement.Id);
+                    cmd.Parameters.AddWithValue("quoteRequestElementId", quoteElement.QuoteRequestElementId);
+                    cmd.Parameters.AddWithValue("budget", quoteElement.Budget);
+                    cmd.Parameters.AddWithValue("budgetTolerance", quoteElement.BudgetTolerance);
+                    cmd.Parameters.AddWithValue("quantity", quoteElement.Quantity);
+                    cmd.Parameters.AddWithValue("exclude", quoteElement.Exclude);
+                    cmd.Parameters.AddWithValue("notes", quoteElement.Notes);
+                    cmd.Parameters.AddWithValue("leadWeeks", quoteElement.LeadWeeks);
+                    cmd.Parameters.AddWithValue("DueDate", quoteElement.DueDate);
+                    cmd.Parameters.AddWithValue("Completed", quoteElement.Completed);
+                    cmd.Parameters.Add(ReturnParamName, SqlDbType.BigInt);
+                    cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
+                }
+            }
+
+            return quoteElement;
         }
     }
 

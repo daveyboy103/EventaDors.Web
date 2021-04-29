@@ -12,6 +12,8 @@ namespace EventaDors.Entities.Classes
         public double? BudgetTolerance { get; set; }
         public double Quantity { get; set; }
         public int Id { get; set; }
+        public int? QuoteRequestElementId { get; set; }
+        public Guid? QuoteId { get; set; }
         public int? LeadWeeks { get; set;}
         public bool Completed { get; set; }
         public DateTime? DueDate { get; set; }
