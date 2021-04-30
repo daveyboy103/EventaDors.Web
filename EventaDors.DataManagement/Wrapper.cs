@@ -7,7 +7,7 @@ using EventaDors.Entities.Interfaces;
 
 namespace EventaDors.DataManagement
 {
-    public class Wrapper 
+    public class Wrapper : IWrapper
     {
         private const string ReturnParamName = "return";
         private readonly string _connectionString;
@@ -215,7 +215,7 @@ namespace EventaDors.DataManagement
                 if (dr.NextResult())
                     while (dr.Read())
                     {
-                        var quoteRequestElement = new QuoteElement
+                        var quoteRequestElement = new QuoteRequestElement
                         {
                             Type = new QuoteElementType
                             {
@@ -519,7 +519,7 @@ namespace EventaDors.DataManagement
                     cn.Open();
                     cmd.ExecuteNonQuery();
 
-                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
+                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString() ?? string.Empty);
 
                     quoteElement = LoadQuoteElement(id);
                 }
@@ -704,7 +704,7 @@ namespace EventaDors.DataManagement
             }
         }
 
-        public QuoteElement AddQuoteElementToQuoteRequest(QuoteElement quoteElement)
+        public QuoteRequestElement AddQuoteElementToQuoteRequest(QuoteRequestElement quoteElement)
         {
             using (var cn = new SqlConnection(_connectionString))
             {
@@ -736,11 +736,37 @@ namespace EventaDors.DataManagement
 
             return quoteElement;
         }
-    }
 
-    public interface IWrapper
-    {
-        LoginResult Authenticate(string userName, string password);
-        User CreateUser(long userId);
+        public IEnumerable<User> ListUsers()
+        {
+            IList<User> ret = new List<User>();
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand("STATIC_ListUsers"))
+                {
+                    cmd.Connection = cn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    
+                    cn.Open();
+
+                    var dr = cmd.ExecuteReader();
+
+                    
+                    while (dr.Read())
+                    {
+                        User u = new User(
+                            dr.GetString(dr.GetOrdinal("UserName")),
+                            dr.GetInt64(dr.GetOrdinal("Id")),
+                            dr.GetDateTime(dr.GetOrdinal("Created")),
+                            dr.GetDateTime(dr.GetOrdinal("Modified")),
+                            dr.GetGuid(dr.GetOrdinal("uuid")));
+                        u.Verified = dr.GetBoolean(dr.GetOrdinal("Verified"));
+                        ret.Add(u);
+                    }
+                }
+            }
+
+            return ret;
+        }
     }
 }

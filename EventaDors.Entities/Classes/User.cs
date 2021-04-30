@@ -1,26 +1,31 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace EventaDors.Entities.Classes
 {
     public class User : MetaDataSupport
     {
-        public User(string userName, long id, DateTime created, DateTime modified, Guid uuid)
+        public User()
         {
-            UserName = userName;
-            Id = id;
-            Created = created;
-            Modified = modified;
-            Uuid = uuid;
             Passwords = new List<UserPasswordHistory>();
             QuoteRequests = new List<QuoteRequest>();
             UserTypes = new List<UserType>();
             BlockedUsers = new List<User>();
             ChatHistory = new List<Chat>();
         }
+        public User(string userName, long id, DateTime created, DateTime modified, Guid uuid): this()
+        {
+            UserName = userName;
+            Id = id;
+            Created = created;
+            Modified = modified;
+            Uuid = uuid;
+        }
 
         public static User Empty => new("empty", -1, DateTime.Now, DateTime.Now, Guid.NewGuid());
         public long Id { get; set; }
+        [DisplayName("User Name")]
         public string UserName { get; set; }
         public string PrimaryEmail { get; set; }
         public string CurrentPassword { get; set; }

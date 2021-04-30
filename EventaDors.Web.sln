@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.DataManagement",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.Xamarin", "EventaDors.Xamarin\EventaDors.Xamarin.csproj", "{9851468A-FAD8-4DAE-949D-84F1E6EFC099}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.Batch", "EventaDors.Batch\EventaDors.Batch.csproj", "{C2FE4BB4-7729-4612-AAC8-BC484FC93E2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.WebApplication", "EventaDors.WebApplication\EventaDors.WebApplication.csproj", "{199E6DB8-E2BA-4487-B052-4417282BCF69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{9851468A-FAD8-4DAE-949D-84F1E6EFC099}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9851468A-FAD8-4DAE-949D-84F1E6EFC099}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9851468A-FAD8-4DAE-949D-84F1E6EFC099}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2FE4BB4-7729-4612-AAC8-BC484FC93E2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2FE4BB4-7729-4612-AAC8-BC484FC93E2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2FE4BB4-7729-4612-AAC8-BC484FC93E2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2FE4BB4-7729-4612-AAC8-BC484FC93E2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{199E6DB8-E2BA-4487-B052-4417282BCF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{199E6DB8-E2BA-4487-B052-4417282BCF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{199E6DB8-E2BA-4487-B052-4417282BCF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{199E6DB8-E2BA-4487-B052-4417282BCF69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

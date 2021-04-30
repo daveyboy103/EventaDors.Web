@@ -22,15 +22,29 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </None>
+      <None Remove="Pages\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Remove="EventaDors.Web.config" />
+      <Content Remove="Pages\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Compile Remove="Controllers\WeatherForecastController.cs" />
       <Compile Remove="WeatherForecast.cs" />
+      <Compile Remove="Pages\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Pages\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Home\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Shared\Error.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Shared\_Layout.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Shared\_ValidationScriptsPartial.cshtml" />
     </ItemGroup>
 
 </Project>

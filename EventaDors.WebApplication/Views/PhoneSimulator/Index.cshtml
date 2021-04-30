@@ -1,0 +1,32 @@
+@using EventaDors.Entities.Classes
+@model SelectList;
+
+@{
+    ViewBag.Title = "EventaDors Data Maintenance - Users";
+    Layout = "_Layout";
+}
+
+<h2>Phone App Simulator</h2>
+<form method="post" asp-controller="StatusScreen">
+    <table>
+        <thead>
+        <tr aria-colspan="2" ></tr>
+        </thead>
+        <tr>
+            <td>Pick User to Impersonate:</td>
+            <td><select asp-items="@Model">
+            </select></td>
+            <input type="hidden" name="SelectUser"/>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" class="btn btn-info w-100" value="Go"></td>
+        </tr>       
+    </table>
+</form>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("body").on("change", "#ddlFruits", function () {
+            $("input[name=FruitName]").val($(this).find("option:selected").text());
+        });
+    </script>
