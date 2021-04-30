@@ -178,11 +178,7 @@ namespace EventaDors.DataManagement
             if (cn.State == ConnectionState.Closed)
                 cn.Open();
 
-            using (var cmdFetch = new SqlCommand("QUOTE_LoadQuote")
-            {
-                CommandType = CommandType.StoredProcedure,
-                Connection = cn
-            })
+            using (var cmdFetch = GetCommand(cn,"QUOTE_LoadQuote"))
             {
                 cmdFetch.Parameters.AddWithValue("QuoteIdIdentity", quoteId);
 
@@ -276,18 +272,14 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = new SqlCommand("USER_RegisterUser")
-                {
-                    CommandType = CommandType.StoredProcedure,
-                    Connection = cn
-                })
+                using (var cmd = GetCommand(cn,"USER_RegisterUser"))
                 {
                     cmd.Parameters.AddWithValue("UserName", user.UserName);
                     cmd.Parameters.AddWithValue("Email", user.PrimaryEmail);
                     cmd.Parameters.AddWithValue("Password", user.CurrentPassword);
                     cmd.Parameters.Add(ReturnParamName, SqlDbType.BigInt);
                     cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
-                    cn.Open();
+
                     cmd.ExecuteNonQuery();
 
                     var userId = long.Parse(cmd.Parameters[ReturnParamName].Value.ToString() ?? string.Empty);
@@ -322,14 +314,9 @@ namespace EventaDors.DataManagement
             {
                 using (var cn = new SqlConnection(_connectionString))
                 {
-                    using (var cmd = new SqlCommand("USER_VerfyAccount")
-                    {
-                        CommandType = CommandType.StoredProcedure,
-                        Connection = cn
-                    })
+                    using (var cmd = GetCommand(cn,"USER_VerfyAccount"))
                     {
                         cmd.Parameters.AddWithValue("uuid", guid);
-                        cn.Open();
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -363,16 +350,10 @@ namespace EventaDors.DataManagement
 
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = new SqlCommand("QUOTE_GetDeadline")
-                {
-                    CommandType = CommandType.StoredProcedure,
-                    Connection = cn
-                })
+                using (var cmd = GetCommand(cn,"QUOTE_GetDeadline"))
                 {
                     cmd.Parameters.AddWithValue("QuoteIdIdentity", quoteIdIdentity);
                     cmd.Parameters.AddWithValue("AlarmThreshold", alarmThreshold);
-
-                    cn.Open();
 
                     var dr = cmd.ExecuteReader();
 
@@ -399,11 +380,7 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = new SqlCommand("QUOTE_PickupQuoteRequestItem")
-                {
-                    CommandType = CommandType.StoredProcedure,
-                    Connection = cn
-                })
+                using (var cmd = GetCommand(cn,"QUOTE_PickupQuoteRequestItem"))
                 {
                     cmd.Parameters.AddWithValue("quoteRequestElementId", response.ParentElement.Id);
                     cmd.Parameters.AddWithValue("userId", response.Owner.Id);
@@ -413,8 +390,7 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("notes", response.Notes);
                     cmd.Parameters.AddWithValue("link", response.Link);
                     cmd.Parameters.AddWithValue("estimate", response.Estimate);
-                    
-                    cn.Open();
+
                     var dr = cmd.ExecuteReader();
 
                     while (dr.Read())
@@ -439,17 +415,11 @@ namespace EventaDors.DataManagement
             {
                 using (var cn = new SqlConnection(_connectionString))
                 {
-                    using (var cmd = new SqlCommand("USER_AssignToQuoteElement")
-                    {
-                        CommandType = CommandType.StoredProcedure,
-                        Connection = cn
-                    })
+                    using (var cmd = GetCommand(cn,"USER_AssignToQuoteElement"))
                     {
                         cmd.Parameters.AddWithValue("userId", userId);
                         cmd.Parameters.AddWithValue("quoteElementId", quoteElementId);
                         cmd.Parameters.AddWithValue("active", active);
-                    
-                        cn.Open();
 
                         cmd.ExecuteNonQuery();
                     }
@@ -470,18 +440,12 @@ namespace EventaDors.DataManagement
             {
                 using (var cn = new SqlConnection(_connectionString))
                 {
-                    using (var cmd = new SqlCommand("USER_AssignToQuoteElementType")
-                    {
-                        CommandType = CommandType.StoredProcedure,
-                        Connection = cn
-                    })
+                    using (var cmd = GetCommand(cn,"USER_AssignToQuoteElementType"))
                     {
                         cmd.Parameters.AddWithValue("userId", userId);
                         cmd.Parameters.AddWithValue("quoteElementId", quoteElementTypeId);
                         cmd.Parameters.AddWithValue("active", active);
-                    
-                        cn.Open();
-
+                        
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -499,11 +463,8 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = new SqlCommand("STATIC_AddUpdateQuoteElement"))
+                using (var cmd = GetCommand(cn,"STATIC_AddUpdateQuoteElement"))
                 {
-                    cmd.Connection = cn;
-                    cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.AddWithValue("id", quoteElement.Id);
                     cmd.Parameters.AddWithValue("name", quoteElement.Name);
                     cmd.Parameters.AddWithValue("notes", quoteElement.Notes);
@@ -515,8 +476,7 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.Add(ReturnParamName, SqlDbType.Int);
                     cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
                     cmd.Parameters[ReturnParamName].DbType = DbType.Int32;
-                    
-                    cn.Open();
+
                     cmd.ExecuteNonQuery();
 
                     int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString() ?? string.Empty);
@@ -533,12 +493,9 @@ namespace EventaDors.DataManagement
             QuoteElement ret = null;
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = new SqlCommand("STATIC_LoadQuoteElement"))
+                using (var cmd = GetCommand(cn,"STATIC_LoadQuoteElement"))
                 {
-                    cmd.Connection = cn;
-                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("id", id);
-                    cn.Open();
 
                     var dr = cmd.ExecuteReader();
 
@@ -589,18 +546,14 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = new SqlCommand("STATIC_AddUpdateQuoteElementType"))
+                using (var cmd = GetCommand(cn,"STATIC_AddUpdateQuoteElementType"))
                 {
-                    cmd.Connection = cn;
-                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("id", quoteElementType.Id);
                     cmd.Parameters.AddWithValue("name", quoteElementType.Name);
                     cmd.Parameters.AddWithValue("notes", quoteElementType.Notes);
                     cmd.Parameters.AddWithValue("link", quoteElementType.Link);
                     cmd.Parameters.Add(ReturnParamName, SqlDbType.Int);
                     cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
-                    
-                    cn.Open();
 
                     cmd.ExecuteNonQuery();
 
@@ -616,19 +569,14 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = new SqlCommand("STATIC_AddUpdateQuoteType"))
+                using (var cmd = GetCommand(cn,"STATIC_AddUpdateQuoteType"))
                 {
-                    cmd.Connection = cn;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("id", quoteType.Id);
                     cmd.Parameters.AddWithValue("name", quoteType.Name);
                     cmd.Parameters.AddWithValue("notes", quoteType.Notes);
                     cmd.Parameters.AddWithValue("link", quoteType.Link);
                     cmd.Parameters.Add(ReturnParamName, SqlDbType.Int);
                     cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
-                    
-                    cn.Open();
 
                     cmd.ExecuteNonQuery();
 
@@ -644,19 +592,14 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = new SqlCommand("STATIC_AddUpdateQuoteSubType"))
+                using (var cmd = GetCommand(cn,"STATIC_AddUpdateQuoteSubType"))
                 {
-                    cmd.Connection = cn;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("id", quoteSubType.Id);
                     cmd.Parameters.AddWithValue("name", quoteSubType.Name);
                     cmd.Parameters.AddWithValue("notes", quoteSubType.Notes);
                     cmd.Parameters.AddWithValue("link", quoteSubType.Link);
                     cmd.Parameters.Add(ReturnParamName, SqlDbType.Int);
                     cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
-                    
-                    cn.Open();
 
                     cmd.ExecuteNonQuery();
 
@@ -682,18 +625,13 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = new SqlCommand("USER_CreateNewUser")
-                {
-                    CommandType = CommandType.StoredProcedure,
-                    Connection = cn
-                })
+                using (var cmd = GetCommand(cn,"USER_CreateNewUser"))
                 {
                     cmd.Parameters.AddWithValue("userName", user.UserName);
                     cmd.Parameters.AddWithValue("email", user.PrimaryEmail);
                     cmd.Parameters.AddWithValue("password", user.CurrentPassword);
                     cmd.Parameters.Add(ReturnParamName, SqlDbType.BigInt);
                     cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
-                    cn.Open();
 
                     cmd.ExecuteNonQuery();
 
@@ -708,11 +646,7 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = new SqlCommand("STATIC_AddUpdateQuoteElementToQuoteRequest")
-                {
-                    CommandType = CommandType.StoredProcedure,
-                    Connection = cn
-                })
+                using (var cmd = GetCommand(cn,"STATIC_AddUpdateQuoteElementToQuoteRequest"))
                 {
                     cmd.Parameters.AddWithValue("quoteId", quoteElement.QuoteId);
                     cmd.Parameters.AddWithValue("quoteElementId", quoteElement.Id);
@@ -742,13 +676,8 @@ namespace EventaDors.DataManagement
             IList<User> ret = new List<User>();
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = new SqlCommand("STATIC_ListUsers"))
+                using (var cmd = GetCommand(cn,"STATIC_ListUsers"))
                 {
-                    cmd.Connection = cn;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    
-                    cn.Open();
-
                     var dr = cmd.ExecuteReader();
 
                     
@@ -762,6 +691,40 @@ namespace EventaDors.DataManagement
                             dr.GetGuid(dr.GetOrdinal("uuid")));
                         u.Verified = dr.GetBoolean(dr.GetOrdinal("Verified"));
                         ret.Add(u);
+                    }
+                }
+            }
+
+            return ret;
+        }
+
+        private SqlCommand GetCommand(SqlConnection cn, string commandText)
+        {
+            var cmd = new SqlCommand("STATIC_ListQuoteRequestsForUser")
+            {
+                Connection = cn,
+                CommandType = CommandType.StoredProcedure
+            };
+            
+            if (cn.State == ConnectionState.Closed)
+                cn.Open();
+
+            return cmd;
+        }
+
+        public IList<QuoteRequest> GetRequestsForUser(int userId)
+        {
+            IList<QuoteRequest> ret = new List<QuoteRequest>();
+            
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn,"STATIC_ListQuoteRequestsForUser"))
+                {
+                    var dr = cmd.ExecuteReader();
+                    
+                    while (dr.Read())
+                    {
+                        QuoteRequest qr = new QuoteRequest();
                     }
                 }
             }
