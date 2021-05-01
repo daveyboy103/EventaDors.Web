@@ -1,8 +1,56 @@
-@model dynamic
+@using EventaDors.Entities.Classes
+@model MultiDataWrapper<IEnumerable<EventaDors.Entities.Classes.Deadline>>
 
 @{
     ViewBag.Title = "EventaDors Data Maintenance - Users";
     Layout = "_Layout";
 }
 
-<h2>Users</h2>
+<h2>Status Screen</h2>
+
+@if (Model.List.Count() > 1)
+{
+    <table>
+        <thead>
+        <tr>
+            <td>Select Event:</td>
+            <td><select name="selectedEvent" asp-items="@Model.List "></select> </td>
+        </tr>
+        </thead>
+    </table>
+}
+else
+{
+    <p>
+        
+        <table class="table-bordered table-striped" style="width:100%">
+            <thead>
+            <tr>
+                <td>Item Name</td>
+                <td>Due Date</td>
+                <td>In Weeks</td>
+                <td>Status</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (Deadline d in Model.Single)
+            {
+                <tr>
+                    <td>@d.Name</td>
+                    <td>
+                        @{
+                            string value = "Not Set";
+                            if(d.DueDate.HasValue)
+                                value = d.DueDate.Value.ToString("dd-MMM-yyyy");
+                        }
+                        @value</td>
+                    <td>@d.Weeks</td>
+                    <td bgcolor="@d.Status.ToLower()" >@d.Status</td>
+                    <td style="padding: 3px" ><a asp-controller="ElementDetail" asp-action="Index" asp-route-ElementId="@d.QuoteRequestElementId" class="btn btn-success w-100">View</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </p>
+}

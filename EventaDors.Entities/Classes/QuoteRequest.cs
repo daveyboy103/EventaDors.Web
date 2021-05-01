@@ -20,5 +20,7 @@ namespace EventaDors.Entities.Classes
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
         public IList<QuoteElement> Elements { get; }
+        public User Owner { get; set; }
+        public int Attendees { get; set; }
     }
 }

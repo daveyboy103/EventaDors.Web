@@ -38,5 +38,6 @@ namespace EventaDors.Entities.Classes
         public IList<UserType> UserTypes { get; }
         public IList<User> BlockedUsers { get; }
         public IList<Chat> ChatHistory { get; }
+        public int EventCount { get; set; }
     }
 }

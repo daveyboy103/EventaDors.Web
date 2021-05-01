@@ -690,6 +690,7 @@ namespace EventaDors.DataManagement
                             dr.GetDateTime(dr.GetOrdinal("Modified")),
                             dr.GetGuid(dr.GetOrdinal("uuid")));
                         u.Verified = dr.GetBoolean(dr.GetOrdinal("Verified"));
+                        u.EventCount = dr.GetInt32(dr.GetOrdinal("Events"));
                         ret.Add(u);
                     }
                 }
@@ -700,7 +701,7 @@ namespace EventaDors.DataManagement
 
         private SqlCommand GetCommand(SqlConnection cn, string commandText)
         {
-            var cmd = new SqlCommand("STATIC_ListQuoteRequestsForUser")
+            var cmd = new SqlCommand(commandText)
             {
                 Connection = cn,
                 CommandType = CommandType.StoredProcedure
@@ -720,11 +721,86 @@ namespace EventaDors.DataManagement
             {
                 using (var cmd = GetCommand(cn,"STATIC_ListQuoteRequestsForUser"))
                 {
+                    cmd.Parameters.AddWithValue("userId", userId);
+                    
                     var dr = cmd.ExecuteReader();
                     
                     while (dr.Read())
                     {
-                        QuoteRequest qr = new QuoteRequest();
+                        QuoteRequest qr = new QuoteRequest
+                        {
+                            QuoteId = dr.GetGuid(dr.GetOrdinal("QuoteId")),
+                            Created = dr.GetDateTime(dr.GetOrdinal("Created")),
+                            Modified = dr.GetDateTime(dr.GetOrdinal("Modified")),
+                            Notes = GetSafeString(dr, "Notes"),
+                            Name = GetSafeString(dr, "Name"),
+                            Attendees = dr.GetInt32(dr.GetOrdinal("Attendees")),
+                            QuoteIdIdentity = dr.GetInt32(dr.GetOrdinal("QuoteidIdentity")),
+                            DueDate = GetSafeDate(dr, "DueDate"),
+                            Type = new QuoteType()
+                            {
+                                Id = dr.GetInt32(dr.GetOrdinal("QuoteTypeId")),
+                                Name = GetSafeString(dr, "QuoteTypeNotes"),
+                                Link = GetSafeString(dr, "QuoteTypeLink")
+                            },
+                            SubType = new QuoteSubType
+                            {
+                                Id = dr.GetInt32(dr.GetOrdinal("QuoteSubTypeId")),
+                                Name = GetSafeString(dr, "QuoteSubTypeNotes"),
+                                Link = GetSafeString(dr, "QuoteSubTypeLink")
+                            },
+                            Owner = new User
+                            {
+                                Id = dr.GetInt64(dr.GetOrdinal("UserId")),
+                                UserName = dr.GetString(dr.GetOrdinal("UserName")),
+                                PrimaryEmail = GetSafeString(dr, "Email"),
+                                Verified = dr.GetBoolean(dr.GetOrdinal("Verified")),
+                                Uuid = dr.GetGuid(dr.GetOrdinal("uuid"))
+                            }
+                        };
+                        
+                        ret.Add(qr);
+                    }
+                }
+            }
+
+            return ret;
+        }
+
+        public QuoteRequestElement GetQuoteRequestElement(int quoteRequestElementid)
+        {
+            QuoteRequestElement ret = null;
+            
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn, "QUOTE_LoadQuoteRequestElement"))
+                {
+                    cmd.Parameters.AddWithValue("quoteRequestElementId", quoteRequestElementid);
+
+                    var dr = cmd.ExecuteReader();
+                    
+                    while(dr.Read())
+                    {
+                        ret = new QuoteRequestElement
+                        {
+                            Budget = GetSafeDbl(dr, "Budget"),
+                            BudgetTolerance = GetSafeDbl(dr, "BudgetTolerance"),
+                            Completed = dr.GetBoolean(dr.GetOrdinal("Completed")),
+                            Created = dr.GetDateTime(dr.GetOrdinal("Created")),
+                            Modified = dr.GetDateTime(dr.GetOrdinal("Created")),
+                            DueDate = GetSafeDate(dr, "DueDate"),
+                            Exclude = dr.GetBoolean(dr.GetOrdinal("Exclude")),
+                            Id = quoteRequestElementid,
+                            LeadWeeks = GetSafeInt(dr, "LeadWeeks"),
+                            Quantity = dr.GetInt32(dr.GetOrdinal("Quantity")),
+                            Type = new QuoteElementType
+                            {
+                                Name = dr.GetString(dr.GetOrdinal("QuoteElementName")),
+                                Notes = GetSafeString(dr, "QuoteElementNotes")
+                            },
+                            QuoteRequestElementId = quoteRequestElementid,
+                            QuoteId = dr.GetGuid(dr.GetOrdinal("QuoteId"))
+                        };
                     }
                 }
             }

@@ -1,3 +1,4 @@
+using System.Linq;
 using EventaDors.DataManagement;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,7 +16,7 @@ namespace EventaDors.WebApplication.Controllers
         // GET
         public IActionResult Index()
         {
-            var users = new SelectList(_wrapper.ListUsers(), "Id", "UserName");
+            var users = new SelectList(_wrapper.ListUsers().Where(x => x.EventCount > 0), "Id", "UserName");
             return View(users);
         }
     }

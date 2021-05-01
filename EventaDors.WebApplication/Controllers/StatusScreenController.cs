@@ -1,5 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
 using EventaDors.DataManagement;
+using EventaDors.Entities.Classes;
+using EventaDors.WebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EventaDors.WebApplication.Controllers
 {
@@ -11,11 +16,25 @@ namespace EventaDors.WebApplication.Controllers
         {
             _wrapper = wrapper;
         }
+
         // GET
         public IActionResult Index(string UserName, string UserId)
         {
+            IList<Deadline> deadlines= null;
             var requests = _wrapper.GetRequestsForUser(int.Parse(UserId));
-            return View();
+
+            if (requests.Count() == 1)
+            {
+                deadlines = _wrapper.GetDeadlines(requests.First().QuoteIdIdentity, 26);
+            }
+            
+            var ret = new MultiDataWrapper<IEnumerable<EventaDors.Entities.Classes.Deadline>>
+            {
+                List = new SelectList(requests, "QuoteIdIdentity", "Name"),
+                Single = deadlines
+            };
+            
+            return View(ret);
         }
     }
 }
