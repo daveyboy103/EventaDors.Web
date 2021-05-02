@@ -816,5 +816,36 @@ namespace EventaDors.DataManagement
 
             return ret;
         }
+
+        public bool LoginUser(User loginUser)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn, "USER_LoginUser"))
+                {
+                    cmd.Parameters.AddWithValue("EmailAddress", loginUser.PrimaryEmail);
+                    cmd.Parameters.AddWithValue("Password", loginUser.CurrentPassword);
+                    cmd.Parameters.Add("return", SqlDbType.Int);
+                    cmd.Parameters["return"].Direction = ParameterDirection.ReturnValue;
+
+                    cmd.ExecuteNonQuery();
+
+                    int ret = int.Parse(cmd.Parameters["return"].Value.ToString());
+
+                    if (ret != 0)
+                    {
+                        loginUser.Id = ret;
+                        return true;
+                    }
+                    
+                    return false;
+                }
+            }
+        }
+
+        public User LoadUser(User loginUser)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

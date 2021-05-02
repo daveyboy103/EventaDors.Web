@@ -1,0 +1,32 @@
+@model Journey
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Start Your Journey</h2>
+<p>To start your journey to your special day we need to gather some basic information from you so we can maximise the help we can give you.</p>
+<p>Please answer the following question as accurately as you can.</p>
+<h4>When is the special day?</h4>
+<form method="post" asp-controller="AboutYou" asp-action="Index">
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td width="100%">
+                <input asp-for="EventDate">
+            </td>
+        </tr>
+        <tr><hr></hr></tr>
+        <tr>
+            <td><input type="submit" class="btn btn-info w-100" value="Next >>" /></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+

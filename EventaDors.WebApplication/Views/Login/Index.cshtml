@@ -1,8 +1,44 @@
-@model dynamic
+@model EventaDors.Entities.Classes.User
 
 @{
-    ViewBag.Title = "EventaDors Data Maintenance - Users";
     Layout = "_Layout";
 }
 
-<h2>Login/Register</h2>
+<h2>Welcome to @Statics.ApplicationName</h2>
+<h3>Login/Register</h3>
+<p>In order to use this App you must first login as a user.</p>
+<p>Please enter your email address and password in the fields below and click Login</p>
+<p>If you are not already a member <a asp-controller="Register" asp-action="Index">click here</a> to join us.</p>
+<hr>
+<form method="post" asp-controller="Login" asp-action="ProcessLogin">
+    <table style="width: 100%" >
+        <tr>
+            <td>Email Address:</td>
+            <td><input id="email" asp-for="PrimaryEmail" style="width: 100%" type="text" class="form-control"/>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input id="password" asp-for="CurrentPassword" style="width: 100%" type="password" class="form-control"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" class="btn btn-info w-100" value="Login" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="checkbox" value="Remember Me">&nbsp;Remember me?</td>
+        </tr>        
+        <tr>
+            <td></td>
+            <td><a asp-controller="ForgotPassword" asp-action="Index">Forgotten Password?</a></td>
+        </tr> 
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</form>

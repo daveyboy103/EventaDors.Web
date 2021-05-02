@@ -1,0 +1,38 @@
+@model Journey
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>Register with @Statics.ApplicationName</h2>
+<h3>Register</h3>
+
+<p>Please enter your email address and choose a password in the fields below and click Register</p>
+<p>If you are already a member <a asp-controller="Login" asp-action="Index">click here</a> to login.</p>
+<hr>
+<form method="post" asp-controller="Register" asp-action="ProcessRegistration">
+    <table style="width: 100%" >
+        <tr>
+            <td>Email Address:</td>
+            <td><input id="email" asp-for="User.PrimaryEmail" style="width: 100%" type="text" class="form-control"/>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input id="password" asp-for="User.CurrentPassword" style="width: 100%" type="password" class="form-control"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" class="btn btn-info w-100" value="Register" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <hr>
+    <p>You will receive a confirmation email to the address supplied. Please click on the link to confirm your membership of @Statics.ApplicationName</p>
+</form>

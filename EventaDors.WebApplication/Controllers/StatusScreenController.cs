@@ -20,8 +20,20 @@ namespace EventaDors.WebApplication.Controllers
         // GET
         public IActionResult Index(string UserName, string UserId)
         {
+            if (string.IsNullOrEmpty(UserId))
+            {
+                UserId = TempData["LoginUser"].ToString();
+            }
+            
             IList<Deadline> deadlines= null;
             var requests = _wrapper.GetRequestsForUser(int.Parse(UserId));
+
+            if (requests.Count == 0)
+            {
+                return RedirectToAction("ContinueRegistration", "Register", UserId);
+            }
+            
+            TempData.Remove("LoginUser");
 
             if (requests.Count() == 1)
             {

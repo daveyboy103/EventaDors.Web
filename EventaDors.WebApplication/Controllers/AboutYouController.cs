@@ -8,5 +8,13 @@ namespace EventaDors.WebApplication.Controllers
         {
             return View();
         }
+    }    
+    
+    public class ForgotPasswordController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

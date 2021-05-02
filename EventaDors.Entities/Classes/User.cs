@@ -6,6 +6,8 @@ namespace EventaDors.Entities.Classes
 {
     public class User : MetaDataSupport
     {
+        private string _userName;
+
         public User()
         {
             Passwords = new List<UserPasswordHistory>();
@@ -25,8 +27,19 @@ namespace EventaDors.Entities.Classes
 
         public static User Empty => new("empty", -1, DateTime.Now, DateTime.Now, Guid.NewGuid());
         public long Id { get; set; }
+
         [DisplayName("User Name")]
-        public string UserName { get; set; }
+        public string UserName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_userName))
+                    _userName = PrimaryEmail;
+                return _userName;
+            }
+            set => _userName = value;
+        }
+
         public string PrimaryEmail { get; set; }
         public string CurrentPassword { get; set; }
         public bool Verified { get; set; }
@@ -39,5 +52,10 @@ namespace EventaDors.Entities.Classes
         public IList<User> BlockedUsers { get; }
         public IList<Chat> ChatHistory { get; }
         public int EventCount { get; set; }
+
+        public override string ToString()
+        {
+            return $"{UserName} - {PrimaryEmail}";
+        }
     }
 }
