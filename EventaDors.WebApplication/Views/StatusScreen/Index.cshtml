@@ -1,4 +1,5 @@
 @using EventaDors.Entities.Classes
+@using System.Drawing.Text
 @model MultiDataWrapper<IEnumerable<EventaDors.Entities.Classes.Deadline>>
 
 @{
@@ -26,11 +27,13 @@ else
         <table class="table-bordered table-striped" style="width:100%">
             <thead>
             <tr>
-                <td>Item Name</td>
-                <td>Due Date</td>
-                <td>In Weeks</td>
-                <td>Status</td>
-                <td></td>
+                <th>Item</th>
+                <th>Due</th>
+                <th>Weeks</th>
+                <th align="center">Progress</th>
+                <th align="center">Status</th>
+                <th align="center"></th>
+                <th align="center"></th>
             </tr>
             </thead>
             <tbody>
@@ -46,11 +49,63 @@ else
                         }
                         @value</td>
                     <td>@d.Weeks</td>
-                    <td bgcolor="@d.Status.ToLower()" >@d.Status</td>
-                    <td style="padding: 3px" ><a asp-controller="ElementDetail" asp-action="Index" asp-route-ElementId="@d.QuoteRequestElementId" class="btn btn-success w-100">View</a></td>
+                    <td align="center"><img src="@GetStatusImage(d)" alt="@GetStatusAlt(d)" style="width:20px;height:20px" /></td>
+                    <td align="center"><img src="@GetProgressImage(d)" alt="@GetProgressAlt(d)" style="width:20px;height:20px" /></td>
+                    <td align="center"><img src="@GetChatIcon(d)" alt="@GetChatAlt(d)" style="width:20px;height:20px" /></td>
+                    <td align="center" style="padding: 10px" ><a asp-controller="ElementDetail" asp-action="Index" asp-route-ElementId="@d.QuoteRequestElementId" class="btn btn-success w-100">View</a></td>
                 </tr>
             }
             </tbody>
         </table>
     </p>
+    @functions {
+        string GetStatusImage(Deadline d)
+        {
+            if (d.Submitted.HasValue)
+            {
+                return "images/green_tick.png";
+            }
+            return "images/in_progress.png";
+        }
+
+        string GetStatusAlt(Deadline d)
+        {
+            if (d.Submitted.HasValue)
+            {
+                return $"This item was submitted for quotes on {d.Submitted.Value.ToLongDateString()}";
+            }
+
+            return "This item is pending and has not been submitted for quotes yet";
+        }
+
+        string GetProgressAlt(Deadline d)
+        {
+            return $"The status of this item is currently {d.Status}";
+        }
+
+        string GetProgressImage(Deadline d)
+        {
+            return $"images/{d.Status}.jpeg";
+        }
+
+        string GetChatAlt(Deadline d)
+        {
+            if (d.Chats > 0)
+            {
+                return "Chats have been received from suppliers regarding this item. Click to view";
+            }
+
+            return string.Empty;
+        }
+
+        string GetChatIcon(Deadline d)
+        {
+            if (d.Chats > 0)
+            {
+                return "images/chat.png";
+            }
+
+            return "images/no_chat.svg";
+        }
+    }
 }

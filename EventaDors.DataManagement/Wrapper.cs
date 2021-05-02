@@ -359,13 +359,22 @@ namespace EventaDors.DataManagement
 
                     while (dr.Read())
                     {
+                        var nameOrdinal = dr.GetOrdinal("Name");
+                        var statusOrdinal = dr.GetOrdinal("Status");
+                        var quoteRequestElementIdOrdinal = dr.GetOrdinal("QuoteRequestElementId");
+                        var requestsOrdinal = dr.GetOrdinal("Responses");
+                        var chatsOrdinal = dr.GetOrdinal("Chats");
+                        
                         var deadline = new Deadline
                         {
-                            Name = dr.GetString(dr.GetOrdinal("Name")),
+                            Name = dr.GetString(nameOrdinal),
                             DueDate = GetSafeDate(dr, "DueDate"),
                             Weeks = GetSafeInt(dr, "In Weeks"),
-                            Status = dr.GetString(dr.GetOrdinal("Status")),
-                            QuoteRequestElementId = dr.GetInt32(dr.GetOrdinal("QuoteRequestElementId"))
+                            Status = dr.GetString(statusOrdinal),
+                            QuoteRequestElementId = dr.GetInt32(quoteRequestElementIdOrdinal),
+                            Responses = dr.GetInt32(requestsOrdinal),
+                            Submitted = GetSafeDate(dr,"Submitted"),
+                            Chats = dr.GetInt32(chatsOrdinal)
                         };
 
                         ret.Add(deadline);
