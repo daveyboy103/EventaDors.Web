@@ -6,4 +6,9 @@
         <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\EventaDors.DataManagement\EventaDors.DataManagement.csproj" />
+      <ProjectReference Include="..\EventaDors.Entities\EventaDors.Entities.csproj" />
+    </ItemGroup>
+
 </Project>

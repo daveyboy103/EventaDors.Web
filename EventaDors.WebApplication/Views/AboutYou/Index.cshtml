@@ -1,4 +1,4 @@
-@model dynamic
+@model Journey
 
 @{
     ViewBag.Title = "EventaDors Data Maintenance - Users";
@@ -6,3 +6,71 @@
 }
 
 <h2>About You</h2>
+<p>A bit of information about you and your partner.</p>
+<form method="post" asp-controller="AboutYou" asp-action="Index">
+    <table style="width: 100%">
+        <tbody>
+        <tr class="width: 30%" >
+            <td>
+                Title:
+            </td>
+            <td>
+                <input asp-for="Title" class="form-control">
+            </td>
+        </tr>
+        <tr class="width: 50%">
+            <td>
+                First Name:
+            </td>
+            <td>
+                <input asp-for="FirstName" class="form-control">
+            </td>
+        </tr> 
+        <tr>
+            <td>
+                Last Name:
+            </td>
+            <td>
+                <input asp-for="Surname" class="form-control">
+            </td>
+        </tr>        
+        <tr>
+            <td>
+                Post Code:
+            </td>
+            <td>
+                <input asp-for="PostalCode" class="form-control">
+            </td>
+        </tr>        
+        <tr>
+            <td>
+                Contact Number:
+            </td>
+            <td>
+                <input asp-for="ContactNumber" class="form-control">
+            </td>
+        </tr>     
+        <tr>
+            <td>
+                Partner Email:
+            </td>
+            <td>
+                <input asp-for="PartnerEmail" class="form-control">
+            </td>
+        </tr>        <tr>
+            <td>
+                Check the box to have us automatically email your partner with details about joining.
+            </td>
+            <td>
+                <input type="checkbox" asp-for="InformPartner" class="form-control">
+                <input type="text" asp-for="NextPage">
+            </td>
+        </tr>
+        <tr><hr></hr></tr>
+        <tr>
+            <td><input type="submit" align="right" class="btn btn-info w-100" value="<< Back" id="Back"/></td>
+            <td><input type="submit" class="btn btn-info w-100" value="Next >>"/></td>
+        </tr>
+        </tbody>
+    </table>
+</form>

@@ -4,6 +4,8 @@
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::F308BE1C-ADE9-4BE9-9111-A67B7A6D74F4::net5.0::EventaDors.Test.UserTests&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::F308BE1C-ADE9-4BE9-9111-A67B7A6D74F4::net5.0::EventaDors.Test.MetaDataTests.ShouldRetrieveCorrectTypeFromFactory&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::F308BE1C-ADE9-4BE9-9111-A67B7A6D74F4::net5.0::EventaDors.Test.CalendarTests.ShouldTestForAvailability&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::F308BE1C-ADE9-4BE9-9111-A67B7A6D74F4::net5.0::EventaDors.Test.CalendarTests.ShouldImportAvailabilityFromCsv&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>

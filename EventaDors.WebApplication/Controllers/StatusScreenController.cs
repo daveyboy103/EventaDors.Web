@@ -3,6 +3,7 @@ using System.Linq;
 using EventaDors.DataManagement;
 using EventaDors.Entities.Classes;
 using EventaDors.WebApplication.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -22,7 +23,7 @@ namespace EventaDors.WebApplication.Controllers
         {
             if (string.IsNullOrEmpty(UserId))
             {
-                UserId = TempData["LoginUser"].ToString();
+                UserId = HttpContext.Session.GetString(Statics.LogonUserKey);
             }
             
             IList<Deadline> deadlines= null;
@@ -30,10 +31,8 @@ namespace EventaDors.WebApplication.Controllers
 
             if (requests.Count == 0)
             {
-                return RedirectToAction("ContinueRegistration", "Register", UserId);
+                return RedirectToAction("ProcessRegistration", "Register", UserId);
             }
-            
-            TempData.Remove("LoginUser");
 
             if (requests.Count() == 1)
             {

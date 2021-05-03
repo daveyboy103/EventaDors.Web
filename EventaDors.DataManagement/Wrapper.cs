@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using EventaDors.Entities.Classes;
@@ -92,6 +93,7 @@ namespace EventaDors.DataManagement
                         );
 
                         ret.Verified = dr.GetBoolean(dr.GetOrdinal("Verified"));
+                        ret.UserKey = dr.GetGuid(dr.GetOrdinal("UserKey"));
                         ret.CurrentPassword = dr.GetString(dr.GetOrdinal("Password"));
 
                         if (dr.NextResult())
@@ -846,6 +848,56 @@ namespace EventaDors.DataManagement
         public User LoadUser(User loginUser)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<IAvailabilityResult> CheckUserAvailability(IEnumerable<DateTime> proposedDates, long userId)
+        {
+            var list = new List<IAvailabilityResult>();
+            
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn, "USER_CheckAvailability"))
+                {
+                    cmd.Parameters.AddWithValue("userId", userId);
+                    cmd.Parameters.AddWithValue("proposedDate", DateTime.Today);
+                    cmd.Parameters.Add("return", SqlDbType.Int);
+                    cmd.Parameters["return"].Direction = ParameterDirection.ReturnValue;
+                    
+                    foreach (DateTime proposedDate in proposedDates)
+                    {
+                        cmd.Parameters["proposedDate"].Value = proposedDate;
+                        cmd.ExecuteNonQuery();
+
+                        int ret = int.Parse(cmd.Parameters["return"].Value.ToString());
+
+                        if (ret == 0)
+                        {
+                            list.Add(new AvailabilityResult{ProposedDate = proposedDate, Available = false});
+                        }
+                        else
+                        {
+                            list.Add(new AvailabilityResult{ProposedDate = proposedDate, Available = true});
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public void AddNonAvailability(DateTime @from, DateTime to, int userId)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn, "CALENDAR_AddNonAvailability"))
+                {
+                    cmd.Parameters.AddWithValue("userId", userId);
+                    cmd.Parameters.AddWithValue("dateTimeFrom", @from);
+                    cmd.Parameters.AddWithValue("dateTimeTo", to);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

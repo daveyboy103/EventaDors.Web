@@ -1,6 +1,10 @@
+using System;
+using System.Diagnostics.Eventing.Reader;
 using EventaDors.DataManagement;
 using EventaDors.Entities.Classes;
+using EventaDors.WebApplication.Helpers;
 using EventaDors.WebApplication.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EventaDors.WebApplication.Controllers
@@ -21,22 +25,36 @@ namespace EventaDors.WebApplication.Controllers
 
         public IActionResult ProcessRegistration(Journey journey)
         {
-            var ret = _wrapper.RegisterUser(journey.User);
+            if (!journey.EventDate.HasValue)
+            {
+                _wrapper.RegisterUser(journey.User);
+            }
 
-            return View(journey);
+            return View("ContinueRegistration", journey);
         } 
-        public IActionResult ContinueRegistration(string userId)
+        public IActionResult ContinueRegistration(string userId, Journey journey)
         {
-            try
+            if (string.IsNullOrEmpty(userId))
+                userId = HttpContext.Session.GetString(Statics.LogonUserKey);
+            var user = _wrapper.CreateUser(long.Parse(userId));
+            HttpContext.Session.SetString(Statics.UserIdKey, userId);
+            return ProcessRegistration(new Journey
             {
-                userId = TempData["LoginUser"].ToString();
-                var user = _wrapper.CreateUser(long.Parse(userId));
-                return View("ProcessRegistration", new Journey{ User = user});
-            }
-            finally
-            {
-                TempData.Remove("LoginUser");
-            }
+                User = user,
+                ContactNumber = SessionHelper.GetString(Statics.ContactNumber),
+                FirstName = SessionHelper.GetString(Statics.FirstName),
+                Surname = SessionHelper.GetString(Statics.Surname),
+                PartnerEmail = SessionHelper.GetString(Statics.PartnerEmail),
+                PostalCode = SessionHelper.GetString(Statics.PostalCode),
+                EventDate = GetEventDate()
+            });
+        }
+
+        private static DateTime GetEventDate()
+        {
+            if(!string.IsNullOrEmpty(SessionHelper.GetString(Statics.EventDate)))
+                return DateTime.Parse(SessionHelper.GetString(Statics.EventDate));
+            return DateTime.Today.AddDays(365);
         }
     }
 }

@@ -43,6 +43,7 @@ namespace EventaDors.Entities.Classes
         public string PrimaryEmail { get; set; }
         public string CurrentPassword { get; set; }
         public bool Verified { get; set; }
+        public Guid UserKey { get; set; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
         public Guid Uuid { get; set; }

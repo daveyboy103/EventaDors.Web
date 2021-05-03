@@ -1,3 +1,4 @@
+using EventaDors.WebApplication.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EventaDors.WebApplication.Controllers
@@ -7,6 +8,7 @@ namespace EventaDors.WebApplication.Controllers
         // GET
         public IActionResult Index()
         {
+            SessionHelper.Context = HttpContext;
             return View();
         }
     }

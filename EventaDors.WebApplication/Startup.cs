@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using EventaDors.DataManagement;
+using EventaDors.WebApplication.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +30,8 @@ namespace EventaDors.WebApplication
         {
             services.AddControllersWithViews();
             services.AddSingleton(new Wrapper(Configuration.GetConnectionString("Sql")));
+            services.AddSingleton(new StateManager(Configuration.GetConnectionString("Sql")));
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +50,7 @@ namespace EventaDors.WebApplication
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

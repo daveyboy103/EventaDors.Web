@@ -10,11 +10,24 @@ namespace EventaDors.WebApplication.Models
             EventDate = DateTime.Today;
         }
         public User User { get; set; }
-        public DateTime EventDate { get; set; }
+        public DateTime? EventDate { get; set; }
         public string Title { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string PostalCode { get; set; }
         public string ContactNumber { get; set; }
+        public string PartnerEmail { get; set; }
+        public bool InformPartner { get; set; }
+        
+        public string NextPage { get; set; }
+
+        public bool IsEmpty =>
+            string.IsNullOrEmpty(Title) &&
+            string.IsNullOrEmpty(FirstName) &&
+            string.IsNullOrEmpty(Surname) &&
+            string.IsNullOrEmpty(PostalCode) &&
+            string.IsNullOrEmpty(ContactNumber) &&
+            !EventDate.HasValue &&
+            string.IsNullOrEmpty(PartnerEmail);
     }
 }

@@ -21,6 +21,15 @@
       <Compile Remove="Interfaces\IQuoteTemplateFactory.cs" />
       <Compile Remove="Interfaces\IQuoteType.cs" />
       <Compile Remove="Interfaces\IQuoteTypeFactory.cs" />
+      <Compile Remove="Processors\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Processors\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Processors\**" />
     </ItemGroup>
 
 </Project>
