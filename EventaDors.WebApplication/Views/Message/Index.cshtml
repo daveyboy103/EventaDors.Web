@@ -1,0 +1,38 @@
+@model EventaDors.Entities.Classes.SessionIdWrapper
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<script>
+const connection = new signalR.HubConnectionBuilder()
+.withUrl("/MessageHub")
+.build();
+connection.start()
+.catch(err => alert(err.toString()));
+connection.on('UserConnected', (ConnectionId) => { let _message = " Connected " + ConnectionId;
+let sender = $('#senderUId').text();
+appendLine(sender, _message);
+});
+connection.on('UserDisconnected', (ConnectionId) => {
+    let _message = " Disconnected " + ConnectionId;
+    let sender = $('#senderUId').text();
+    appendLine(sender, _message);
+});
+
+connection.on('SendMessage', (sender, message) => {
+    let _message = message;
+    appendLine(sender, _message);
+});
+</script>
+<h2>Chat Sample</h2>
+<div class="signalr-demo">
+    <div id="senderUId">@Model.Id</div>
+    <form id="messageform">            
+        <input type="text" id="messagebox" />
+        <input type="button" value="Send Message" id="btnSend" />
+    </form>
+    <hr />
+    <ul id="messageList" style="text-align:left;"></ul>
+</div>
+

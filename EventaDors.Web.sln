@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.Batch", "EventaD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.WebApplication", "EventaDors.WebApplication\EventaDors.WebApplication.csproj", "{199E6DB8-E2BA-4487-B052-4417282BCF69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.Batch", "EventaDors.Batch\EventaDors.Batch.csproj", "{41E2F51D-04DA-4D41-975A-6F17A63D501C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{199E6DB8-E2BA-4487-B052-4417282BCF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{199E6DB8-E2BA-4487-B052-4417282BCF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{199E6DB8-E2BA-4487-B052-4417282BCF69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41E2F51D-04DA-4D41-975A-6F17A63D501C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41E2F51D-04DA-4D41-975A-6F17A63D501C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41E2F51D-04DA-4D41-975A-6F17A63D501C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41E2F51D-04DA-4D41-975A-6F17A63D501C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
