@@ -31,7 +31,7 @@ namespace EventaDors.WebApplication.Controllers
 
             if (requests.Count == 0)
             {
-                return RedirectToAction("ProcessRegistration", "Register", UserId);
+                return RedirectToAction("ProcessRegistration", "Register");
             }
 
             if (requests.Count() == 1)

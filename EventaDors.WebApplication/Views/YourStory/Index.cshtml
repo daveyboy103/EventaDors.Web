@@ -1,8 +1,16 @@
-@model dynamic
+@model Journey
 
 @{
-    ViewBag.Title = "EventaDors Data Maintenance - Users";
     Layout = "_Layout";
 }
 
 <h2>Your Story</h2>
+<p>Tell us a bit about you and your event. This will help to match the right services and suppliers</p>
+<form method="post" asp-controller="Templates">
+    <table style="width: 100%">
+        <tbody>
+        <td><textarea cols="100" rows="12" width="100%" type="text" asp-for="YourStory" ></textarea></td>
+        <td valign="bottom"><input type="submit" class="btn btn-info w-100" value="Finish"></input></td>
+        </tbody>
+    </table>
+</form>

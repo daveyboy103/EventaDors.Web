@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.Chat</OriginalElement>
+  <nodes>
+    <node x="3356.458333333333" y="1228.5">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserUserType</node>
+    <node x="962.833333333333" y="619.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestVenue</node>
+    <node x="646.7499999999995" y="1184.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestListAttending</node>
+    <node x="0.0" y="1690.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.Chat</node>
+    <node x="280.49999999999955" y="696.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGiftList</node>
+    <node x="3139.333333333333" y="1195.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTemplateEvent</node>
+    <node x="1497.333333333333" y="1129.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementResponse</node>
+    <node x="498.0" y="1690.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.Session</node>
+    <node x="3441.9657960198997" y="0.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteType</node>
+    <node x="0.0" y="270.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.GiftRegistry</node>
+    <node x="3522.458333333333" y="1195.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserQuoteElement</node>
+    <node x="2324.333333333333" y="1217.5">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserUserBlocks</node>
+    <node x="3722.100746268656" y="729.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserType</node>
+    <node x="518.6666666666665" y="553.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestList</node>
+    <node x="1481.76803482587" y="619.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElement</node>
+    <node x="18.499999999999545" y="729.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGiftRegistry</node>
+    <node x="764.8749999999995" y="215.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequest</node>
+    <node x="3914.924129353233" y="597.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteElement</node>
+    <node x="1190.333333333333" y="1217.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementMetaData</node>
+    <node x="3467.100746268656" y="696.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTemplate</node>
+    <node x="259.0" y="1690.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.State</node>
+    <node x="1805.333333333333" y="1206.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementDelegate</node>
+    <node x="2107.333333333333" y="1162.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.MetaData</node>
+    <node x="978.333333333333" y="1184.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestEvent</node>
+    <node x="2426.208333333333" y="685.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.User</node>
+    <node x="3726.458333333333" y="1184.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTemplateEventElement</node>
+    <node x="1978.9160447761192" y="751.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.MetaDataName</node>
+    <node x="447.05970149253653" y="281.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.GuestGroup</node>
+    <node x="1844.2257462686562" y="1457.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementResponsePoll</node>
+    <node x="2513.333333333333" y="1195.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserCalendar</node>
+    <node x="3928.924129353233" y="281.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteElementType</node>
+    <node x="2913.333333333333" y="1195.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserTokenTransaction</node>
+    <node x="2689.333333333333" y="1195.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserPasswordHistory</node>
+    <node x="374.74999999999955" y="1195.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestListGift</node>
+    <node x="3723.924129353233" y="314.5">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTypeSubType</node>
+    <node x="3783.674129353233" y="0.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteSubType</node>
+    <node x="1541.833333333333" y="270.0">472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.Event</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTemplateEvent" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.Event" relationship="REFERENCES">
+      <point x="-49.25" y="-72.0" />
+      <point x="3188.583333333333" y="1068.0" />
+      <point x="3341.2157960198997" y="1068.0" />
+      <point x="3341.2157960198997" y="522.0" />
+      <point x="1622.833333333333" y="522.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserUserType" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.User" relationship="REFERENCES">
+      <point x="-36.5" y="-38.5" />
+      <point x="3392.958333333333" y="1088.0" />
+      <point x="2521.208333333333" y="1088.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestListAttending" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.Event" relationship="REFERENCES">
+      <point x="99.66666666666652" y="-83.0" />
+      <point x="895.9166666666661" y="1108.0" />
+      <point x="869.3749999999995" y="1108.0" />
+      <point x="869.3749999999995" y="522.0" />
+      <point x="1622.833333333333" y="522.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestListGift" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestList" relationship="REFERENCES">
+      <point x="63.0" y="-72.0" />
+      <point x="563.7499999999995" y="1108.0" />
+      <point x="630.1666666666665" y="1108.0" />
+      <point x="0.0" y="237.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestList" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.GuestGroup" relationship="REFERENCES">
+      <point x="-55.75" y="-237.0" />
+      <point x="574.4166666666665" y="522.0" />
+      <point x="524.5597014925365" y="522.0" />
+      <point x="0.0" y="72.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestEvent" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequest" relationship="REFERENCES">
+      <point x="-64.0" y="-83.0" />
+      <point x="1010.333333333333" y="1108.0" />
+      <point x="952.333333333333" y="1108.0" />
+      <point x="952.333333333333" y="532.0" />
+      <point x="858.3749999999995" y="532.0" />
+      <point x="0.0" y="138.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTypeSubType" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteType" relationship="REFERENCES">
+      <point x="-46.25" y="-38.5" />
+      <point x="3770.174129353233" y="190.0" />
+      <point x="3523.4657960198997" y="190.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementResponse" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElement" relationship="REFERENCES">
+      <point x="-72.0" y="-138.0" />
+      <point x="1569.333333333333" y="1108.0" />
+      <point x="1588.76803482587" y="1108.0" />
+      <point x="0.0" y="171.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequest" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteType" relationship="REFERENCES">
+      <point x="0.0" y="-138.0" />
+      <point x="858.3749999999995" y="190.0" />
+      <point x="3523.4657960198997" y="190.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTemplate" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteType" relationship="REFERENCES">
+      <point x="0.0" y="-94.0" />
+      <point x="3547.600746268656" y="512.0" />
+      <point x="3638.850746268656" y="512.0" />
+      <point x="3638.850746268656" y="190.0" />
+      <point x="3523.4657960198997" y="190.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserUserType" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserType" relationship="REFERENCES">
+      <point x="36.5" y="-38.5" />
+      <point x="3465.958333333333" y="1058.0" />
+      <point x="3799.600746268656" y="1058.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestListAttending" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestList" relationship="REFERENCES">
+      <point x="-99.66666666666652" y="-83.0" />
+      <point x="696.583333333333" y="1108.0" />
+      <point x="630.1666666666665" y="1108.0" />
+      <point x="0.0" y="237.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTemplateEvent" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTemplate" relationship="REFERENCES">
+      <point x="49.25" y="-72.0" />
+      <point x="3287.083333333333" y="1078.0" />
+      <point x="3547.600746268656" y="1078.0" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserQuoteElement" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteElement" relationship="REFERENCES">
+      <point x="46.0" y="-72.0" />
+      <point x="3660.458333333333" y="1068.0" />
+      <point x="4020.924129353233" y="1068.0" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestEvent" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestVenue" relationship="REFERENCES">
+      <point x="0.0" y="-83.0" />
+      <point x="0.0" y="171.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGiftRegistry" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.GiftRegistry" relationship="REFERENCES">
+      <point x="-60.5" y="-61.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementResponsePoll" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.User" relationship="REFERENCES">
+      <point x="79.25" y="-94.0" />
+      <point x="2081.975746268656" y="1431.0" />
+      <point x="2313.833333333333" y="1431.0" />
+      <point x="2313.833333333333" y="1088.0" />
+      <point x="2521.208333333333" y="1088.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestEvent" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.Event" relationship="REFERENCES">
+      <point x="64.0" y="-83.0" />
+      <point x="1138.333333333333" y="1098.0" />
+      <point x="1318.5932835820893" y="1098.0" />
+      <point x="1318.5932835820893" y="522.0" />
+      <point x="1622.833333333333" y="522.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTemplateEventElement" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteElement" relationship="REFERENCES">
+      <point x="86.66666666666669" y="-83.0" />
+      <point x="3943.125" y="1068.0" />
+      <point x="4020.924129353233" y="1068.0" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteElement" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteElementType" relationship="REFERENCES">
+      <point x="0.0" y="-193.0" />
+      <point x="0.0" y="72.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.MetaData" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.MetaDataName" relationship="REFERENCES">
+      <point x="0.0" y="-105.0" />
+      <point x="2205.333333333333" y="1098.0" />
+      <point x="2057.416044776119" y="1098.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElement" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.Event" relationship="REFERENCES">
+      <point x="53.5" y="-171.0" />
+      <point x="1642.26803482587" y="522.0" />
+      <point x="1622.833333333333" y="522.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementMetaData" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElement" relationship="REFERENCES">
+      <point x="-71.75" y="-50.0" />
+      <point x="1262.083333333333" y="1108.0" />
+      <point x="1588.76803482587" y="1108.0" />
+      <point x="0.0" y="171.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementDelegate" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.User" relationship="REFERENCES">
+      <point x="70.5" y="-61.0" />
+      <point x="2016.833333333333" y="1088.0" />
+      <point x="2521.208333333333" y="1088.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTemplateEventElement" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTemplate" relationship="REFERENCES">
+      <point x="-86.66666666666669" y="-83.0" />
+      <point x="3769.791666666666" y="1078.0" />
+      <point x="3547.600746268656" y="1078.0" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestListGift" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGiftList" relationship="REFERENCES">
+      <point x="-63.0" y="-72.0" />
+      <point x="437.74999999999955" y="1108.0" />
+      <point x="383.49999999999955" y="1108.0" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementResponsePoll" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementResponse" relationship="REFERENCES">
+      <point x="-79.25" y="-94.0" />
+      <point x="1923.4757462686562" y="1431.0" />
+      <point x="1641.333333333333" y="1431.0" />
+      <point x="0.0" y="138.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserCalendar" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.User" relationship="REFERENCES">
+      <point x="0.0" y="-72.0" />
+      <point x="2591.333333333333" y="1088.0" />
+      <point x="2521.208333333333" y="1088.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserPasswordHistory" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.User" relationship="REFERENCES">
+      <point x="0.0" y="-72.0" />
+      <point x="2791.333333333333" y="1088.0" />
+      <point x="2521.208333333333" y="1088.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestListAttending" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequest" relationship="REFERENCES">
+      <point x="0.0" y="-83.0" />
+      <point x="796.2499999999995" y="1108.0" />
+      <point x="858.3749999999995" y="1108.0" />
+      <point x="0.0" y="138.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserTokenTransaction" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.User" relationship="REFERENCES">
+      <point x="0.0" y="-72.0" />
+      <point x="3016.333333333333" y="1088.0" />
+      <point x="2521.208333333333" y="1088.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementMetaData" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.MetaDataName" relationship="REFERENCES">
+      <point x="71.75" y="-50.0" />
+      <point x="1405.583333333333" y="1098.0" />
+      <point x="2057.416044776119" y="1098.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementDelegate" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElement" relationship="REFERENCES">
+      <point x="-70.5" y="-61.0" />
+      <point x="1875.833333333333" y="1108.0" />
+      <point x="1588.76803482587" y="1108.0" />
+      <point x="0.0" y="171.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGiftList" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequest" relationship="REFERENCES">
+      <point x="0.0" y="-94.0" />
+      <point x="383.49999999999955" y="532.0" />
+      <point x="858.3749999999995" y="532.0" />
+      <point x="0.0" y="138.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGiftRegistry" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequest" relationship="REFERENCES">
+      <point x="60.5" y="-61.0" />
+      <point x="199.99999999999955" y="532.0" />
+      <point x="858.3749999999995" y="532.0" />
+      <point x="0.0" y="138.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserQuoteElement" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.User" relationship="REFERENCES">
+      <point x="-46.0" y="-72.0" />
+      <point x="3568.458333333333" y="1088.0" />
+      <point x="2521.208333333333" y="1088.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElement" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequest" relationship="REFERENCES">
+      <point x="-53.5" y="-171.0" />
+      <point x="1535.26803482587" y="532.0" />
+      <point x="858.3749999999995" y="532.0" />
+      <point x="0.0" y="138.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTypeSubType" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteSubType" relationship="REFERENCES">
+      <point x="46.25" y="-38.5" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.UserUserBlocks" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.User" relationship="REFERENCES">
+      <point x="-42.25" y="-49.5" />
+      <point x="2366.583333333333" y="1088.0" />
+      <point x="2521.208333333333" y="1088.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteTemplateEventElement" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.Event" relationship="REFERENCES">
+      <point x="0.0" y="-83.0" />
+      <point x="3856.458333333333" y="1048.0" />
+      <point x="3638.600746268656" y="1048.0" />
+      <point x="3638.600746268656" y="522.0" />
+      <point x="1622.833333333333" y="522.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestVenue" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequest" relationship="REFERENCES">
+      <point x="0.0" y="-171.0" />
+      <point x="1074.333333333333" y="532.0" />
+      <point x="858.3749999999995" y="532.0" />
+      <point x="0.0" y="138.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementResponse" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.User" relationship="REFERENCES">
+      <point x="72.0" y="-138.0" />
+      <point x="1713.333333333333" y="1088.0" />
+      <point x="2521.208333333333" y="1088.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestGuestList" target="472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequest" relationship="REFERENCES">
+      <point x="55.75" y="-237.0" />
+      <point x="685.9166666666665" y="532.0" />
+      <point x="858.3749999999995" y="532.0" />
+      <point x="0.0" y="138.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.38557713775396296" showDependencies="false" x="2229.5" y="929.5" />
+  <SelectedNodes>
+    <node>472dac98-d97b-44b4-914a-9aaa767a7f15.TABLE:EventaDors.dbo.QuoteRequestElementResponsePoll</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

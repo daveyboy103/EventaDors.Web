@@ -1,3 +1,5 @@
+using System;
+using EventaDors.WebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EventaDors.WebApplication.Controllers
@@ -5,8 +7,9 @@ namespace EventaDors.WebApplication.Controllers
     public class TemplatesController : Controller
     {
         // GET
-        public IActionResult Index()
+        public IActionResult Index(Journey journey)
         {
+            Console.WriteLine(journey.Surname);
             return View();
         }
     }
