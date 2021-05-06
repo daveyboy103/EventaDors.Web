@@ -19,7 +19,7 @@ namespace EventaDors.WebApplication.Models
         public string ContactNumber { get; set; }
         public string PartnerEmail { get; set; }
         public bool InformPartner { get; set; }
-        public string NextPage { get; set; }
+        public string CurrentPage { get; set; }
         public string YourStory { get; set; }
 
         public bool IsEmpty =>

@@ -28,15 +28,15 @@ namespace EventaDors.WebApplication.Controllers
             SessionHelper.SetString(Statics.PartnerEmail, journey.PartnerEmail);
             SessionHelper.SetString(Statics.EventDate, journey.EventDate.Value.ToShortDateString());
 
-            if (string.IsNullOrEmpty(journey.NextPage))
+            if (string.IsNullOrEmpty(journey.CurrentPage))
             {
-                journey.NextPage = "Story";
+                journey.CurrentPage = "Story";
                 return View(journey);
             }
 
-            if (journey.NextPage == "Story")
+            if (journey.CurrentPage == "Story")
             {
-                journey.NextPage = null;
+                journey.CurrentPage = null;
                 return RedirectToAction("ContinueRegistration", "Register", journey);
             }
 
