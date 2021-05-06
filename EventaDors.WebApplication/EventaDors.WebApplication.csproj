@@ -11,6 +11,12 @@
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <Content Remove="Views\NavigateAboutYou\**" />
+      <Content Remove="Views\NavigateChooseTemplate\**" />
+      <Content Remove="Views\NavigateFinish\**" />
+      <Content Remove="Views\NavigateLogin\**" />
+      <Content Remove="Views\NavigateRegister\**" />
+      <Content Remove="Views\NavigateWelcome\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -31,6 +37,44 @@
     <ItemGroup>
       <Folder Include="Pages" />
       <Folder Include="wwwroot\images" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Controllers\NavigateWelcomeController.cs" />
+      <Compile Remove="Views\NavigateAboutYou\**" />
+      <Compile Remove="Views\NavigateChooseTemplate\**" />
+      <Compile Remove="Views\NavigateFinish\**" />
+      <Compile Remove="Views\NavigateLogin\**" />
+      <Compile Remove="Views\NavigateRegister\**" />
+      <Compile Remove="Views\NavigateWelcome\**" />
+      <Compile Remove="Controllers\Journey1Controller.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Views\NavigateAboutYou\**" />
+      <EmbeddedResource Remove="Views\NavigateChooseTemplate\**" />
+      <EmbeddedResource Remove="Views\NavigateFinish\**" />
+      <EmbeddedResource Remove="Views\NavigateLogin\**" />
+      <EmbeddedResource Remove="Views\NavigateRegister\**" />
+      <EmbeddedResource Remove="Views\NavigateWelcome\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Views\NavigateAboutYou\**" />
+      <None Remove="Views\NavigateChooseTemplate\**" />
+      <None Remove="Views\NavigateFinish\**" />
+      <None Remove="Views\NavigateLogin\**" />
+      <None Remove="Views\NavigateRegister\**" />
+      <None Remove="Views\NavigateWelcome\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\NavigateAboutYou\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\NavigateChooseTemplate\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\NavigateFinish\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\NavigateLogin\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\NavigateRegister\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\NavigateWelcome\Index.cshtml" />
     </ItemGroup>
 
 </Project>

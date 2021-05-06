@@ -1,4 +1,5 @@
 using System;
+using EventaDors.Entities.Classes;
 using EventaDors.WebApplication.Helpers;
 using EventaDors.WebApplication.Models;
 using Microsoft.AspNetCore.Mvc;

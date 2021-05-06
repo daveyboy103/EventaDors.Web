@@ -1,0 +1,32 @@
+@model EventaDors.Entities.Classes.Journey
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Step 1</title>
+</head>
+<body>
+<div>
+    <form asp-action="Step2">
+        <table>
+            <tr><td>Event Date</td><td><input asp-for="EventDate"></td></tr>
+            <tr><td>Title</td><td><input asp-for="Title"></td></tr>
+            <tr><td>First Name</td><td><input asp-for="FirstName"></td></tr>
+            <tr><td>Surame</td><td><input asp-for="Surname"></td></tr>
+            <tr><td>Postcode</td><td><input asp-for="PostalCode"></td></tr>
+            <tr><td>Contact Number</td><td><input asp-for="ContactNumber"></td></tr>
+            <tr><td>Partner Email</td><td><input asp-for="PartnerEmail"></td></tr>
+            <tr><td>Inform Partner?</td><td><input type="checkbox" asp-for="InformPartner"></td></tr>
+            <tr><td>Tell us a bit about yourself</td><td><textarea rows="12" >@Model.YourStory</textarea></td></tr>
+        </table>
+        <input asp-for="Email">
+        <a asp-action="Index"><< Back</a> | <input type="submit" value="Next>>">
+    </form>
+</div>
+</body>
+</html>

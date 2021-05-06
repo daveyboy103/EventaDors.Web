@@ -18,6 +18,45 @@ namespace EventaDors.DataManagement
             _connectionString = connectionString;
         }
 
+        public Journey GetJourney(string emailAddress)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn, "JOURNEY_GetJourney"))
+                {
+                    cmd.Parameters.AddWithValue("emailAddress", emailAddress);
+                    return new Journey(cmd.ExecuteReader());
+                }
+            }
+        }
+
+        public bool PutJourney(Journey journey)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn, "JOURNEY_PutJourney"))
+                {
+                    cmd.Parameters.AddWithValue("emailAddress", journey.Email);
+                    cmd.Parameters.AddWithValue("eventDate", journey.EventDate);
+                    cmd.Parameters.AddWithValue("firstName", journey.FirstName);
+                    cmd.Parameters.AddWithValue("surname", journey.Surname);
+                    cmd.Parameters.AddWithValue("title", journey.Title);
+                    cmd.Parameters.AddWithValue("postalCode", journey.PostalCode);
+                    cmd.Parameters.AddWithValue("informPartner", journey.InformPartner);
+                    cmd.Parameters.AddWithValue("partnerEmail", journey.PartnerEmail);
+                    cmd.Parameters.AddWithValue("currentPage", journey.CurrentPage);
+                    cmd.Parameters.AddWithValue("contactNumber", journey.ContactNumber);
+                    cmd.Parameters.AddWithValue("yourStory", journey.YourStory);
+                    cmd.Parameters.AddWithValue("registered", journey.Registered);
+                    cmd.Parameters.AddWithValue("password", journey.Password);
+
+                    if (cmd.ExecuteNonQuery() != 0)
+                        return true;
+                    return false;
+                }
+            }
+        }
+
         public LoginResult Authenticate(string userName, string password)
         {
             LoginResult loginResult;
@@ -65,7 +104,7 @@ namespace EventaDors.DataManagement
 
             return loginResult;
         }
-
+        
         public User CreateUser(long userId)
         {
             User ret = null;
@@ -77,6 +116,56 @@ namespace EventaDors.DataManagement
                     cmd.Connection = cn;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("userId", userId);
+                    
+                    cn.Open();
+
+                    var dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        ret = new User(
+                            dr.GetString(dr.GetOrdinal("UserName")),
+                            dr.GetInt64(dr.GetOrdinal("id")),
+                            dr.GetDateTime(dr.GetOrdinal("Created")),
+                            dr.GetDateTime(dr.GetOrdinal("Modified")),
+                            dr.GetGuid(dr.GetOrdinal("uuid"))
+                        );
+
+                        ret.Verified = dr.GetBoolean(dr.GetOrdinal("Verified"));
+                        ret.UserKey = dr.GetGuid(dr.GetOrdinal("UserKey"));
+                        ret.CurrentPassword = dr.GetString(dr.GetOrdinal("Password"));
+
+                        if (dr.NextResult())
+                        {
+                            while (dr.Read())
+                            {
+                                MetaDataItem item = new MetaDataItem
+                                {
+                                    Name = dr.GetString(dr.GetOrdinal("name")),
+                                    Value = dr.GetString(dr.GetOrdinal("Value")),
+                                    Type = Enum.Parse<MetaDataType>( dr.GetString(dr.GetOrdinal("Type")))
+                                };
+                                
+                                ret.MetaData.Add(dr.GetString(dr.GetOrdinal("name")), item);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return ret;
+        }
+        public User CreateUser(string emailAddress)
+        {
+            User ret = null;
+            
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand("USER_LoadUserFromEmail"))
+                {
+                    cmd.Connection = cn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("emailAddress", emailAddress);
                     
                     cn.Open();
 
@@ -896,6 +985,28 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("dateTimeTo", to);
 
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateUserMetaData(User user)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn, "USER_UpdateMetaData"))
+                {
+                    cmd.Parameters.AddWithValue("userId", user.Id);
+                    cmd.Parameters.AddWithValue("name", string.Empty);
+                    cmd.Parameters.AddWithValue("value", string.Empty);
+                    cmd.Parameters.AddWithValue("type", string.Empty);
+                    foreach (string key in user.MetaData.Keys)
+                    {
+                        cmd.Parameters["name"].Value = user.MetaData[key].Name;
+                        cmd.Parameters["value"].Value = user.MetaData[key].Value;
+                        cmd.Parameters["type"].Value = user.MetaData[key].Type.ToString();
+
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
         }

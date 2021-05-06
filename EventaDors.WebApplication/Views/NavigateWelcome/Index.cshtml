@@ -1,4 +1,4 @@
-@model Journey
+@model EventaDors.Entities.Classes.Journey
 
 @{
     Layout = null;
@@ -13,6 +13,7 @@
 <body>
 <div>
     <h1>@Model.CurrentPage</h1>
+    <div>@Model.Email</div>
     <a asp-controller="NavigateLogin">Next>></a>
 </div>
 </body>

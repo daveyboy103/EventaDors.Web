@@ -1,4 +1,4 @@
-@model Journey
+@model EventaDors.Entities.Classes.Journey
 
 @{
     Layout = null;
@@ -14,7 +14,71 @@
 <div>
       
 </div>
-    <h1>@Model.CurrentPage<</h1>
-    <a asp-controller="NavigateRegister"><< Back</a> | <a asp-controller="NavigateChooseTemplate">Next>></a>
+<h1>@Model.CurrentPage</h1>
+<div>@Model.Email</div>
+<p>A bit of information about you and your partner.</p>
+<form method="post" asp-controller="NavigateFinish" asp-action="Index">
+    <table style="width: 100%">
+        <tbody>
+        <tr class="width: 30%" >
+            <td>
+                Title:
+            </td>
+            <td>
+                <input asp-for="Title" class="form-control">
+            </td>
+        </tr>
+        <tr class="width: 50%">
+            <td>
+                First Name:
+            </td>
+            <td>
+                <input asp-for="FirstName" class="form-control">
+            </td>
+        </tr> 
+        <tr>
+            <td>
+                Last Name:
+            </td>
+            <td>
+                <input asp-for="Surname" class="form-control">
+            </td>
+        </tr>        
+        <tr>
+            <td>
+                Post Code:
+            </td>
+            <td>
+                <input asp-for="PostalCode" class="form-control">
+            </td>
+        </tr>        
+        <tr>
+            <td>
+                Contact Number:
+            </td>
+            <td>
+                <input asp-for="ContactNumber" class="form-control">
+            </td>
+        </tr>     
+        <tr>
+            <td>
+                Partner Email:
+            </td>
+            <td>
+                <input asp-for="PartnerEmail" class="form-control">
+            </td>
+        </tr>        <tr>
+            <td>
+                Check the box to have us automatically email your partner with details about joining.
+            </td>
+            <td>
+                <input type="checkbox" asp-for="InformPartner" class="form-control">
+                <input type="hidden" asp-for="Email">
+                <input type="hidden" asp-for="Password">
+            </td>
+        </tr>
+        </table>
+        <a asp-controller="NavigateRegister"><< Back</a> | <input type="submit" value="Next>>">
+        </form>
 </body>
 </html>

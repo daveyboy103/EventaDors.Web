@@ -1,3 +1,4 @@
+using EventaDors.Entities.Classes;
 using EventaDors.WebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 

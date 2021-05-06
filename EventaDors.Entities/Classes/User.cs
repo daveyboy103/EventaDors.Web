@@ -19,6 +19,7 @@ namespace EventaDors.Entities.Classes
         public User(string userName, long id, DateTime created, DateTime modified, Guid uuid): this()
         {
             UserName = userName;
+            PrimaryEmail = userName;
             Id = id;
             Created = created;
             Modified = modified;

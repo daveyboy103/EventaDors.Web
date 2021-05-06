@@ -1,4 +1,4 @@
-@model Journey
+@model EventaDors.Entities.Classes.Journey
 
 @{
     Layout = null;
@@ -12,7 +12,17 @@
 </head>
 <body>
 <div>
-      <h1>@Model.CurrentPage</h1>
+    <h1>@Model.CurrentPage</h1>
+    <div>@Model.Email</div>
+    <form method="post" asp-controller="NavigateChooseTemplate">
+        <table style="width: 100%">
+            <tbody>
+            <td><textarea cols="100" rows="12" width="100%" type="text" asp-for="YourStory" ></textarea></td>
+            <input type="hidden" asp-for="Email"/>
+            <td valign="bottom"><input type="submit" class="btn btn-info w-100" value="Finish"></input></td>
+            </tbody>
+        </table>
+    </form>
 </div>
 </body>
 </html>

@@ -9,6 +9,9 @@ namespace EventaDors.WebApplication.Controllers
         public IActionResult Index()
         {
             SessionHelper.Context = HttpContext;
+            TempDataHelper.TempDataDictionary = TempData;
+            TempData.Clear();
+            
             return View();
         }
     }

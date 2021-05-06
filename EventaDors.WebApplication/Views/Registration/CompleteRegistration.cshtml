@@ -1,0 +1,20 @@
+@model LinkWrapper
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Registration Complete</title>
+</head>
+<body>
+<div>
+    <p>Registration complete</p>
+    <p>Please confirm your email to continue by clicking the link in the email sent to you</p>
+    <a href="@Model.Link">@Model.Text</a>
+</div>
+</body>
+</html>

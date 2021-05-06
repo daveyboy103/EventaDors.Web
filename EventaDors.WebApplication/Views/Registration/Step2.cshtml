@@ -1,0 +1,21 @@
+@model EventaDors.Entities.Classes.Journey
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Step 2</title>
+</head>
+<body>
+<div>
+        <form asp-action="Step3">
+            <input asp-for="Email">
+            <a href="javascript:history.back()"><< Back</a> |<input type="submit" value="Next>>">
+        </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+@model EventaDors.Entities.Classes.Journey
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Register</title>
+</head>
+<body>
+<div>
+      <form asp-action="CompleteRegistration">
+              <table style="width: 100%">
+                  <tr><td>Email Address:</td><td><input asp-for="Email"></td></tr>
+                  <tr><td>Choose Password</td><td><input type="password" asp-for="Password"></td></tr>
+              </table>
+              <input type="submit" value="Register">
+          </form>
+</div>
+</body>
+</html>

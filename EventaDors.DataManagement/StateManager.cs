@@ -11,6 +11,7 @@ namespace EventaDors.DataManagement
         {
             _connectionString = connectionString;
         }
+        
         public bool PutState(string stateKey, string key, string value)
         {
             using (var cn = new SqlConnection(_connectionString))
