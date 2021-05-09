@@ -1,0 +1,27 @@
+@model dynamic
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<title>Login Failed</title>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Data Maintenance</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/signalr/signalr.min.js"></script>
+</head>
+<body>
+<div>
+    <h2>Login Failed</h2>
+    <P>The system failed to log you in. <a asp-action="Index">Try again?</a> </P>
+    <p><a asp-action="Register">Not registered? Click here to register</a></p> 
+    <p><a asp-action="ForgotPassword">Forgotten you password? Click here to reset</a></p>
+</div>
+</body>
+</html>

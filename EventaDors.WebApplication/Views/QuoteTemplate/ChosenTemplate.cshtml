@@ -1,0 +1,56 @@
+@using EventaDors.Entities.Classes
+@model EventaDors.Entities.Classes.QuoteTemplate
+
+@{
+    Layout = "_Layout";;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Chosen Template</title>
+</head>
+<body>
+<div>
+    @if (Model != null)
+        {
+            <h2>Chosen Template is [@Model.Name]</h2>
+        }
+    <p>If there is an event you wish to exclude from your event simply uncheck the box next to the item.</p>
+    <p> These items can also be added and removed later if required so feel free to simply take them all at this stage.</p>
+    <form asp-action="ProcessTemplate">
+        <table class="table-bordered table-striped" style="width:100%">
+            <tr></tr><tr><input type="submit" value="Generate" class="btn btn-info w-100"/></tr>
+            @foreach (var evt in Model.Events)
+            {
+                <tr>
+                    <td>
+                        <h3>@evt.Event.Name</h3></td><td><input checked="checked" type="checkbox" value="true" name="Event_@evt.Id" id="Event_@evt.Id"/></td></tr>
+                @if (evt.Elements.Count > 0)
+                {
+                    foreach (QuoteElement quoteElement in evt.Elements)
+                    {
+                        <tr><td></td>
+                            <td>
+                                <table class="table-bordered table-striped" style="width:100%">
+                                    <tr>
+
+                                        <td>
+                                            <input type="checkbox" checked="checked" id="Event_@evt.Id|Element_@quoteElement.Id" name="Event_@evt.Id|Element_@quoteElement.Id"/>
+                                            <label for="@quoteElement.Id">@quoteElement.Name (@quoteElement.Id)</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </table>
+        <input type="hidden" name="TemplateId" value="@Model.Id"/>
+    </form>
+    <a href="javascript:history.back()"><< Back</a>
+</div>
+</body>
+</html>

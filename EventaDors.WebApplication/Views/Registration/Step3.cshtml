@@ -1,21 +1,45 @@
-@model EventaDors.Entities.Classes.Journey
+@model  EmailPayloadWrapper<IEnumerable<EventaDors.Entities.Classes.QuoteTemplate>>
+
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
 
 <html>
-<head>
-    <title>Step 3</title>
-</head>
+
+    <title>Choose Template</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Data Maintenance</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <script src="~/lib/signalr/signalr.min.js"></script>
+    </head>
+
 <body>
 <div>
-          <form asp-action="Step4">
-              <input asp-for="Email">
-              <a href="javascript:history.back()"><< Back</a> | <input type="submit" value="Next>>">
-          </form>
+    <table class="table-bordered table-striped" style="width:100%">
+            <thead>
+            <tr><td><b>Template Name</b></td><td><b>Event</b></td></tr>
+            </thead>
+            <tbody>
+            @foreach (var template in Model.Payload)
+            {
+                <tr><td>@template.Name</td><td></td></tr>
+                @foreach (var e in template.Events)
+                {
+                    <tr><td align="right">-</td><td><a href="~/QuoteTemplate/Index?id=@e.Id">@e.Event.Name</a></td></tr>
+                }
+                <tr><td></td><td><a class="btn btn-info w-100" asp-action="ChosenTemplate" asp-controller="QuoteTemplate" asp-route-id="@template.Id">Select [@template.Name]...</a></td></tr>
+            }
+            <tr><td></td><td><</td></tr>
+            </tbody>
+        </table>
+        <input asp-for="Email">
+        <a href="javascript:history.back()"><< Back</a> 
 </div>
 </body>
 </html>

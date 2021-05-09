@@ -7,14 +7,57 @@ namespace EventaDors.Entities.Classes
     {
         public QuoteTemplate()
         {
-            Elements = new List<QuoteElement>();
+            Events = new List<QuoteTemplateEvent>();
         }
 
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Notes { get; set; }
+        public string Link { get; set; }
         public QuoteType Type { get; set; }
+        public QuoteSubType SubType { get; set; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
+        public IList<QuoteTemplateEvent> Events { get; }
+
+        public override string ToString()
+        {
+            return $"{Name} - {Events.Count} Events";
+        }
+    }
+
+    public class QuoteTemplateEvent
+    {
+        public QuoteTemplateEvent()
+        {
+            Elements = new List<QuoteElement>();
+        }
+        public int Id { get; set; }
+        public int Order { get; set; }
+        public Event Event { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
+        
+        public bool Exclude { get; set; }
         public IList<QuoteElement> Elements { get; }
+
+        public override string ToString()
+        {
+            return $"{Event.Name} - {Order}";
+        }
+    }
+
+    public class Event
+    {
+        public string Name { get; set; }
+        public string Notes { get; set; }
+        public string Link { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -49,6 +49,7 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("yourStory", journey.YourStory);
                     cmd.Parameters.AddWithValue("registered", journey.Registered);
                     cmd.Parameters.AddWithValue("password", journey.Password);
+                    cmd.Parameters.AddWithValue("completed", journey.Completed);
 
                     if (cmd.ExecuteNonQuery() != 0)
                         return true;
@@ -1007,6 +1008,135 @@ namespace EventaDors.DataManagement
 
                         cmd.ExecuteNonQuery();
                     }
+                }
+            }
+        }
+
+        public IEnumerable<QuoteTemplate> GetQuoteTemplates(int? id = null)
+        {
+            var ret = new List<QuoteTemplate>();
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn, "QUOTE_GetQuoteTemplates"))
+                {
+                    if (id.HasValue)
+                    {
+                        cmd.Parameters.AddWithValue("templateID", id);
+                    }
+                    
+                    var dr = cmd.ExecuteReader();
+
+                    int templateId = 0;
+                    QuoteTemplate template = null;
+                    while (dr.Read())
+                    {
+                        int newTemplateid = dr.GetInt32(dr.GetOrdinal("TemplateId"));
+
+                        if (newTemplateid != templateId)
+                        {
+                            if (template != null)
+                            {
+                                ret.Add(template);
+                            }
+                            
+                            templateId = newTemplateid;
+                            template = new QuoteTemplate
+                            {
+                                Id = templateId,
+                                Created = dr.GetDateTime(dr.GetOrdinal("TemplateCreated")),
+                                Modified = dr.GetDateTime(dr.GetOrdinal("TemplateModified")),
+                                Name = dr.GetString(dr.GetOrdinal("TemplateName")),
+                                Notes = GetSafeString(dr, "TemplateNotes"),
+                                Link = GetSafeString(dr, "TemplateNotes"),
+                                Type = new QuoteType
+                                {
+                                    Id = dr.GetInt32(dr.GetOrdinal("QuoteTypeid")),
+                                    Name = dr.GetString(dr.GetOrdinal("QuoteTypeName")),
+                                    Notes = GetSafeString(dr, "QuoteTypeNotes"),
+                                    Link = GetSafeString(dr, "QuoteTypeLink"),
+                                    Modified = dr.GetDateTime(dr.GetOrdinal("QuoteTypeModified")),
+                                    Created = dr.GetDateTime(dr.GetOrdinal("QuoteTypeCreated")),
+                                },
+                                SubType = new QuoteSubType
+                                {
+                                    Id = dr.GetInt32(dr.GetOrdinal("QuoteSubTypeid")),
+                                    Name = dr.GetString(dr.GetOrdinal("QuoteSubTypeName")),
+                                    Notes = GetSafeString(dr, "QuoteSubTypeNotes"),
+                                    Link = GetSafeString(dr, "QuoteSubTypeLink"),
+                                    Modified = dr.GetDateTime(dr.GetOrdinal("QuoteSubTypeModified")),
+                                    Created = dr.GetDateTime(dr.GetOrdinal("QuoteSubTypeCreated")),
+                                }
+                            };
+                            
+                        }
+                        template.Events.Add(new QuoteTemplateEvent
+                        {
+                            Id = dr.GetInt32(dr.GetOrdinal("QuoteTemplateEventId")),
+                            Created = dr.GetDateTime(dr.GetOrdinal("EventCreated")),
+                            Modified = dr.GetDateTime(dr.GetOrdinal("EventModified")),
+                            Order = dr.GetInt32(dr.GetOrdinal("EventOrder")),
+                            Event = new Event
+                            {
+                                Name = dr.GetString("EventName"),
+                                Link = GetSafeString(dr, "EventLink"),
+                                Created = dr.GetDateTime(dr.GetOrdinal("EventCreated")),
+                                Modified = dr.GetDateTime(dr.GetOrdinal("EventModified")),
+                            }
+                        });
+                    }
+                    
+                    ret.Add(template);
+                }
+            }
+
+            return ret;
+        }
+
+        public QuoteTemplateEvent GetQuoteTemplateEvent(int quoteTemplateEventId)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using(var cmd = GetCommand(cn,"QUOTE_LoadQuoteTemplateEvent"))
+                {
+                    cmd.Parameters.AddWithValue("quoteTemplateEventId", quoteTemplateEventId);
+
+                    var dr = cmd.ExecuteReader();
+                    int quoteRequestEventId = 0;
+                    QuoteTemplateEvent ret = null;
+
+                    while (dr.Read())
+                    {
+                        if (dr.GetInt32(dr.GetOrdinal("QuoteTemplateEventId")) != quoteRequestEventId)
+                        {
+                            quoteRequestEventId = dr.GetInt32(dr.GetOrdinal("QuoteTemplateEventId"));
+                            ret = new QuoteTemplateEvent
+                            {
+                                Id = dr.GetInt32(dr.GetOrdinal("QuoteTemplateEventId")),
+                                Event = new Event
+                                {
+                                    Name = dr.GetString(dr.GetOrdinal("EventName")),
+                                    Link = GetSafeString(dr, "EventLink"),
+                                    Notes = GetSafeString(dr, "EventNotes"),
+                                    Created = dr.GetDateTime(dr.GetOrdinal("EventCreated")),
+                                    Modified = dr.GetDateTime(dr.GetOrdinal("EventModified"))
+                                },
+                                Created = dr.GetDateTime(dr.GetOrdinal("EventCreated")),
+                                Modified = dr.GetDateTime(dr.GetOrdinal("EventModified"))
+                            };
+                        }
+
+                        if (dr["ElementName"] != DBNull.Value)
+                        {
+                            ret.Elements.Add(new QuoteElement
+                            {
+                                Name = dr.GetString(dr.GetOrdinal("ElementName")),
+                                Notes = GetSafeString(dr,"ElementNotes"),
+                                Id = dr.GetInt32(dr.GetOrdinal("ElementId"))
+                            });
+                        }
+                    }
+
+                    return ret;
                 }
             }
         }

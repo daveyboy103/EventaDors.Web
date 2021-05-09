@@ -3,7 +3,8 @@ using System.Data;
 
 namespace EventaDors.Entities.Classes
 {
-    public class Journey
+    public class 
+        Journey
     {
         public Journey()
         {
@@ -55,7 +56,10 @@ namespace EventaDors.Entities.Classes
                     YourStory = dr.GetString(dr.GetOrdinal("YourStory"));
                 
                 if (dr["Registered"] != DBNull.Value)
-                    Registered = dr.GetBoolean(dr.GetOrdinal("Registered"));
+                    Registered = dr.GetBoolean(dr.GetOrdinal("Registered"));                
+                
+                if (dr["Completed"] != DBNull.Value)
+                    Completed = dr.GetDateTime(dr.GetOrdinal("Completed"));
             }
         }
         public User User { get; set; }
@@ -83,5 +87,7 @@ namespace EventaDors.Entities.Classes
             string.IsNullOrEmpty(ContactNumber) &&
             !EventDate.HasValue &&
             string.IsNullOrEmpty(PartnerEmail);
+
+        public DateTime? Completed { get; set; }
     }
 }

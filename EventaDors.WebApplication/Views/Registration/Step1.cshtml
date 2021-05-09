@@ -1,28 +1,38 @@
 @model EventaDors.Entities.Classes.Journey
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
 
 <html>
-<head>
-    <title>Step 1</title>
-</head>
+
+    <title>Additional Information1</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Data Maintenance</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <script src="~/lib/signalr/signalr.min.js"></script>
+    </head>
+
 <body>
 <div>
+    <h2>Some Additional Information</h2>
+    <p>We need a small amount of additional information from you to complete your registration.</p>
     <form asp-action="Step2">
         <table>
-            <tr><td>Event Date</td><td><input asp-for="EventDate"></td></tr>
-            <tr><td>Title</td><td><input asp-for="Title"></td></tr>
-            <tr><td>First Name</td><td><input asp-for="FirstName"></td></tr>
-            <tr><td>Surame</td><td><input asp-for="Surname"></td></tr>
-            <tr><td>Postcode</td><td><input asp-for="PostalCode"></td></tr>
-            <tr><td>Contact Number</td><td><input asp-for="ContactNumber"></td></tr>
-            <tr><td>Partner Email</td><td><input asp-for="PartnerEmail"></td></tr>
-            <tr><td>Inform Partner?</td><td><input type="checkbox" asp-for="InformPartner"></td></tr>
-            <tr><td>Tell us a bit about yourself</td><td><textarea rows="12" >@Model.YourStory</textarea></td></tr>
+            <tr><td>Event Date</td><td><input asp-for="EventDate" class="form-control"></td></tr>
+            <tr><td>Title</td><td><input asp-for="Title" class="form-control"></td></tr>
+            <tr><td>First Name</td><td><input asp-for="FirstName" class="form-control"></td></tr>
+            <tr><td>Surame</td><td><input asp-for="Surname" class="form-control"></td></tr>
+            <tr><td>Postcode</td><td><input asp-for="PostalCode" class="form-control"></td></tr>
+            <tr><td>Contact Number</td><td><input asp-for="ContactNumber" class="form-control"></td></tr>
+            <tr><td>Partner Email</td><td><input asp-for="PartnerEmail" class="form-control"></td></tr>
+            <tr><td>Inform Partner?</td><td><input type="checkbox" asp-for="InformPartner" class="form-control"></td></tr>
+            <tr><td>Tell us a bit about yourself</td><td><textarea id="YourStory" name="YourStory" rows="12" class="form-control">@Model.YourStory</textarea></td></tr>
         </table>
         <input asp-for="Email">
         <a asp-action="Index"><< Back</a> | <input type="submit" value="Next>>">

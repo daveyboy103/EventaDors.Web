@@ -1,21 +1,32 @@
 @model EventaDors.Entities.Classes.Journey
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
 
 <html>
-<head>
-    <title>Step 2</title>
-</head>
+
+    <title>Registration Completed</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Data Maintenance</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <script src="~/lib/signalr/signalr.min.js"></script>
+    </head>
+
 <body>
 <div>
-        <form asp-action="Step3">
-            <input asp-for="Email">
-            <a href="javascript:history.back()"><< Back</a> |<input type="submit" value="Next>>">
-        </form>
+    <h2>Registration Completed</h2>
+    <p>Regitration process completed successfully</p>
+    <p>The next step in the proces is to select the wedding template that most closely matches your event so that we can populate the app with a set of tasks you need to complete
+        for a successful event.</p>
+    <p>Clikc the <b>Next</b> button to view the available templates.</p>
+    <a href="javascript:history.back()"><< Back</a> | <a asp-action="Index" asp-controller="QuoteTemplate">Next >></a>
+
 </div>
 </body>
 </html>

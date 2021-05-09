@@ -8,6 +8,12 @@ namespace EventaDors.WebApplication.Models
         public T Single { get; set; }
     }
 
+    public class EmailPayloadWrapper<T>
+    {
+        public T Payload { get; set; }
+        public string Email { get; set; }
+    }
+
     public class LinkWrapper
     {
         public string Text { get; set; }
