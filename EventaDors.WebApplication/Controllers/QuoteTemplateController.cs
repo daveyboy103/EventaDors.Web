@@ -55,7 +55,7 @@ namespace EventaDors.WebApplication.Controllers
             var templateId = int.Parse(Request.Form["TemplateId"]);
             var quoteRequest = _wrapper.CreateRequestFromTemplate(templateId, user.Id, attendance, journey.EventDate);
             
-            return View();
+            return View(quoteRequest);
         }
     }
 }

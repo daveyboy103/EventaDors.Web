@@ -2,7 +2,7 @@ using System;
 
 namespace EventaDors.Entities.Classes
 {
-    public class Chat
+    public class Chat : CreatedModifiedBase
     {
         public string Message { get; set; }
         public User Sender { get; set; }

@@ -4,7 +4,7 @@ using EventaDors.Entities.Interfaces;
 
 namespace EventaDors.Entities.Classes
 {
-    public abstract class MetaDataSupport
+    public abstract class MetaDataSupport : CreatedModifiedBase
     {
         protected MetaDataSupport()
         {
@@ -14,7 +14,7 @@ namespace EventaDors.Entities.Classes
         public IDictionary<string, MetaDataItem> MetaData { get; }
     }
 
-    public class MetaDataItem
+    public class MetaDataItem : CreatedModifiedBase
     {
         public string Name { get; set; }
         public string Value { get; set; }
@@ -26,7 +26,5 @@ namespace EventaDors.Entities.Classes
         /// </summary>
         public bool MandatoryWhenUsed { get; set; }
         public MetaDataType Type { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
     }
 }

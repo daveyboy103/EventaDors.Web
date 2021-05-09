@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using EventaDors.Entities.Classes;
 using EventaDors.Entities.Interfaces;
 
@@ -105,11 +105,11 @@ namespace EventaDors.DataManagement
 
             return loginResult;
         }
-        
+
         public User CreateUser(long userId)
         {
             User ret = null;
-            
+
             using (var cn = new SqlConnection(_connectionString))
             {
                 using (var cmd = new SqlCommand("USER_LoadUser"))
@@ -117,7 +117,7 @@ namespace EventaDors.DataManagement
                     cmd.Connection = cn;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("userId", userId);
-                    
+
                     cn.Open();
 
                     var dr = cmd.ExecuteReader();
@@ -137,29 +137,28 @@ namespace EventaDors.DataManagement
                         ret.CurrentPassword = dr.GetString(dr.GetOrdinal("Password"));
 
                         if (dr.NextResult())
-                        {
                             while (dr.Read())
                             {
-                                MetaDataItem item = new MetaDataItem
+                                var item = new MetaDataItem
                                 {
                                     Name = dr.GetString(dr.GetOrdinal("name")),
                                     Value = dr.GetString(dr.GetOrdinal("Value")),
-                                    Type = Enum.Parse<MetaDataType>( dr.GetString(dr.GetOrdinal("Type")))
+                                    Type = Enum.Parse<MetaDataType>(dr.GetString(dr.GetOrdinal("Type")))
                                 };
-                                
+
                                 ret.MetaData.Add(dr.GetString(dr.GetOrdinal("name")), item);
                             }
-                        }
                     }
                 }
             }
 
             return ret;
         }
+
         public User CreateUser(string emailAddress)
         {
             User ret = null;
-            
+
             using (var cn = new SqlConnection(_connectionString))
             {
                 using (var cmd = new SqlCommand("USER_LoadUserFromEmail"))
@@ -167,7 +166,7 @@ namespace EventaDors.DataManagement
                     cmd.Connection = cn;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("emailAddress", emailAddress);
-                    
+
                     cn.Open();
 
                     var dr = cmd.ExecuteReader();
@@ -187,19 +186,17 @@ namespace EventaDors.DataManagement
                         ret.CurrentPassword = dr.GetString(dr.GetOrdinal("Password"));
 
                         if (dr.NextResult())
-                        {
                             while (dr.Read())
                             {
-                                MetaDataItem item = new MetaDataItem
+                                var item = new MetaDataItem
                                 {
                                     Name = dr.GetString(dr.GetOrdinal("name")),
                                     Value = dr.GetString(dr.GetOrdinal("Value")),
-                                    Type = Enum.Parse<MetaDataType>( dr.GetString(dr.GetOrdinal("Type")))
+                                    Type = Enum.Parse<MetaDataType>(dr.GetString(dr.GetOrdinal("Type")))
                                 };
-                                
+
                                 ret.MetaData.Add(dr.GetString(dr.GetOrdinal("name")), item);
                             }
-                        }
                     }
                 }
             }
@@ -242,7 +239,7 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("TemplateId", templateId);
                     cmd.Parameters.AddWithValue("Attendees", attendees);
                     cmd.Parameters.AddWithValue("OwnerId", userId);
-                    cmd.Parameters.AddWithValue("DueDate", dueDate.Value);
+                    if (dueDate != null) cmd.Parameters.AddWithValue("DueDate", dueDate.Value);
                     cmd.Parameters.Add(ReturnParamName, SqlDbType.Int);
                     cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
                     cn.Open();
@@ -270,7 +267,7 @@ namespace EventaDors.DataManagement
             if (cn.State == ConnectionState.Closed)
                 cn.Open();
 
-            using (var cmdFetch = GetCommand(cn,"QUOTE_LoadQuote"))
+            using (var cmdFetch = GetCommand(cn, "QUOTE_LoadQuote"))
             {
                 cmdFetch.Parameters.AddWithValue("QuoteIdIdentity", quoteId);
 
@@ -286,6 +283,7 @@ namespace EventaDors.DataManagement
                         DueDate = GetSafeDate(dr, "DueDate"),
                         Created = dr.GetDateTime(dr.GetOrdinal("Created")),
                         Modified = dr.GetDateTime(dr.GetOrdinal("Modified")),
+                        Attendees = dr.GetInt32(dr.GetOrdinal("Attendees")),
                         Type = new QuoteType
                         {
                             Name = dr.GetString(dr.GetOrdinal("QuoteTypeName")),
@@ -297,35 +295,89 @@ namespace EventaDors.DataManagement
                             Name = dr.GetString(dr.GetOrdinal("QuoteSubTypeName")),
                             Notes = GetSafeString(dr, "QuoteSubTypeNotes"),
                             Link = GetSafeString(dr, "QuoteSubTypeLink")
+                        },
+                        Owner = new User
+                        {
+                            Id = dr.GetInt32(dr.GetOrdinal("UserId")),
+                            UserName = dr.GetString(dr.GetOrdinal("UserName")),
+                            PrimaryEmail = dr.GetString(dr.GetOrdinal("UserEmail")),
+                            Uuid = dr.GetGuid(dr.GetOrdinal("UserUuid")),
+                            UserKey = dr.GetGuid(dr.GetOrdinal("UserKey"))
                         }
                     };
 
                 if (dr.NextResult())
                     while (dr.Read())
                     {
-                        var quoteRequestElement = new QuoteRequestElement
+                        var quoteRequestEvent = new QuoteRequestEvent
                         {
-                            Type = new QuoteElementType
+                            Id = dr.GetInt32(dr.GetOrdinal("EventId")),
+                            QuoteId = dr.GetGuid(dr.GetOrdinal("QuoteId")),
+                            Attendees = GetSafeInt(dr, "Attendees"),
+                            Created = dr.GetDateTime("Created"),
+                            Modified = dr.GetDateTime("Modified"),
+                            Event = new Event
                             {
-                                Name = dr.GetString(dr.GetOrdinal("QuoteElementType")),
-                                Notes = GetSafeString(dr, "QuoteElementNotes"),
-                                Id = dr.GetInt32(dr.GetOrdinal("QuoteRequestElementId"))
+                                Name = dr.GetString(dr.GetOrdinal("EventName")),
+                                Notes = GetSafeString(dr, "EventNotes"),
+                                Created = dr.GetDateTime("EventCreated"),
+                                Modified = dr.GetDateTime("EventModified"),
+                                Link = GetSafeString(dr, "EventLink")
                             },
-                            Id = dr.GetInt32(dr.GetOrdinal("QuoteRequestElementId")),
-                            Name = dr.GetString(dr.GetOrdinal("QuoteElementType")),
-                            Quantity = dr.GetInt32(dr.GetOrdinal("Quantity")),
-                            Budget = GetSafeDbl(dr, "Budget"),
-                            BudgetTolerance = GetSafeDbl(dr, "BudgetTolerance"),
-                            Created = dr.GetDateTime(dr.GetOrdinal("QuoteRequestElementCreated")),
-                            Modified = dr.GetDateTime(dr.GetOrdinal("QuoteRequestElementCreated")),
-                            Exclude = dr.GetBoolean(dr.GetOrdinal("QuoteRequestElementExclude")),
-                            Submitted = GetSafeDate(dr, "QuoteRequestElementSubmitted"),
-                            DueDate = GetSafeDate(dr, "DueDate"),
+                            EventDate = dr.GetDateTime("EventDate"),
+                            Exclude = dr.GetBoolean(dr.GetOrdinal("Exclude")),
                             LeadWeeks = GetSafeInt(dr, "LeadWeeks"),
-                            Completed = dr.GetBoolean(dr.GetOrdinal("Completed"))
+                            Order = dr.GetInt32(dr.GetOrdinal("EventOrder"))
                         };
 
-                        ret?.Elements.Add(quoteRequestElement);
+                        if (dr["VenueId"] != DBNull.Value)
+                        {
+                            var venue = new Venue
+                            {
+                                Id = dr.GetInt32(dr.GetOrdinal("VenueId")),
+                                Name = GetSafeString(dr, "VenueName"),
+                                Address1 = GetSafeString(dr, "Address1"),
+                                Address2 = GetSafeString(dr, "Address2"),
+                                Address3 = GetSafeString(dr, "Address3"),
+                                PostTown = GetSafeString(dr, "PostTown"),
+                                PostCode = GetSafeString(dr, "PostCode"),
+                                Country = GetSafeString(dr, "Country"),
+                                ContactNumber = GetSafeString(dr, "ContactNumber"),
+                                MapLink = GetSafeString(dr, "MapLink"),
+                                SiteLink = GetSafeString(dr, "SiteLink"),
+                                Created = dr.GetDateTime(dr.GetOrdinal("Created")),
+                                Modified = dr.GetDateTime(dr.GetOrdinal("Modified"))
+                            };
+
+                            quoteRequestEvent.Venue = venue;
+                        }
+
+                        ret.Events.Add(quoteRequestEvent);
+                    }
+
+                if (dr.NextResult())
+                    while (dr.Read())
+                    {
+                        if (ret != null)
+                        {
+                            var quoteRequestElement = new QuoteRequestElement
+                            {
+                                Id = dr.GetInt32(dr.GetOrdinal("Id")),
+                                Parent = ret.Events.First(x => x.Id == dr.GetInt32(dr.GetOrdinal("EventId"))),
+                                Name = dr.GetString(dr.GetOrdinal("Name")),
+                                Notes = GetSafeString(dr, "Notes"),
+                                Budget = (decimal) dr.GetSqlMoney(dr.GetOrdinal("Budget")),
+                                BudgetTolerance = GetSafeDbl(dr, "BudgetTolerance"),
+                                Completed = dr.GetBoolean("Completed"),
+                                Created = dr.GetDateTime(dr.GetOrdinal("Created")),
+                                Modified = dr.GetDateTime(dr.GetOrdinal("Modified")),
+                                DueDate = GetSafeDate(dr, "DueDate"),
+                                Exclude = dr.GetBoolean(dr.GetOrdinal("Exclude")),
+                                UnderlyingElementNotes = GetSafeString(dr, "QuoteElementNotes")
+                            };
+
+                            quoteRequestElement.Parent.Elements.Add(quoteRequestElement);
+                        }
                     }
             }
 
@@ -353,6 +405,13 @@ namespace EventaDors.DataManagement
             return null;
         }
 
+        private decimal? GetSafeDecimal(SqlDataReader dr, string fieldName)
+        {
+            if (dr[fieldName] != DBNull.Value)
+                return dr.GetDecimal(dr.GetOrdinal(fieldName));
+            return null;
+        }
+
         private static string GetSafeString(SqlDataReader dr, string fieldName)
         {
             if (dr[fieldName] != DBNull.Value)
@@ -364,7 +423,7 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"USER_RegisterUser"))
+                using (var cmd = GetCommand(cn, "USER_RegisterUser"))
                 {
                     cmd.Parameters.AddWithValue("UserName", user.UserName);
                     cmd.Parameters.AddWithValue("Email", user.PrimaryEmail);
@@ -406,7 +465,7 @@ namespace EventaDors.DataManagement
             {
                 using (var cn = new SqlConnection(_connectionString))
                 {
-                    using (var cmd = GetCommand(cn,"USER_VerfyAccount"))
+                    using (var cmd = GetCommand(cn, "USER_VerfyAccount"))
                     {
                         cmd.Parameters.AddWithValue("uuid", guid);
                         cmd.ExecuteNonQuery();
@@ -442,7 +501,7 @@ namespace EventaDors.DataManagement
 
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"QUOTE_GetDeadline"))
+                using (var cmd = GetCommand(cn, "QUOTE_GetDeadline"))
                 {
                     cmd.Parameters.AddWithValue("QuoteIdIdentity", quoteIdIdentity);
                     cmd.Parameters.AddWithValue("AlarmThreshold", alarmThreshold);
@@ -456,7 +515,7 @@ namespace EventaDors.DataManagement
                         var quoteRequestElementIdOrdinal = dr.GetOrdinal("QuoteRequestElementId");
                         var requestsOrdinal = dr.GetOrdinal("Responses");
                         var chatsOrdinal = dr.GetOrdinal("Chats");
-                        
+
                         var deadline = new Deadline
                         {
                             Name = dr.GetString(nameOrdinal),
@@ -465,7 +524,7 @@ namespace EventaDors.DataManagement
                             Status = dr.GetString(statusOrdinal),
                             QuoteRequestElementId = dr.GetInt32(quoteRequestElementIdOrdinal),
                             Responses = dr.GetInt32(requestsOrdinal),
-                            Submitted = GetSafeDate(dr,"Submitted"),
+                            Submitted = GetSafeDate(dr, "Submitted"),
                             Chats = dr.GetInt32(chatsOrdinal)
                         };
 
@@ -481,7 +540,7 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"QUOTE_PickupQuoteRequestItem"))
+                using (var cmd = GetCommand(cn, "QUOTE_PickupQuoteRequestItem"))
                 {
                     cmd.Parameters.AddWithValue("quoteRequestElementId", response.ParentElement.Id);
                     cmd.Parameters.AddWithValue("userId", response.Owner.Id);
@@ -516,7 +575,7 @@ namespace EventaDors.DataManagement
             {
                 using (var cn = new SqlConnection(_connectionString))
                 {
-                    using (var cmd = GetCommand(cn,"USER_AssignToQuoteElement"))
+                    using (var cmd = GetCommand(cn, "USER_AssignToQuoteElement"))
                     {
                         cmd.Parameters.AddWithValue("userId", userId);
                         cmd.Parameters.AddWithValue("quoteElementId", quoteElementId);
@@ -541,12 +600,12 @@ namespace EventaDors.DataManagement
             {
                 using (var cn = new SqlConnection(_connectionString))
                 {
-                    using (var cmd = GetCommand(cn,"USER_AssignToQuoteElementType"))
+                    using (var cmd = GetCommand(cn, "USER_AssignToQuoteElementType"))
                     {
                         cmd.Parameters.AddWithValue("userId", userId);
                         cmd.Parameters.AddWithValue("quoteElementId", quoteElementTypeId);
                         cmd.Parameters.AddWithValue("active", active);
-                        
+
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -564,7 +623,7 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"STATIC_AddUpdateQuoteElement"))
+                using (var cmd = GetCommand(cn, "STATIC_AddUpdateQuoteElement"))
                 {
                     cmd.Parameters.AddWithValue("id", quoteElement.Id);
                     cmd.Parameters.AddWithValue("name", quoteElement.Name);
@@ -580,7 +639,7 @@ namespace EventaDors.DataManagement
 
                     cmd.ExecuteNonQuery();
 
-                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString() ?? string.Empty);
+                    var id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString() ?? string.Empty);
 
                     quoteElement = LoadQuoteElement(id);
                 }
@@ -594,34 +653,31 @@ namespace EventaDors.DataManagement
             QuoteElement ret = null;
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"STATIC_LoadQuoteElement"))
+                using (var cmd = GetCommand(cn, "STATIC_LoadQuoteElement"))
                 {
                     cmd.Parameters.AddWithValue("id", id);
 
                     var dr = cmd.ExecuteReader();
 
                     while (dr.Read())
-                    {
                         ret = new QuoteElement
                         {
                             Name = dr.GetString(dr.GetOrdinal("Name")),
-                            Notes = GetSafeString(dr,"Notes"),
+                            Notes = GetSafeString(dr, "Notes"),
                             BudgetTolerance = dr.GetDouble(dr.GetOrdinal("BudgetTolerance")),
                             Quantity = dr.GetInt32(dr.GetOrdinal("Quantity")),
                             LeadWeeks = dr.GetInt32(dr.GetOrdinal("LeadWeeks")),
                             InheritTopLevelQuantity = dr.GetBoolean(dr.GetOrdinal("InheritTopLevelQuantity")),
                             Type = new QuoteElementType()
                             {
-                                Notes = GetSafeString(dr,"ElementTypeNotes"),
+                                Notes = GetSafeString(dr, "ElementTypeNotes"),
                                 Name = dr.GetString(dr.GetOrdinal("ElementTypeName")),
-                                Link = GetSafeString(dr,"ElementTypeLink"),
+                                Link = GetSafeString(dr, "ElementTypeLink"),
                                 Id = dr.GetInt32(dr.GetOrdinal("ElementTypeId"))
                             }
                         };
-                    }
 
                     if (dr.NextResult())
-                    {
                         while (dr.Read())
                         {
                             var metaData = new MetaDataItem
@@ -634,9 +690,8 @@ namespace EventaDors.DataManagement
                                 MandatoryWhenUsed = dr.GetBoolean(dr.GetOrdinal("MandatoryWhenUsed"))
                             };
 
-                            ret.MetaData.Add(metaData.Name, metaData);
+                            ret?.MetaData.Add(metaData.Name, metaData);
                         }
-                    }
                 }
             }
 
@@ -647,7 +702,7 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"STATIC_AddUpdateQuoteElementType"))
+                using (var cmd = GetCommand(cn, "STATIC_AddUpdateQuoteElementType"))
                 {
                     cmd.Parameters.AddWithValue("id", quoteElementType.Id);
                     cmd.Parameters.AddWithValue("name", quoteElementType.Name);
@@ -658,7 +713,7 @@ namespace EventaDors.DataManagement
 
                     cmd.ExecuteNonQuery();
 
-                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
+                    var id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString() ?? string.Empty);
                     quoteElementType.Id = id;
                 }
             }
@@ -670,7 +725,7 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"STATIC_AddUpdateQuoteType"))
+                using (var cmd = GetCommand(cn, "STATIC_AddUpdateQuoteType"))
                 {
                     cmd.Parameters.AddWithValue("id", quoteType.Id);
                     cmd.Parameters.AddWithValue("name", quoteType.Name);
@@ -681,7 +736,7 @@ namespace EventaDors.DataManagement
 
                     cmd.ExecuteNonQuery();
 
-                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
+                    var id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
                     quoteType.Id = id;
                 }
             }
@@ -693,7 +748,7 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"STATIC_AddUpdateQuoteSubType"))
+                using (var cmd = GetCommand(cn, "STATIC_AddUpdateQuoteSubType"))
                 {
                     cmd.Parameters.AddWithValue("id", quoteSubType.Id);
                     cmd.Parameters.AddWithValue("name", quoteSubType.Name);
@@ -704,7 +759,7 @@ namespace EventaDors.DataManagement
 
                     cmd.ExecuteNonQuery();
 
-                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
+                    var id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
                     quoteSubType.Id = id;
                 }
             }
@@ -726,7 +781,7 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"USER_CreateNewUser"))
+                using (var cmd = GetCommand(cn, "USER_CreateNewUser"))
                 {
                     cmd.Parameters.AddWithValue("userName", user.UserName);
                     cmd.Parameters.AddWithValue("email", user.PrimaryEmail);
@@ -736,7 +791,7 @@ namespace EventaDors.DataManagement
 
                     cmd.ExecuteNonQuery();
 
-                    long userId = long.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
+                    var userId = long.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
 
                     return userId;
                 }
@@ -747,7 +802,7 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"STATIC_AddUpdateQuoteElementToQuoteRequest"))
+                using (var cmd = GetCommand(cn, "STATIC_AddUpdateQuoteElementToQuoteRequest"))
                 {
                     cmd.Parameters.AddWithValue("quoteId", quoteElement.QuoteId);
                     cmd.Parameters.AddWithValue("quoteElementId", quoteElement.Id);
@@ -765,7 +820,7 @@ namespace EventaDors.DataManagement
                     cn.Open();
 
                     cmd.ExecuteNonQuery();
-                    int id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
+                    var id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
                 }
             }
 
@@ -777,14 +832,14 @@ namespace EventaDors.DataManagement
             IList<User> ret = new List<User>();
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"STATIC_ListUsers"))
+                using (var cmd = GetCommand(cn, "STATIC_ListUsers"))
                 {
                     var dr = cmd.ExecuteReader();
 
-                    
+
                     while (dr.Read())
                     {
-                        User u = new User(
+                        var u = new User(
                             dr.GetString(dr.GetOrdinal("UserName")),
                             dr.GetInt64(dr.GetOrdinal("Id")),
                             dr.GetDateTime(dr.GetOrdinal("Created")),
@@ -807,7 +862,7 @@ namespace EventaDors.DataManagement
                 Connection = cn,
                 CommandType = CommandType.StoredProcedure
             };
-            
+
             if (cn.State == ConnectionState.Closed)
                 cn.Open();
 
@@ -817,18 +872,18 @@ namespace EventaDors.DataManagement
         public IList<QuoteRequest> GetRequestsForUser(int userId)
         {
             IList<QuoteRequest> ret = new List<QuoteRequest>();
-            
+
             using (var cn = new SqlConnection(_connectionString))
             {
-                using (var cmd = GetCommand(cn,"STATIC_ListQuoteRequestsForUser"))
+                using (var cmd = GetCommand(cn, "STATIC_ListQuoteRequestsForUser"))
                 {
                     cmd.Parameters.AddWithValue("userId", userId);
-                    
+
                     var dr = cmd.ExecuteReader();
-                    
+
                     while (dr.Read())
                     {
-                        QuoteRequest qr = new QuoteRequest
+                        var qr = new QuoteRequest
                         {
                             QuoteId = dr.GetGuid(dr.GetOrdinal("QuoteId")),
                             Created = dr.GetDateTime(dr.GetOrdinal("Created")),
@@ -859,7 +914,7 @@ namespace EventaDors.DataManagement
                                 Uuid = dr.GetGuid(dr.GetOrdinal("uuid"))
                             }
                         };
-                        
+
                         ret.Add(qr);
                     }
                 }
@@ -871,7 +926,7 @@ namespace EventaDors.DataManagement
         public QuoteRequestElement GetQuoteRequestElement(int quoteRequestElementid)
         {
             QuoteRequestElement ret = null;
-            
+
             using (var cn = new SqlConnection(_connectionString))
             {
                 using (var cmd = GetCommand(cn, "QUOTE_LoadQuoteRequestElement"))
@@ -879,12 +934,11 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("quoteRequestElementId", quoteRequestElementid);
 
                     var dr = cmd.ExecuteReader();
-                    
-                    while(dr.Read())
-                    {
+
+                    while (dr.Read())
                         ret = new QuoteRequestElement
                         {
-                            Budget = GetSafeDbl(dr, "Budget"),
+                            Budget = GetSafeDecimal(dr, "Budget"),
                             BudgetTolerance = GetSafeDbl(dr, "BudgetTolerance"),
                             Completed = dr.GetBoolean(dr.GetOrdinal("Completed")),
                             Created = dr.GetDateTime(dr.GetOrdinal("Created")),
@@ -902,7 +956,6 @@ namespace EventaDors.DataManagement
                             QuoteRequestElementId = quoteRequestElementid,
                             QuoteId = dr.GetGuid(dr.GetOrdinal("QuoteId"))
                         };
-                    }
                 }
             }
 
@@ -922,14 +975,14 @@ namespace EventaDors.DataManagement
 
                     cmd.ExecuteNonQuery();
 
-                    int ret = int.Parse(cmd.Parameters["return"].Value.ToString());
+                    var ret = int.Parse(cmd.Parameters["return"].Value.ToString());
 
                     if (ret != 0)
                     {
                         loginUser.Id = ret;
                         return true;
                     }
-                    
+
                     return false;
                 }
             }
@@ -943,7 +996,7 @@ namespace EventaDors.DataManagement
         public IEnumerable<IAvailabilityResult> CheckUserAvailability(IEnumerable<DateTime> proposedDates, long userId)
         {
             var list = new List<IAvailabilityResult>();
-            
+
             using (var cn = new SqlConnection(_connectionString))
             {
                 using (var cmd = GetCommand(cn, "USER_CheckAvailability"))
@@ -952,22 +1005,18 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("proposedDate", DateTime.Today);
                     cmd.Parameters.Add("return", SqlDbType.Int);
                     cmd.Parameters["return"].Direction = ParameterDirection.ReturnValue;
-                    
-                    foreach (DateTime proposedDate in proposedDates)
+
+                    foreach (var proposedDate in proposedDates)
                     {
                         cmd.Parameters["proposedDate"].Value = proposedDate;
                         cmd.ExecuteNonQuery();
 
-                        int ret = int.Parse(cmd.Parameters["return"].Value.ToString());
+                        var ret = int.Parse(cmd.Parameters["return"].Value.ToString());
 
                         if (ret == 0)
-                        {
-                            list.Add(new AvailabilityResult{ProposedDate = proposedDate, Available = false});
-                        }
+                            list.Add(new AvailabilityResult {ProposedDate = proposedDate, Available = false});
                         else
-                        {
-                            list.Add(new AvailabilityResult{ProposedDate = proposedDate, Available = true});
-                        }
+                            list.Add(new AvailabilityResult {ProposedDate = proposedDate, Available = true});
                     }
                 }
             }
@@ -1000,7 +1049,7 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("name", string.Empty);
                     cmd.Parameters.AddWithValue("value", string.Empty);
                     cmd.Parameters.AddWithValue("type", string.Empty);
-                    foreach (string key in user.MetaData.Keys)
+                    foreach (var key in user.MetaData.Keys)
                     {
                         cmd.Parameters["name"].Value = user.MetaData[key].Name;
                         cmd.Parameters["value"].Value = user.MetaData[key].Value;
@@ -1019,26 +1068,20 @@ namespace EventaDors.DataManagement
             {
                 using (var cmd = GetCommand(cn, "QUOTE_GetQuoteTemplates"))
                 {
-                    if (id.HasValue)
-                    {
-                        cmd.Parameters.AddWithValue("templateID", id);
-                    }
-                    
+                    if (id.HasValue) cmd.Parameters.AddWithValue("templateID", id);
+
                     var dr = cmd.ExecuteReader();
 
-                    int templateId = 0;
+                    var templateId = 0;
                     QuoteTemplate template = null;
                     while (dr.Read())
                     {
-                        int newTemplateid = dr.GetInt32(dr.GetOrdinal("TemplateId"));
+                        var newTemplateid = dr.GetInt32(dr.GetOrdinal("TemplateId"));
 
                         if (newTemplateid != templateId)
                         {
-                            if (template != null)
-                            {
-                                ret.Add(template);
-                            }
-                            
+                            if (template != null) ret.Add(template);
+
                             templateId = newTemplateid;
                             template = new QuoteTemplate
                             {
@@ -1055,7 +1098,7 @@ namespace EventaDors.DataManagement
                                     Notes = GetSafeString(dr, "QuoteTypeNotes"),
                                     Link = GetSafeString(dr, "QuoteTypeLink"),
                                     Modified = dr.GetDateTime(dr.GetOrdinal("QuoteTypeModified")),
-                                    Created = dr.GetDateTime(dr.GetOrdinal("QuoteTypeCreated")),
+                                    Created = dr.GetDateTime(dr.GetOrdinal("QuoteTypeCreated"))
                                 },
                                 SubType = new QuoteSubType
                                 {
@@ -1064,11 +1107,11 @@ namespace EventaDors.DataManagement
                                     Notes = GetSafeString(dr, "QuoteSubTypeNotes"),
                                     Link = GetSafeString(dr, "QuoteSubTypeLink"),
                                     Modified = dr.GetDateTime(dr.GetOrdinal("QuoteSubTypeModified")),
-                                    Created = dr.GetDateTime(dr.GetOrdinal("QuoteSubTypeCreated")),
+                                    Created = dr.GetDateTime(dr.GetOrdinal("QuoteSubTypeCreated"))
                                 }
                             };
-                            
                         }
+
                         template.Events.Add(new QuoteTemplateEvent
                         {
                             Id = dr.GetInt32(dr.GetOrdinal("QuoteTemplateEventId")),
@@ -1080,11 +1123,11 @@ namespace EventaDors.DataManagement
                                 Name = dr.GetString("EventName"),
                                 Link = GetSafeString(dr, "EventLink"),
                                 Created = dr.GetDateTime(dr.GetOrdinal("EventCreated")),
-                                Modified = dr.GetDateTime(dr.GetOrdinal("EventModified")),
+                                Modified = dr.GetDateTime(dr.GetOrdinal("EventModified"))
                             }
                         });
                     }
-                    
+
                     ret.Add(template);
                 }
             }
@@ -1096,12 +1139,12 @@ namespace EventaDors.DataManagement
         {
             using (var cn = new SqlConnection(_connectionString))
             {
-                using(var cmd = GetCommand(cn,"QUOTE_LoadQuoteTemplateEvent"))
+                using (var cmd = GetCommand(cn, "QUOTE_LoadQuoteTemplateEvent"))
                 {
                     cmd.Parameters.AddWithValue("quoteTemplateEventId", quoteTemplateEventId);
 
                     var dr = cmd.ExecuteReader();
-                    int quoteRequestEventId = 0;
+                    var quoteRequestEventId = 0;
                     QuoteTemplateEvent ret = null;
 
                     while (dr.Read())
@@ -1126,14 +1169,12 @@ namespace EventaDors.DataManagement
                         }
 
                         if (dr["ElementName"] != DBNull.Value)
-                        {
                             ret.Elements.Add(new QuoteElement
                             {
                                 Name = dr.GetString(dr.GetOrdinal("ElementName")),
-                                Notes = GetSafeString(dr,"ElementNotes"),
+                                Notes = GetSafeString(dr, "ElementNotes"),
                                 Id = dr.GetInt32(dr.GetOrdinal("ElementId"))
                             });
-                        }
                     }
 
                     return ret;

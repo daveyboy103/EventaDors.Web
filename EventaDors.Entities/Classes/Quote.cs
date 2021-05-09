@@ -11,8 +11,6 @@ namespace EventaDors.Entities.Classes
         }
 
         public User Owner { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
         public DateTime Submitted { get; set; }
         public string Notes { get; set; }
         public QuoteType Type { get; set; }

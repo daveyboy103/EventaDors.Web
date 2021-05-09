@@ -7,7 +7,7 @@ namespace EventaDors.Entities.Classes
     {
         public QuoteRequest()
         {
-            Elements = new List<QuoteElement>();
+            Events = new List<QuoteRequestEvent>();
         }
 
         public Guid QuoteId { get; set; }
@@ -17,10 +17,13 @@ namespace EventaDors.Entities.Classes
         public DateTime? DueDate { get; set; }
         public QuoteType Type { get; set; }
         public QuoteSubType SubType { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
-        public IList<QuoteElement> Elements { get; }
+        public IList<QuoteRequestEvent> Events { get; }
         public User Owner { get; set; }
         public int Attendees { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} - Events {Events.Count} - Attendees {Attendees}";
+        }
     }
 }
