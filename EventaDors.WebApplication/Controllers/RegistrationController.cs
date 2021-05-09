@@ -47,6 +47,8 @@ namespace EventaDors.WebApplication.Controllers
                     CurrentPassword = journey.Password
                 }))
                 {
+                    SessionHelper.SetString(Statics.EmailTempData, journey.Email);
+                    
                     if (journey.Completed.HasValue)
                     {
                         TempDataHelper.Set(Statics.EmailTempData, journey.Email);

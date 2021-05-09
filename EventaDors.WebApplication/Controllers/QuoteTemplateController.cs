@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using EventaDors.DataManagement;
 using EventaDors.Entities.Classes;
+using EventaDors.WebApplication.Helpers;
 using EventaDors.WebApplication.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -47,37 +48,14 @@ namespace EventaDors.WebApplication.Controllers
         public IActionResult ProcessTemplate(QuoteTemplate quoteTemplate)
         {
             var form = Request.Form;
-
-            EventsElementExclusion exclusions = LoadExclusions(form);
+            string email = SessionHelper.GetString(Statics.EmailTempData);
+            User user = _wrapper.CreateUser(email);
+            Journey journey = _wrapper.GetJourney(email);
+            int attendance = int.Parse(Request.Form["Attendees"]);
+            var templateId = int.Parse(Request.Form["TemplateId"]);
+            var quoteRequest = _wrapper.CreateRequestFromTemplate(templateId, user.Id, attendance, journey.EventDate);
             
             return View();
-        }
-
-        private EventsElementExclusion LoadExclusions(IFormCollection form)
-        {
-            var ret = new EventsElementExclusion();
-            QuoteTemplateEvent currentEvent = null;
-            
-            foreach (string formKey in form.Keys)
-            {
-                var item = form[formKey];
-
-                if (formKey.StartsWith("Event"))
-                {
-                    if (item[0] == "true")
-                    {
-                        currentEvent = new QuoteTemplateEvent{Id=int.Parse(formKey.Substring("Event_".Length))};
-                        ret.Events.Add(currentEvent);
-                    }
-
-                    if (item[0] == "on")
-                    {
-                        currentEvent.Elements.Add(new QuoteElement{ Id = int.Parse(formKey.Substring(formKey.LastIndexOf("_")+ 1))});
-                    }
-                }
-            }
-
-            return ret;
         }
     }
 }

@@ -228,7 +228,7 @@ namespace EventaDors.DataManagement
             }
         }
 
-        public QuoteRequest CreateRequestFromTemplate(int templateId, int userId, int attendees, DateTime dueDate)
+        public QuoteRequest CreateRequestFromTemplate(int templateId, long userId, int attendees, DateTime? dueDate)
         {
             QuoteRequest ret;
             using (var cn = new SqlConnection(_connectionString))
@@ -242,7 +242,7 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("TemplateId", templateId);
                     cmd.Parameters.AddWithValue("Attendees", attendees);
                     cmd.Parameters.AddWithValue("OwnerId", userId);
-                    cmd.Parameters.AddWithValue("DueDate", dueDate);
+                    cmd.Parameters.AddWithValue("DueDate", dueDate.Value);
                     cmd.Parameters.Add(ReturnParamName, SqlDbType.Int);
                     cmd.Parameters[ReturnParamName].Direction = ParameterDirection.ReturnValue;
                     cn.Open();

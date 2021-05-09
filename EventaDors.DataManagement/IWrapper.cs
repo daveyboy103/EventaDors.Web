@@ -11,7 +11,7 @@ namespace EventaDors.DataManagement
         bool DeleteUser(long userId, bool deactivateOnly);
         bool ChangePassword(long userId, string oldPassword, string newPassword);
         User UpdateUser(User user);
-        QuoteRequest CreateRequestFromTemplate(int templateId, int userId, int attendees, DateTime dueDate);
+        QuoteRequest CreateRequestFromTemplate(int templateId, long userId, int attendees, DateTime? dueDate);
         QuoteRequest LoadQuoteRequest(int quoteIdIdentity);
         User RegisterUser(User user);
         bool VerifyUser(Guid guid);
