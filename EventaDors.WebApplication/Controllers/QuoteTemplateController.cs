@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using EventaDors.DataManagement;
 using EventaDors.Entities.Classes;
-using EventaDors.WebApplication.Helpers;
 using EventaDors.WebApplication.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -45,17 +44,43 @@ namespace EventaDors.WebApplication.Controllers
         }
 
         [HttpPost]
+        [HttpGet]
         public IActionResult ProcessTemplate(QuoteTemplate quoteTemplate)
         {
-            var form = Request.Form;
-            string email = SessionHelper.GetString(Statics.EmailTempData);
-            User user = _wrapper.CreateUser(email);
-            Journey journey = _wrapper.GetJourney(email);
-            int attendance = int.Parse(Request.Form["Attendees"]);
-            var templateId = int.Parse(Request.Form["TemplateId"]);
-            var quoteRequest = _wrapper.CreateRequestFromTemplate(templateId, user.Id, attendance, journey.EventDate);
-            
+            QuoteRequest quoteRequest = null; 
+            if(!Request.Query.ContainsKey("quoteIdIdentity"))
+            {
+                var form = Request.Form;
+                string email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData)
+                    ? HttpContext.Session.GetString(Statics.EmailTempData)
+                    : String.Empty);
+                User user = _wrapper.CreateUser(email);
+                Journey journey = _wrapper.GetJourney(email);
+                int attendance = int.Parse(Request.Form["Attendees"]);
+                var templateId = int.Parse(Request.Form["TemplateId"]);
+                quoteRequest =
+                    _wrapper.CreateRequestFromTemplate(templateId, user.Id, attendance, journey.EventDate);
+            }
+            else
+            {
+                int id = int.Parse(Request.Query["quoteIdIdentity"]);
+                quoteRequest = _wrapper.LoadQuoteRequest(id);
+            }
+
             return View(quoteRequest);
+        }
+
+        public IActionResult ProcessEventUpdates()
+        {
+            return View();
+        }
+
+        public IActionResult EditEventDetails()
+        {
+            var quoteEvent = new QuoteRequestEvent();
+            int eventId = int.Parse(Request.Query["eventId"]);
+            int quoteId = int.Parse(Request.Query["quoteId"]);
+            return View(quoteEvent);
         }
     }
 }

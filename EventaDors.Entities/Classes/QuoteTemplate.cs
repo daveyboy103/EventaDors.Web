@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace EventaDors.Entities.Classes
 {
@@ -14,6 +16,9 @@ namespace EventaDors.Entities.Classes
         public string Name { get; set; }
         public string Notes { get; set; }
         public string Link { get; set; }
+        [Required]
+        [Range( 2, Int32.MaxValue)]
+        public int Attendees { get; set; }
         public QuoteType Type { get; set; }
         public QuoteSubType SubType { get; set; }
         public IList<QuoteTemplateEvent> Events { get; }
@@ -21,44 +26,5 @@ namespace EventaDors.Entities.Classes
         {
             return $"{Name} - {Events.Count} Events";
         }
-    }
-
-    public class QuoteTemplateEvent : CreatedModifiedBase
-    {
-        public QuoteTemplateEvent()
-        {
-            Elements = new List<QuoteElement>();
-        }
-        public int Id { get; set; }
-        public int Order { get; set; }
-        public Event Event { get; set; }
-
-        public bool Exclude { get; set; }
-        public IList<QuoteElement> Elements { get; }
-
-        public override string ToString()
-        {
-            return $"{Event.Name} - {Order}";
-        }
-    }
-
-    public class Event
-    {
-        public string Name { get; set; }
-        public string Notes { get; set; }
-        public string Link { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
-
-    public abstract class CreatedModifiedBase
-    {
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+@using EventaDors.Entities.Classes
 @model EventaDors.Entities.Classes.QuoteRequest
 
 @{
@@ -5,5 +6,79 @@
     Layout = "_Layout";
 }
 
-<h2>Processing</h2>
 <h2>@Model.Name</h2>
+<form asp-action="ProcessEventUpdates">
+    <p><b>Note:</b> Adjusting  the main event due date will recalulate all dependent dates unless they are specifically <a href="javascript:alert('Link to help')"> protected from moving.</a></p>
+    <input type="hidden" asp-for="QuoteIdIdentity"/>
+    <table class="table-bordered table-striped" style="width:100%">
+        <tr>
+            <td>Main Event Name:</td>
+            <td><input type="text" asp-for="Name" class="form-control"/></td>
+            <td><span asp-validation-for="Name" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td valign="top">Notes:</td>
+            <td><textarea rows="4" cols="10" style="width: 100%" asp-for="Notes" class="form-control">@Model.Notes</textarea></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Attendees (Approx):</td>
+            <td><input type="number" asp-for="Attendees" class="form-control"/></td>
+            <td><span asp-validation-for="Attendees" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td>Main Date:</td>
+            <td><input type="date" asp-for="DueDate" class="form-control"/></td>
+            <td><span asp-validation-for="DueDate" class="text-danger"></span></td>
+        </tr>
+        <tr><td colspan="3"><h3>Events</h3></td></tr>
+        @foreach (var evt in Model.Events)
+        {
+            <tr>
+                <td valign="middle">
+                    <a href="javascript:window.alert('@GetHelpMessage(evt, nameof(evt.Name))')"><img width="15px" height="15px" src="~/images/help.png" alt="@GetHelpMessage(evt, nameof(evt.LeadWeeks))"></a> Event Name: 
+                </td>
+                <td><input asp-for="@evt.Name" class="form-control"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td valign="middle">
+                    <a href="javascript:window.alert('@GetHelpMessage(evt, nameof(evt.EventDate))')"><img width="15px" height="15px" src="~/images/help.png" alt="@GetHelpMessage(evt, nameof(evt.LeadWeeks))"></a> Event Date: 
+                </td>
+                <td><input type="date" asp-for="@evt.EventDate" class="form-control"></td>
+                <td></td>
+            </tr>            
+            <tr>
+                <td valign="middle">
+                    <a href="javascript:window.alert('@GetHelpMessage(evt, nameof(evt.LeadWeeks))')"><img width="15px" height="15px" src="~/images/help.png" alt="@GetHelpMessage(evt, nameof(evt.LeadWeeks))"></a> Lead Weeks: 
+                </td>
+                <td><input type="number" asp-for="@evt.LeadWeeks" class="form-control"></td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td valign="middle">
+                    <a href="javascript:window.alert('@GetHelpMessage(evt, nameof(evt.Venue))')"><img width="15px" height="15px" src="~/images/help.png" alt="@GetHelpMessage(evt, nameof(evt.LeadWeeks))"></a> Venue:
+                </td>
+                <td><b>@GetVenueName(evt.Venue)</b></td>
+                <td></td>
+            </tr>
+            <tr><td colspan="3" align="right"><a asp-action="EditEventDetails" asp-route-eventId="@evt.Id" asp-route-quoteId="@Model.QuoteIdIdentity">Edit Event...</a> </td></tr>
+        }
+    </table>
+</form>
+@functions
+{
+    string GetVenueName(Venue venue)
+    {
+        string ret = "(Not Set)";
+        if (venue != null)
+            ret = venue.ToString();
+        return ret;
+    }
+
+    string GetHelpMessage(CreatedModifiedBase obj, string name)
+    {
+        return obj.HelpMessages[name];
+    }
+}

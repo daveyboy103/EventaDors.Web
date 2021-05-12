@@ -8,10 +8,11 @@ namespace EventaDors.WebApplication.Controllers
         // GET
         public IActionResult Index()
         {
-            SessionHelper.Context = HttpContext;
-            TempDataHelper.TempDataDictionary = TempData;
-            TempData.Clear();
-            
+            return View();
+        }
+        
+        public IActionResult LoggedIn()
+        {
             return View();
         }
     }

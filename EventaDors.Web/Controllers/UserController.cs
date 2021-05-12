@@ -93,7 +93,7 @@ namespace EventaDors.Web.Controllers
         }
 
         [HttpPost("VerifyUser")]
-        public bool VerifyUser(string uuid)
+        public User VerifyUser(string uuid)
         {
             Guid guid = new Guid(uuid);
             _wrapper = new Wrapper(_connectionString);

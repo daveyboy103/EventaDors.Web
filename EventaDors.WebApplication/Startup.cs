@@ -32,6 +32,7 @@ namespace EventaDors.WebApplication
             services.AddSingleton(new Wrapper(Configuration.GetConnectionString("Sql")));
             services.AddSingleton(new StateManager(Configuration.GetConnectionString("Sql")));
             services.AddSession();
+            services.AddDistributedMemoryCache();
             services.AddSignalR();
         }
 

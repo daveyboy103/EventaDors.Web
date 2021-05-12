@@ -35,7 +35,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Pages" />
       <Folder Include="wwwroot\images" />
     </ItemGroup>
 
@@ -48,6 +47,7 @@
       <Compile Remove="Views\NavigateRegister\**" />
       <Compile Remove="Views\NavigateWelcome\**" />
       <Compile Remove="Controllers\Journey1Controller.cs" />
+      <Compile Remove="Helpers\SessionHelper.cs" />
     </ItemGroup>
 
     <ItemGroup>

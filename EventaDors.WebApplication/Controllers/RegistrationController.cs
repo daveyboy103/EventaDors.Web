@@ -1,29 +1,35 @@
 using System;
+using System.Buffers;
 using System.Collections.Generic;
+using System.Linq;
 using EventaDors.DataManagement;
 using EventaDors.Entities.Classes;
 using EventaDors.Entities.Interfaces;
 using EventaDors.WebApplication.Helpers;
 using EventaDors.WebApplication.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Internal;
+using Microsoft.Extensions.Logging;
 
 namespace EventaDors.WebApplication.Controllers
 {
     public class RegistrationController : Controller
     {
         private readonly Wrapper _wrapper;
+        private readonly ILogger<RegistrationController> _logger;
 
-        public RegistrationController(Wrapper wrapper)
+        public RegistrationController(Wrapper wrapper, ILogger<RegistrationController> logger)
         {
             _wrapper = wrapper;
+            _logger = logger;
         }
         // GET
         public IActionResult Index(Journey journey)
         {
             if (journey.Email == null)
             {
-                journey.Email = TempDataHelper.Get(Statics.EmailTempData);
+                journey.Email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData) ? HttpContext.Session.GetString(Statics.EmailTempData) : string.Empty) ;;
             }
             
             return View(journey);
@@ -34,7 +40,6 @@ namespace EventaDors.WebApplication.Controllers
         {
             try
             {
-                TempDataHelper.Set(Statics.EmailTempData, journey.Email);
                 var password = journey.Password;
 
                 journey = _wrapper.GetJourney(journey.Email);
@@ -47,9 +52,14 @@ namespace EventaDors.WebApplication.Controllers
                     CurrentPassword = journey.Password
                 }))
                 {
-                    if (SessionHelper.Context == null) SessionHelper.Context = HttpContext;
-                    SessionHelper.SetString(Statics.EmailTempData, journey.Email);
-                    
+                    if(!HttpContext.Session.Keys.Contains(Statics.EmailTempData))
+                        HttpContext.Session.SetString(Statics.EmailTempData, journey.Email);
+
+                    if (journey.QuoteIdIdentity.HasValue)
+                    {
+                        return RedirectToAction("ProcessTemplate", "QuoteTemplate", new { quoteIdIdentity = journey.QuoteIdIdentity});
+                    }
+
                     if (journey.Completed.HasValue)
                     {
                         TempDataHelper.Set(Statics.EmailTempData, journey.Email);
@@ -62,7 +72,9 @@ namespace EventaDors.WebApplication.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return RedirectToAction("LoginFailed");
+                _logger.Log(LogLevel.Error, e.Message);
+                Response.WriteAsync(e.Message);
+                Response.WriteAsync(e.StackTrace);
             }
 
             return RedirectToAction("LoginFailed");
@@ -88,7 +100,7 @@ namespace EventaDors.WebApplication.Controllers
         {
             if (journey.Email == null)
             {
-                journey.Email = TempDataHelper.Get(Statics.EmailTempData);
+                journey.Email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData) ? HttpContext.Session.GetString(Statics.EmailTempData) : string.Empty) ;
             }
 
             journey.YourStory = YourStory;
@@ -217,7 +229,7 @@ namespace EventaDors.WebApplication.Controllers
         {
             if (journey.Email == null)
             {
-                journey.Email = TempDataHelper.Get(Statics.EmailTempData);
+                journey.Email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData) ? HttpContext.Session.GetString(Statics.EmailTempData) : string.Empty) ;
             }
 
             var user  = _wrapper.CreateUser(journey.Email);
@@ -243,8 +255,11 @@ namespace EventaDors.WebApplication.Controllers
         {
             string g = Request.QueryString.ToString();
 
-            if (_wrapper.VerifyUser(new Guid(g.Replace("?", ""))))
+            User u = _wrapper.VerifyUser(new Guid(g.Replace("?", "")));
+            
+            if(u != null)
             {
+                HttpContext.Session.SetString(Statics.EmailTempData, u.PrimaryEmail);
                 return RedirectToAction("Index");
             }
 

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace EventaDors.Entities.Classes
@@ -60,23 +61,39 @@ namespace EventaDors.Entities.Classes
                 
                 if (dr["Completed"] != DBNull.Value)
                     Completed = dr.GetDateTime(dr.GetOrdinal("Completed"));
+                
+                if (dr["QuoteIdIdentity"] != DBNull.Value)
+                    QuoteIdIdentity = dr.GetInt32(dr.GetOrdinal("QuoteIdIdentity"));
             }
         }
+
+        public int? QuoteIdIdentity { get; set; }
         public User User { get; set; }
+        [Required(ErrorMessage = "*")]
+        [EmailAddress]
         public string Email { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Compare("RepeatPassword")]
         public string Password { get; set; }
+        [Required]
         public DateTime? EventDate { get; set; }
         public string Title { get; set; }
+        [Required(ErrorMessage = "*")]
         public string FirstName { get; set; }
+        [Required(ErrorMessage = "*")]
         public string Surname { get; set; }
+        [Required(ErrorMessage = "*")]
         public string PostalCode { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Phone]
         public string ContactNumber { get; set; }
+        [EmailAddress]
         public string PartnerEmail { get; set; }
         public bool InformPartner { get; set; }
         public string CurrentPage { get; set; }
+        [Required(ErrorMessage = "*")]
         public string YourStory { get; set; }
         public bool Registered { get; set; }
-        
         public DateTime Created { get; set; }
 
         public bool IsEmpty =>
@@ -89,5 +106,6 @@ namespace EventaDors.Entities.Classes
             string.IsNullOrEmpty(PartnerEmail);
 
         public DateTime? Completed { get; set; }
+        public string RepeatPassword { get; set; }
     }
 }

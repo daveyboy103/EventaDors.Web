@@ -24,7 +24,13 @@
     <form asp-action="ProcessTemplate">
         <table class="table-bordered table-striped" style="width:100%">
             <tr></tr><tr><input type="submit" value="Generate" class="btn btn-info w-100"/></tr>
-            <tr><td>Approximate Attendance:<td><input type="number" id="Attendees" name="Attendees" value="50"/></td>
+            <tr>
+                <td>Approximate Attendance:</td>
+                <td>
+                    <input type="number" asp-for="Attendees" id="Attendees" name="Attendees" value="50"/>
+                    <span asp-validation-for="Attendees" class="text-danger"></span>
+                </td>
+            </tr>
             @foreach (var evt in Model.Events)
             {
                 <tr>

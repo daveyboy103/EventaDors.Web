@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.Eventing.Reader;
+using System.Linq;
 using EventaDors.DataManagement;
 using EventaDors.Entities.Classes;
 using EventaDors.WebApplication.Helpers;
@@ -41,19 +42,20 @@ namespace EventaDors.WebApplication.Controllers
             return ProcessRegistration(new Journey
             {
                 User = user,
-                ContactNumber = SessionHelper.GetString(Statics.ContactNumber),
-                FirstName = SessionHelper.GetString(Statics.FirstName),
-                Surname = SessionHelper.GetString(Statics.Surname),
-                PartnerEmail = SessionHelper.GetString(Statics.PartnerEmail),
-                PostalCode = SessionHelper.GetString(Statics.PostalCode),
+                ContactNumber = (HttpContext.Session.Keys.Contains(Statics.ContactNumber) ? HttpContext.Session.GetString(Statics.ContactNumber) : String.Empty),
+                FirstName = (HttpContext.Session.Keys.Contains(Statics.FirstName) ? HttpContext.Session.GetString(Statics.FirstName) : String.Empty),
+                Surname = (HttpContext.Session.Keys.Contains(Statics.Surname) ? HttpContext.Session.GetString(Statics.Surname) : String.Empty),
+                PartnerEmail = (HttpContext.Session.Keys.Contains(Statics.PartnerEmail) ? HttpContext.Session.GetString(Statics.PartnerEmail) : String.Empty),
+                PostalCode = (HttpContext.Session.Keys.Contains(Statics.PostalCode) ? HttpContext.Session.GetString(Statics.PostalCode) : String.Empty),
                 EventDate = GetEventDate()
             });
         }
 
-        private static DateTime GetEventDate()
+        private DateTime GetEventDate()
         {
-            if(!string.IsNullOrEmpty(SessionHelper.GetString(Statics.EventDate)))
-                return DateTime.Parse(SessionHelper.GetString(Statics.EventDate));
+            var dateString = (HttpContext.Session.Keys.Contains(Statics.EventDate) ? HttpContext.Session.GetString(Statics.EventDate) : String.Empty);
+            if(!string.IsNullOrEmpty(dateString))
+                return DateTime.Parse(dateString);
             return DateTime.Today.AddDays(365);
         }
     }

@@ -22,20 +22,22 @@
 <div>
     <h2>Some Additional Information</h2>
     <p>We need a small amount of additional information from you to complete your registration.</p>
+    <p><span class="text-danger">* Denotes required fields</span></p>
     <form asp-action="Step2">
-        <table>
-            <tr><td>Event Date</td><td><input asp-for="EventDate" class="form-control"></td></tr>
-            <tr><td>Title</td><td><input asp-for="Title" class="form-control"></td></tr>
-            <tr><td>First Name</td><td><input asp-for="FirstName" class="form-control"></td></tr>
-            <tr><td>Surame</td><td><input asp-for="Surname" class="form-control"></td></tr>
-            <tr><td>Postcode</td><td><input asp-for="PostalCode" class="form-control"></td></tr>
-            <tr><td>Contact Number</td><td><input asp-for="ContactNumber" class="form-control"></td></tr>
-            <tr><td>Partner Email</td><td><input asp-for="PartnerEmail" class="form-control"></td></tr>
+        <table class="table-bordered table-striped" style="width:100%">
+            <tr><td>Event Date</td><td><input asp-for="EventDate" class="form-control"></td><td><span asp-validation-for="EventDate" class="text-danger"></span></td></tr>
+            <tr><td>Title</td><td><input asp-for="Title" class="form-control"></td><td></td></tr>
+            <tr><td>First Name</td><td><input asp-for="FirstName" class="form-control"></td><td><span asp-validation-for="FirstName" class="text-danger"></span></td></tr>
+            <tr><td>Surame</td><td><input asp-for="Surname" class="form-control"></td><td><span asp-validation-for="Surname" class="text-danger"></span></td></tr>
+            <tr><td>Postcode</td><td><input asp-for="PostalCode" class="form-control"></td><td><span asp-validation-for="PostalCode" class="text-danger"></span></td></tr>
+            <tr><td>Contact Number</td><td><input asp-for="ContactNumber" class="form-control"></td><td><span asp-validation-for="ContactNumber" class="text-danger"></span></td></tr>
+            <tr><td>Partner Email</td><td><input asp-for="PartnerEmail" class="form-control"></td><td><span asp-validation-for="Email" class="text-danger"></span></td></tr>
             <tr><td>Inform Partner?</td><td><input type="checkbox" asp-for="InformPartner" class="form-control"></td></tr>
-            <tr><td>Tell us a bit about yourself</td><td><textarea id="YourStory" name="YourStory" rows="12" class="form-control">@Model.YourStory</textarea></td></tr>
+            <tr><td valign="top">Tell us a bit about yourself</td><td><textarea id="YourStory" name="YourStory" rows="12" class="form-control">@Model.YourStory</textarea></td><td></td></tr>
+            <tr><td colspan="3"><input type="submit" class="btn btn-info w-100" value="Next>>"/></td></tr>
         </table>
-        <input asp-for="Email">
-        <a asp-action="Index"><< Back</a> | <input type="submit" value="Next>>">
+        <input type="hidden" asp-for="Email">
+        <a asp-action="Index"><< Back</a> | 
     </form>
 </div>
 </body>

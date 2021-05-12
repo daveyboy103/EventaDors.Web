@@ -14,7 +14,7 @@ namespace EventaDors.DataManagement
         QuoteRequest CreateRequestFromTemplate(int templateId, long userId, int attendees, DateTime? dueDate);
         QuoteRequest LoadQuoteRequest(int quoteIdIdentity);
         User RegisterUser(User user);
-        bool VerifyUser(Guid guid);
+        User VerifyUser(Guid guid);
         bool BlockUser(int userId, int blockedUserId);
         bool UnblockUser(int userId, int blockedUserId);
         int GetUserTokenBalance(int userId);

@@ -7,12 +7,15 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="~/lib/signalr/signalr.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" >Home</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="LoggedIn" >Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -20,19 +23,22 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Registration" asp-action="Index">Login</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="AboutUs" asp-action="LoggedIn">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Templates" asp-action="Index">Templates</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="TaskList" asp-action="Index">Task List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="GuestList" asp-action="Index">Guest List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="PhoneSimulator" asp-action="Index">Phone App Simulator</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Directory" asp-action="Index">Directory</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="Index">Chat</a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Logout" asp-action="Index">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -47,7 +53,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2021 - EventaDors - <a asp-area="" asp-controller="Home" asp-action="Index">Privacy</a>
+        &copy; 2021 - PlanMyAsianWedding.co.uk - <a asp-area="" asp-controller="Home" asp-action="Index">Privacy</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

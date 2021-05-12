@@ -1,7 +1,7 @@
 @model EventaDors.Entities.Classes.Journey
 
 @{
-    Layout = "_Layout";
+    Layout = "_LoggedOutLayout";
 }
 
 <!DOCTYPE html>
@@ -20,14 +20,28 @@
 </head>
 <body>
 <div>
-    <h2>Wecome to PlanMyAsianWedding</h2>
-    <p>PLease login using the email address and password you chose as part of the registration process.</p>
+    <h2>Welcome to PlanMyAsianWedding</h2>
+    <p>Please login using the email address and password you chose as part of the registration process.</p>
     <p>If you are not yet a member please click on the register link.</p>
+    <p><p><span class="text-danger">* Denotes required fields</span></p></p>
     <form asp-action="Step1">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <table style="width: 100%">
-            <tr><td>Email Address:</td><td><input asp-for="Email" class="form-control"></td></tr>
-            <tr><td>Password</td><td><input type="password" asp-for="Password" class="form-control"></td></tr>
-            <tr><td></td><td><input class="form-control" type="submit" value="Next>>"></td></tr>
+            <tr>
+                <td>Email Address:</td>
+                <td>
+                    <input asp-for="Email" class="form-control">
+                </td>
+                <td><span asp-validation-for="Email" class="text-danger"></span></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>
+                    <input type="password" asp-for="Password" class="form-control">
+                </td>
+                <td><span asp-validation-for="Password" class="text-danger"></span></td>
+            </tr>
+            <tr><td></td><td><input class="btn btn-info w-100"  type="submit" value="Next>>"></td></tr>
             <tr><td colspan="2"><a asp-action="Register">Not registered? Click here to register</a></td></tr>
         </table>
 

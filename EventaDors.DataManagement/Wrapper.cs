@@ -298,7 +298,7 @@ namespace EventaDors.DataManagement
                         },
                         Owner = new User
                         {
-                            Id = dr.GetInt32(dr.GetOrdinal("UserId")),
+                            Id = dr.GetInt64(dr.GetOrdinal("UserId")),
                             UserName = dr.GetString(dr.GetOrdinal("UserName")),
                             PrimaryEmail = dr.GetString(dr.GetOrdinal("UserEmail")),
                             Uuid = dr.GetGuid(dr.GetOrdinal("UserUuid")),
@@ -327,7 +327,8 @@ namespace EventaDors.DataManagement
                             EventDate = dr.GetDateTime("EventDate"),
                             Exclude = dr.GetBoolean(dr.GetOrdinal("Exclude")),
                             LeadWeeks = GetSafeInt(dr, "LeadWeeks"),
-                            Order = dr.GetInt32(dr.GetOrdinal("EventOrder"))
+                            Order = dr.GetInt32(dr.GetOrdinal("EventOrder")),
+                            Name = GetSafeString(dr, "DisplayName")
                         };
 
                         if (dr["VenueId"] != DBNull.Value)
@@ -459,8 +460,9 @@ namespace EventaDors.DataManagement
             return user;
         }
 
-        public bool VerifyUser(Guid guid)
+        public User VerifyUser(Guid guid)
         {
+            User ret = null;
             try
             {
                 using (var cn = new SqlConnection(_connectionString))
@@ -470,13 +472,48 @@ namespace EventaDors.DataManagement
                         cmd.Parameters.AddWithValue("uuid", guid);
                         cmd.ExecuteNonQuery();
                     }
+
+                    using (var cmd1  = GetCommand(cn ,"USER_GetUserByGuid"))
+                    {
+                        cmd1.Parameters.AddWithValue("uuid", guid);
+
+                        var dr = cmd1.ExecuteReader();
+                        
+                        while (dr.Read())
+                        {
+                            ret = new User(
+                                dr.GetString(dr.GetOrdinal("UserName")),
+                                dr.GetInt64(dr.GetOrdinal("id")),
+                                dr.GetDateTime(dr.GetOrdinal("Created")),
+                                dr.GetDateTime(dr.GetOrdinal("Modified")),
+                                dr.GetGuid(dr.GetOrdinal("uuid"))
+                            );
+
+                            ret.Verified = dr.GetBoolean(dr.GetOrdinal("Verified"));
+                            ret.UserKey = dr.GetGuid(dr.GetOrdinal("UserKey"));
+                            ret.CurrentPassword = dr.GetString(dr.GetOrdinal("Password"));
+
+                            if (dr.NextResult())
+                                while (dr.Read())
+                                {
+                                    var item = new MetaDataItem
+                                    {
+                                        Name = dr.GetString(dr.GetOrdinal("name")),
+                                        Value = dr.GetString(dr.GetOrdinal("Value")),
+                                        Type = Enum.Parse<MetaDataType>(dr.GetString(dr.GetOrdinal("Type")))
+                                    };
+
+                                    ret.MetaData.Add(dr.GetString(dr.GetOrdinal("name")), item);
+                                }
+                        }
+                    }
                 }
 
-                return true;
+                return ret;
             }
             catch (Exception)
             {
-                return false;
+                return null;
             }
         }
 
@@ -1051,6 +1088,8 @@ namespace EventaDors.DataManagement
                     cmd.Parameters.AddWithValue("type", string.Empty);
                     foreach (var key in user.MetaData.Keys)
                     {
+                        if(string.IsNullOrEmpty(user.MetaData[key].Value))
+                            continue;
                         cmd.Parameters["name"].Value = user.MetaData[key].Name;
                         cmd.Parameters["value"].Value = user.MetaData[key].Value;
                         cmd.Parameters["type"].Value = user.MetaData[key].Type.ToString();

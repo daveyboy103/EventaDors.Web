@@ -20,13 +20,17 @@
 
 <body>
 <div>
-      <form asp-action="CompleteRegistration">
-          <table style="width: 100%">
-              <tr><td>Email Address:</td><td><input asp-for="Email" class="form-control"></td></tr>
-              <tr><td>Choose Password</td><td><input type="password" asp-for="Password" class="form-control"></td></tr>
-              <tr><td></td><td><input type="submit" value="Register"></td></tr>
-          </table>
-      </form>
+     <h2>Wecome to PlanMyAsianWedding</h2>
+        <p>Please supply your email address and chosen password.</p>
+    <p><p><span class="text-danger">* Denotes required fields</span></p></p>
+    <form asp-action="CompleteRegistration">
+        <table style="width: 100%">
+            <tr><td>Email Address:</td><td><input asp-for="Email" class="form-control"></td><td><span asp-validation-for="Email" class="text-danger"></span></td></tr>
+            <tr><td>Choose Password:</td><td><input type="password" asp-for="Password" class="form-control"></td><td><span asp-validation-for="Password" class="text-danger"></span></td></tr>
+            <tr><td>Repeat Password:</td><td><input type="password" asp-for="RepeatPassword" class="form-control"></td><td><span asp-validation-for="RepeatPassword" class="text-danger"></span></td></tr>
+            <tr><td></td><td colspan="2"><input class="btn btn-info w-100" type="submit" value="Register"></td></tr>
+        </table>
+    </form>
 </div>
 </body>
 </html>
