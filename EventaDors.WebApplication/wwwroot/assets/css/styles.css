@@ -1,0 +1,14 @@
+.features-boxed h2 {
+  font-weight: bold;
+  margin-bottom: 40px;
+  padding-top: 40px;
+  color: rgb(144,109,154);
+}
+
+.features-boxed .item .icon {
+  font-size: 60px;
+  color: #1485ee;
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+

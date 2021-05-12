@@ -17,6 +17,9 @@
       <Content Remove="Views\NavigateLogin\**" />
       <Content Remove="Views\NavigateRegister\**" />
       <Content Remove="Views\NavigateWelcome\**" />
+      <Content Remove="Views\Login\Index.cshtml" />
+      <Content Remove="Views\Login\Index - Copy.cshtml" />
+      <Content Remove="Views\Register\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>
@@ -35,6 +38,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Views\Login" />
       <Folder Include="wwwroot\images" />
     </ItemGroup>
 
@@ -75,6 +79,67 @@
       <_ContentIncludedByDefault Remove="Views\NavigateLogin\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\NavigateRegister\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\NavigateWelcome\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\bootstrap\.DS_Store" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\bootstrap\css\bootstrap.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\bootstrap\js\bootstrap.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\css\smoothproducts.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-brands-400.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-brands-400.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-brands-400.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-brands-400.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-brands-400.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-regular-400.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-regular-400.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-regular-400.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-regular-400.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-regular-400.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-solid-900.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-solid-900.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-solid-900.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-solid-900.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fa-solid-900.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\font-awesome.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-all.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-webfont.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-webfont.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-webfont.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-webfont.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome-webfont.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\FontAwesome.otf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\fontawesome5-overrides.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\line-awesome.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\line-awesome.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\line-awesome.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\line-awesome.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\line-awesome.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\line-awesome.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Simple-Line-Icons.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\simple-line-icons.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Simple-Line-Icons.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Simple-Line-Icons.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Simple-Line-Icons.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Simple-Line-Icons.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\.DS_Store" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\avatars\avatar1.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\avatars\avatar2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\avatars\avatar3.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\general\big_hnds.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\general\logo.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\general\wedding_1.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\general\wedding_2.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\general\wedding_3.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\general\wedding_back.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\gettyimages-1127700478-170667a.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\gettyimages-760255403-170667a.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\gettyimages-902459788-170667a.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\scenery\image1.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\scenery\image4.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\scenery\image5.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\scenery\image6.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\img\tech\image4.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\js\jquery.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\js\smoothproducts.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\js\theme.js" />
     </ItemGroup>
 
 </Project>

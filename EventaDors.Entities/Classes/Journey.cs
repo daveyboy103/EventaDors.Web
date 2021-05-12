@@ -95,6 +95,8 @@ namespace EventaDors.Entities.Classes
         public string YourStory { get; set; }
         public bool Registered { get; set; }
         public DateTime Created { get; set; }
+        
+        public bool AgreeCondition { get; set; }
 
         public bool IsEmpty =>
             string.IsNullOrEmpty(Title) &&

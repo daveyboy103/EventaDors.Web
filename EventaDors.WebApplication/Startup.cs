@@ -59,7 +59,7 @@ namespace EventaDors.WebApplication
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Content}/{action=Home}/{id?}");
                 endpoints.MapHub<MessageHub>($"/{nameof(MessageHub)}");
             });
         }

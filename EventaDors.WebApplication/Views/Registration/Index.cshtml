@@ -1,51 +1,26 @@
 @model EventaDors.Entities.Classes.Journey
 
 @{
-    Layout = "_LoggedOutLayout";
+    Layout = "_NewLayout";
 }
 
-<!DOCTYPE html>
+<div class="container">
+    <section class="login-clean">
+        <form method="post" asp-controller="Registration" asp-action="Step1">
 
-<html>
-<head>
-    <title>Welcome</title>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Data Maintenance</title>
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <script src="~/lib/signalr/signalr.min.js"></script>
-    </head>
-</head>
-<body>
-<div>
-    <h2>Welcome to PlanMyAsianWedding</h2>
-    <p>Please login using the email address and password you chose as part of the registration process.</p>
-    <p>If you are not yet a member please click on the register link.</p>
-    <p><p><span class="text-danger">* Denotes required fields</span></p></p>
-    <form asp-action="Step1">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <table style="width: 100%">
-            <tr>
-                <td>Email Address:</td>
-                <td>
-                    <input asp-for="Email" class="form-control">
-                </td>
-                <td><span asp-validation-for="Email" class="text-danger"></span></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td>
-                    <input type="password" asp-for="Password" class="form-control">
-                </td>
-                <td><span asp-validation-for="Password" class="text-danger"></span></td>
-            </tr>
-            <tr><td></td><td><input class="btn btn-info w-100"  type="submit" value="Next>>"></td></tr>
-            <tr><td colspan="2"><a asp-action="Register">Not registered? Click here to register</a></td></tr>
-        </table>
-
-    </form>
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><i class="icon ion-log-in" style="color: #906d9a;"></i></div>
+            <div class="form-group">
+                <div><input class="form-control" asp-for="Email" type="email" name="Email" placeholder="Enter Email">
+                <span asp-validation-for="Email" class="text-danger"></span></div>
+            </div>
+            <div class="form-group">
+                <input class="form-control" asp-for="Password" type="password" name="Password" placeholder="Enter Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+                
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="color: rgb(252,209,91);background: rgb(144,109,154);">Log In</button></div>
+            <a class="forgot" asp-controller="ForgotPassword" asp-action="Index">Forgot your email or password?</a>
+            </form>
+        </section>
 </div>
-</body>
-</html>

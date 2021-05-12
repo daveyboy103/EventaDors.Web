@@ -14,11 +14,6 @@ namespace EventaDors.WebApplication.Controllers
         {
             _wrapper = wrapper;
         }
-        public IActionResult Index()
-        {
-            var loginUser = new User();
-            return View(loginUser);
-        }
 
         [HttpPost]
         public IActionResult ProcessLogin(User loginUser)

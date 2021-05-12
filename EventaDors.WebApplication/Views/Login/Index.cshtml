@@ -1,44 +1,18 @@
 @model EventaDors.Entities.Classes.User
 
 @{
-    Layout = "_Layout";
+    Layout = "_NewLayout";
 }
-
-<h2>Welcome to @Statics.ApplicationName</h2>
-<h3>Login/Register</h3>
-<p>In order to use this App you must first login as a user.</p>
-<p>Please enter your email address and password in the fields below and click Login</p>
-<p>If you are not already a member <a asp-controller="Register" asp-action="Index">click here</a> to join us.</p>
-<hr>
+<div class="Container">
 <form method="post" asp-controller="Login" asp-action="ProcessLogin">
-    <table style="width: 100%" >
-        <tr>
-            <td>Email Address:</td>
-            <td><input id="email" asp-for="PrimaryEmail" style="width: 100%" type="text" class="form-control"/>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input id="password" asp-for="CurrentPassword" style="width: 100%" type="password" class="form-control"/></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" class="btn btn-info w-100" value="Login" /></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="checkbox" value="Remember Me">&nbsp;Remember me?</td>
-        </tr>        
-        <tr>
-            <td></td>
-            <td><a asp-controller="ForgotPassword" asp-action="Index">Forgotten Password?</a></td>
-        </tr> 
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
+    <section class="login-clean">
+        <form method="post">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><i class="icon ion-log-in" style="color: #906d9a;"></i></div>
+            <div class="form-group"><input class="form-control" asp-for="PrimaryEmail" type="email" name="email" placeholder="Email"></div>
+            <div class="form-group"><input class="form-control" asp-for="CurrentPassword" type="password" name="password" placeholder="Password"></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="color: rgb(252,209,91);background: rgb(144,109,154);">Log In</button></div><a class="forgot" asp-controller="ForgotPassword" asp-action="Index">Forgot your email or password?</a>
+        </form>
+    </section>
 </form>
+</div>

@@ -92,6 +92,14 @@ namespace EventaDors.WebApplication.Controllers
 
         public IActionResult Register(Journey journey)
         {
+            var mode = Request.Query["mode"];
+
+            if (mode.ToString() == "Log Out")
+            {
+                HttpContext.Session.Remove(Statics.EmailTempData);
+                return RedirectToAction("Index", "Registration");
+            }
+       
             return View(journey);
         }
         
