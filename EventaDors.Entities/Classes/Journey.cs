@@ -69,10 +69,10 @@ namespace EventaDors.Entities.Classes
 
         public int? QuoteIdIdentity { get; set; }
         public User User { get; set; }
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "* Email is required")]
         [EmailAddress]
         public string Email { get; set; }
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "* Password is required")]
         [Compare("RepeatPassword")]
         public string Password { get; set; }
         [Required]
@@ -96,16 +96,7 @@ namespace EventaDors.Entities.Classes
         public bool Registered { get; set; }
         public DateTime Created { get; set; }
         
-        public bool AgreeCondition { get; set; }
-
-        public bool IsEmpty =>
-            string.IsNullOrEmpty(Title) &&
-            string.IsNullOrEmpty(FirstName) &&
-            string.IsNullOrEmpty(Surname) &&
-            string.IsNullOrEmpty(PostalCode) &&
-            string.IsNullOrEmpty(ContactNumber) &&
-            !EventDate.HasValue &&
-            string.IsNullOrEmpty(PartnerEmail);
+        public bool AgreeConditions { get; set; }
 
         public DateTime? Completed { get; set; }
         public string RepeatPassword { get; set; }

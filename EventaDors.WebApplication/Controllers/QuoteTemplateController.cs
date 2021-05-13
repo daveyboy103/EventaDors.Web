@@ -47,19 +47,49 @@ namespace EventaDors.WebApplication.Controllers
         [HttpGet]
         public IActionResult ProcessTemplate(QuoteTemplate quoteTemplate)
         {
-            QuoteRequest quoteRequest = null; 
+            if (HttpContext.Session.Keys.All(x => x != Statics.EmailTempData))
+            {
+                return RedirectToAction("Index", "Registration");
+            }
+            
+            QuoteRequest quoteRequest = null;
+            
             if(!Request.Query.ContainsKey("quoteIdIdentity"))
             {
-                var form = Request.Form;
                 string email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData)
                     ? HttpContext.Session.GetString(Statics.EmailTempData)
                     : String.Empty);
                 User user = _wrapper.CreateUser(email);
                 Journey journey = _wrapper.GetJourney(email);
-                int attendance = int.Parse(Request.Form["Attendees"]);
-                var templateId = int.Parse(Request.Form["TemplateId"]);
-                quoteRequest =
-                    _wrapper.CreateRequestFromTemplate(templateId, user.Id, attendance, journey.EventDate);
+
+                var templateId = 0;
+                if (Request.Method == "POST")
+                {
+                    int attendance = int.Parse(Request.Form["Attendees"]);
+                    templateId = int.Parse(Request.Form["TemplateId"]);
+                    quoteRequest =
+                        _wrapper.CreateRequestFromTemplate(templateId, user.Id, attendance, journey.EventDate);
+                    return View(quoteRequest);
+                }
+
+                if (!journey.QuoteIdIdentity.HasValue)
+                {
+                    if (journey.Completed.HasValue)
+                    {
+                        if(!HttpContext.Session.Keys.Contains(Statics.EmailTempData))
+                            HttpContext.Session.SetString(Statics.EmailTempData, journey.Email);
+                        return RedirectToAction("Step3", "Registration");
+                    }
+                }
+                else
+                {
+                    templateId = journey.QuoteIdIdentity.Value;
+                
+                    if (Request.Method == "GET")
+                    {
+                        quoteRequest = _wrapper.LoadQuoteRequest(templateId);
+                    }
+                }
             }
             else
             {

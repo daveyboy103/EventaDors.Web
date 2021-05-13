@@ -2,51 +2,46 @@
 @model EventaDors.Entities.Classes.QuoteTemplate
 
 @{
-    Layout = "_Layout";;
+    Layout = "_NewLayout";;
 }
 
 <!DOCTYPE html>
-
-<html>
-<head>
-    <title>Chosen Template</title>
-</head>
-<body>
-<div>
+<div class="container">
     @if (Model != null)
         {
             <h2>Chosen Template is [@Model.Name]</h2>
         }
-    <p>If there is an event you wish to exclude from your wedding simply check the box next to the item.</p>
+    <p>If there is an event you wish to exclude from your wedding simply uncheck the box next to the item.</p>
     <p>If an event is excluded then so will all its contained elements.</p>
-    <p>One or more individual elemenstc an also be excluded.</p>
-    <p> These items can also be added and excluded later if required so feel free to simply take them all at this stage.</p>
+    <p>One or more individual elements an also be excluded.</p>
+    <p>These items can also be added and excluded later if required so feel free to simply take them all at this stage.</p>
     <form asp-action="ProcessTemplate">
         <table class="table-bordered table-striped" style="width:100%">
-            <tr></tr><tr><input type="submit" value="Generate" class="btn btn-info w-100"/></tr>
-            <tr>
+            <tr></tr><tr><input style="background: rgb(144,109,154);color: rgb(252,209,91); width: 100%" class="btn btn-light action-button" type="submit" value="Generate" class="btn btn-info w-100"/></tr>
+            <tr><td></td>
                 <td>Approximate Attendance:</td>
                 <td>
                     <input type="number" asp-for="Attendees" id="Attendees" name="Attendees" value="50"/>
                     <span asp-validation-for="Attendees" class="text-danger"></span>
                 </td>
             </tr>
+            <tr><td colspan="3"></td>
             @foreach (var evt in Model.Events)
             {
-                <tr>
+                <tr><td><input checked="true" type="checkbox" value="true" name="Event_@evt.Id" id="Event_@evt.Id"/></td>
                     <td>
-                        <h5>@evt.Event.Name</h5></td><td><input type="checkbox" value="true" name="Event_@evt.Id" id="Event_@evt.Id"/></td></tr>
+                        <h5>@evt.Event.Name</h5></td><td></td></tr>
                 @if (evt.Elements.Count > 0)
                 {
                     foreach (QuoteElement quoteElement in evt.Elements)
                     {
-                        <tr><td></td>
+                        <tr><td></td><td></td>
                             <td>
                                 <table class="table-bordered table-striped" style="width:100%">
                                     <tr>
 
                                         <td>
-                                            <input type="checkbox" id="Event_@evt.Id|Element_@quoteElement.Id" name="Event_@evt.Id|Element_@quoteElement.Id"/>
+                                            <input checked="true" type="checkbox" id="Event_@evt.Id|Element_@quoteElement.Id" name="Event_@evt.Id|Element_@quoteElement.Id"/>
                                             <label for="@quoteElement.Id">@quoteElement.Name (@quoteElement.Id)</label>
                                         </td>
                                     </tr>
@@ -61,5 +56,3 @@
     </form>
     <a href="javascript:history.back()"><< Back</a>
 </div>
-</body>
-</html>

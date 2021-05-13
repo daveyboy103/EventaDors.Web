@@ -2,25 +2,10 @@
 
 
 @{
-    Layout = "_Layout";
+    Layout = "_NewLayout";
 }
 
-<!DOCTYPE html>
-
-<html>
-
-    <title>Choose Template</title>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Data Maintenance</title>
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <script src="~/lib/signalr/signalr.min.js"></script>
-    </head>
-
-<body>
-<div>
+<div class="container">
     <table class="table-bordered table-striped" style="width:100%">
             <thead>
             <tr><td><b>Template Name</b></td><td><b>Event</b></td></tr>
@@ -33,7 +18,8 @@
                 {
                     <tr><td align="right">-</td><td><a href="~/QuoteTemplate/Index?id=@e.Id">@e.Event.Name</a></td></tr>
                 }
-                <tr><td></td><td><a class="btn btn-info w-100" asp-action="ChosenTemplate" asp-controller="QuoteTemplate" asp-route-id="@template.Id">Select [@template.Name]...</a></td></tr>
+                <tr><td></td><td><a style="background: rgb(144,109,154);color: rgb(252,209,91); width: 100%"
+                                    class="btn btn-light action-button" asp-action="ChosenTemplate" asp-controller="QuoteTemplate" asp-route-id="@template.Id">Select [@template.Name]...</a></td></tr>
             }
             <tr><td></td><td><</td></tr>
             </tbody>
@@ -41,5 +27,3 @@
         <input asp-for="Email">
         <a href="javascript:history.back()"><< Back</a> 
 </div>
-</body>
-</html>

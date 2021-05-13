@@ -6,67 +6,52 @@
     Layout = "_NewLayout";
 }
 
-<h2>@Model.Name</h2>
-<form asp-action="ProcessEventUpdates">
-    <p><b>Note:</b> Adjusting  the main event due date will recalulate all dependent dates unless they are specifically <a href="javascript:alert('Link to help')"> protected from moving.</a></p>
-    <input type="hidden" asp-for="QuoteIdIdentity"/>
-    <table class="table-bordered table-striped" style="width:100%">
-        <tr>
-            <td>Main Event Name:</td>
-            <td><input type="text" asp-for="Name" class="form-control"/></td>
-            <td><span asp-validation-for="Name" class="text-danger"></span></td>
-        </tr>
-        <tr>
-            <td valign="top">Notes:</td>
-            <td><textarea rows="4" cols="10" style="width: 100%" asp-for="Notes" class="form-control">@Model.Notes</textarea></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Attendees (Approx):</td>
-            <td><input type="number" asp-for="Attendees" class="form-control"/></td>
-            <td><span asp-validation-for="Attendees" class="text-danger"></span></td>
-        </tr>
-        <tr>
-            <td>Main Date:</td>
-            <td><input type="date" asp-for="DueDate" class="form-control"/></td>
-            <td><span asp-validation-for="DueDate" class="text-danger"></span></td>
-        </tr>
-        <tr><td colspan="3"><h3>Events</h3></td></tr>
-        @foreach (var evt in Model.Events)
-        {
-            <tr>
-                <td valign="middle">
-                    <a href="javascript:window.alert('@GetHelpMessage(evt, nameof(evt.Name))')"><img width="15px" height="15px" src="~/images/help.png" alt="@GetHelpMessage(evt, nameof(evt.LeadWeeks))"></a> Event Name: 
-                </td>
-                <td><input asp-for="@evt.Name" class="form-control"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td valign="middle">
-                    <a href="javascript:window.alert('@GetHelpMessage(evt, nameof(evt.EventDate))')"><img width="15px" height="15px" src="~/images/help.png" alt="@GetHelpMessage(evt, nameof(evt.LeadWeeks))"></a> Event Date: 
-                </td>
-                <td><input type="date" asp-for="@evt.EventDate" class="form-control"></td>
-                <td></td>
-            </tr>            
-            <tr>
-                <td valign="middle">
-                    <a href="javascript:window.alert('@GetHelpMessage(evt, nameof(evt.LeadWeeks))')"><img width="15px" height="15px" src="~/images/help.png" alt="@GetHelpMessage(evt, nameof(evt.LeadWeeks))"></a> Lead Weeks: 
-                </td>
-                <td><input type="number" asp-for="@evt.LeadWeeks" class="form-control"></td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <td valign="middle">
-                    <a href="javascript:window.alert('@GetHelpMessage(evt, nameof(evt.Venue))')"><img width="15px" height="15px" src="~/images/help.png" alt="@GetHelpMessage(evt, nameof(evt.LeadWeeks))"></a> Venue:
-                </td>
-                <td><b>@GetVenueName(evt.Venue)</b></td>
-                <td></td>
-            </tr>
-            <tr><td colspan="3" align="right"><a asp-action="EditEventDetails" asp-route-eventId="@evt.Id" asp-route-quoteId="@Model.QuoteIdIdentity">Edit Event...</a> </td></tr>
-        }
-    </table>
-</form>
+
+ <div class="container">
+     <a href="javascript:history.back()" class="form-control" >&lt; Back</a>
+     <p></p>
+     <h4>@Model.Name</h4>
+        <form>
+            <div class="form-row">
+                <div class="col"><label class="col-form-label">Wedding Name:</label></div>
+                <div class="col"><input class="form-control" type="text" asp-for="Name"></div>
+            </div>
+            <div class="form-row">
+                <div class="col"><label class="col-form-label">Notes:</label></div>
+                <div class="col"><textarea class="form-control" name="Notes">@Model.Notes</textarea></div>
+            </div>
+            @{
+                int i = 0;
+            }
+            @foreach (var evt in Model.Events)
+            {
+                <div role="tablist" id="accordion-@i">
+                    <div class="card">
+                        <div class="card-header" role="tab">
+                            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-@i .item-@i" href="#accordion-@i .item-@i">Event: @evt.Name</a></h5>
+                        </div>
+                        <div class="collapse item-@i" role="tabpanel" data-parent="#accordion-@i">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
+                                    <div class="col-md-6"><input class="form-control" type="text" asp-for="@evt.Name"></div>
+                                    <div class="col-md-6"><label class="col-form-label">Event Date:</label></div>
+                                    <div class="col-md-6"><input class="form-control" type="date" asp-for="@evt.EventDate"></div>
+                                    <div class="col-md-6"><label class="col-form-label">Lead Weeks:</label></div>
+                                    <div class="col-md-6"><input class="form-control" type="number" asp-for="@evt.LeadWeeks"></div>
+                                    <div class="col-md-6"><label class="col-form-label">Venue</label></div>
+                                    <div class="col-md-6"><a href="#">@GetVenueName(evt.Venue)</a></div>
+                                    <div class="col-md-6"><label class="col-form-label"></label></div>
+                                    <div class="col-md-6" style="text-align: right;"><a asp-action="EditEventDetails" asp-route-eventId="@evt.Id" asp-route-quoteId="@Model.QuoteIdIdentity" style="text-align: right;">Edit Event &gt;</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                i++;
+            }
+        </form>
+    </div>
 @functions
 {
     string GetVenueName(Venue venue)

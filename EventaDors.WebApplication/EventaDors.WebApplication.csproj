@@ -20,6 +20,18 @@
       <Content Remove="Views\Login\Index.cshtml" />
       <Content Remove="Views\Login\Index - Copy.cshtml" />
       <Content Remove="Views\Register\Index.cshtml" />
+      <Content Update="wwwroot\assets\css\Navigation-with-Button.css">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Remove="Views\ChooseTemplate\**" />
+      <Content Remove="Views\Home\**" />
+      <Content Remove="Views\Login\**" />
+      <Content Remove="Views\Register\**" />
+      <Content Remove="Views\Users\**" />
+      <Content Remove="Views\Templates\**" />
+      <Content Remove="Views\PhoneSimulator\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -38,7 +50,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Views\Login" />
       <Folder Include="wwwroot\images" />
     </ItemGroup>
 
@@ -52,6 +63,18 @@
       <Compile Remove="Views\NavigateWelcome\**" />
       <Compile Remove="Controllers\Journey1Controller.cs" />
       <Compile Remove="Helpers\SessionHelper.cs" />
+      <Compile Remove="Views\ChooseTemplate\**" />
+      <Compile Remove="Views\Home\**" />
+      <Compile Remove="Views\Login\**" />
+      <Compile Remove="Views\Register\**" />
+      <Compile Remove="Views\Users\**" />
+      <Compile Remove="Views\Templates\**" />
+      <Compile Remove="Controllers\RegisterController.cs" />
+      <Compile Remove="Controllers\StatusScreenController.cs" />
+      <Compile Remove="Controllers\LoginController.cs" />
+      <Compile Remove="Controllers\AboutYouController.cs" />
+      <Compile Remove="Views\PhoneSimulator\**" />
+      <Compile Remove="Controllers\PhoneSimulatorController.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -61,6 +84,13 @@
       <EmbeddedResource Remove="Views\NavigateLogin\**" />
       <EmbeddedResource Remove="Views\NavigateRegister\**" />
       <EmbeddedResource Remove="Views\NavigateWelcome\**" />
+      <EmbeddedResource Remove="Views\ChooseTemplate\**" />
+      <EmbeddedResource Remove="Views\Home\**" />
+      <EmbeddedResource Remove="Views\Login\**" />
+      <EmbeddedResource Remove="Views\Register\**" />
+      <EmbeddedResource Remove="Views\Users\**" />
+      <EmbeddedResource Remove="Views\Templates\**" />
+      <EmbeddedResource Remove="Views\PhoneSimulator\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -70,6 +100,14 @@
       <None Remove="Views\NavigateLogin\**" />
       <None Remove="Views\NavigateRegister\**" />
       <None Remove="Views\NavigateWelcome\**" />
+      <None Include="wwwroot\untitled.html" />
+      <None Remove="Views\ChooseTemplate\**" />
+      <None Remove="Views\Home\**" />
+      <None Remove="Views\Login\**" />
+      <None Remove="Views\Register\**" />
+      <None Remove="Views\Users\**" />
+      <None Remove="Views\Templates\**" />
+      <None Remove="Views\PhoneSimulator\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -140,6 +178,20 @@
       <_ContentIncludedByDefault Remove="wwwroot\assets\js\jquery.min.js" />
       <_ContentIncludedByDefault Remove="wwwroot\assets\js\smoothproducts.min.js" />
       <_ContentIncludedByDefault Remove="wwwroot\assets\js\theme.js" />
+      <_ContentIncludedByDefault Remove="Views\AboutUs\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\AboutUs\LoggedIn.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\ChooseTemplate\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Home\LoggedIn.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Login\Index - Copy.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Login\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Register\ContinueRegistration.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Register\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Register\ProcessRegistration.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Users\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Templates\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\YourStory\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PhoneSimulator\Index.cshtml" />
     </ItemGroup>
 
 </Project>

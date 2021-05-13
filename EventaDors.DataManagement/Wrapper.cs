@@ -1198,7 +1198,7 @@ namespace EventaDors.DataManagement
                                 {
                                     Name = dr.GetString(dr.GetOrdinal("EventName")),
                                     Link = GetSafeString(dr, "EventLink"),
-                                    Notes = GetSafeString(dr, "EventNotes"),
+                                    Notes = GetSafeString(dr, "EventNotes").Replace("\n", "<br>"),
                                     Created = dr.GetDateTime(dr.GetOrdinal("EventCreated")),
                                     Modified = dr.GetDateTime(dr.GetOrdinal("EventModified"))
                                 },

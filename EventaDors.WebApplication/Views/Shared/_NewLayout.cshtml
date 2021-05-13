@@ -36,10 +36,11 @@
                     <li class="nav-item"><a class="nav-link" asp-controller="Content" asp-action="AboutUs">About Us</a></li>
                     <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">Functions&nbsp;</a>
                         <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-action="ProcessTemplate" asp-controller="QuoteTemplate">Wedding Set-up</a>
                             <a class="dropdown-item" asp-action="Index" asp-controller="TaskList">Task List</a>
                             <a class="dropdown-item" asp-action="Index" asp-controller="GuestList">Guest List</a>
                             <a class="dropdown-item" asp-action="Index" asp-controller="Directory">Directory</a>
-                            <a class="dropdown-item" href="#">Venues</a>
+                            <a class="dropdown-item" asp-action="Index" asp-controller="Venues">Venues</a>
                         </div>
                     </li>
                 </ul><span class="navbar-text actions"> <a class="login" asp-controller="Registration" asp-action="Index">@GetLoginText()</a>

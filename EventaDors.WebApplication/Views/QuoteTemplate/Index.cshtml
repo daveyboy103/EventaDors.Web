@@ -1,31 +1,20 @@
 @model EventaDors.Entities.Classes.QuoteTemplateEvent
 
 @{
-    Layout = "_Layout";;
+    Layout = "_NewLayout";;
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Quote Template Event Details</title>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Data Maintenance</title>
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <script src="~/lib/signalr/signalr.min.js"></script>
-    </head>
-</head>
-<body>
-<div>
+<div class="container">
+    <a href="javascript:history.back()" class="form-control" >&lt; Back</a>
     <table class="table-bordered table-striped" style="width:100%">
         <thead>
-        <tr><td colspan="3"><h3>@Model.Event.Name</h3></td></tr>
+        <tr>
+            <td colspan="3">
+                <h3>@Model.Event.Name</h3></td></tr>
         </thead>
         <tbody>
-        <tr><td colspan="3"><div contenteditable="true">@Model.Event.Notes</div></td></tr>
+        <tr><td colspan="3"><span>@Html.Raw(Model.Event.Notes.Trim())</span></td></tr>
+        <tr><td colspan="3"></tr>
         <tr><td colspan="3"><b>Elements</b></td></tr>
         @foreach (var element in Model.Elements)
         {
@@ -33,8 +22,4 @@
         }
         </tbody>
     </table>
-    <p></p>
-    <a href="javascript:history.back()"><< Back to Listing</a>
 </div>
-</body>
-</html>

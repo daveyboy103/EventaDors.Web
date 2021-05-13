@@ -43,20 +43,7 @@ namespace EventaDors.WebApplication.Controllers
             return View();
         }
     }
-    
-    public class TaskListController : Controller
-    {
-        public IActionResult Index()
-        {
-            if (HttpContext.Session.Keys.All(x => x != Statics.EmailTempData))
-            {
-                return RedirectToAction("Index", "Registration");
-            }
-            
-            return View();
-        }
-    } 
-    
+
     public class LogoutController : Controller
     {
         public IActionResult Index()

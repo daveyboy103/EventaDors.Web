@@ -27,6 +27,9 @@ namespace EventaDors.WebApplication.Controllers
         // GET
         public IActionResult Index(Journey journey)
         {
+            ModelState.ClearValidationState("Email");
+            ModelState.ClearValidationState("Password");
+            
             if (journey.Email == null)
             {
                 journey.Email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData) ? HttpContext.Session.GetString(Statics.EmailTempData) : string.Empty) ;;
@@ -62,7 +65,8 @@ namespace EventaDors.WebApplication.Controllers
 
                     if (journey.Completed.HasValue)
                     {
-                        TempDataHelper.Set(Statics.EmailTempData, journey.Email);
+                        if(!HttpContext.Session.Keys.Contains(Statics.EmailTempData))
+                            HttpContext.Session.SetString(Statics.EmailTempData, journey.Email);
                         return RedirectToAction("Step3");
                     }
                 
