@@ -370,6 +370,7 @@ namespace EventaDors.DataManagement
                                 Budget = (decimal) dr.GetSqlMoney(dr.GetOrdinal("Budget")),
                                 BudgetTolerance = GetSafeDbl(dr, "BudgetTolerance"),
                                 Completed = dr.GetBoolean("Completed"),
+                                Quantity = dr.GetInt32(dr.GetOrdinal("Quantity")),
                                 Created = dr.GetDateTime(dr.GetOrdinal("Created")),
                                 Modified = dr.GetDateTime(dr.GetOrdinal("Modified")),
                                 DueDate = GetSafeDate(dr, "DueDate"),
@@ -1208,7 +1209,7 @@ namespace EventaDors.DataManagement
                         }
 
                         if (dr["ElementName"] != DBNull.Value)
-                            ret.Elements.Add(new QuoteElement
+                            ret.TemplateElements.Add(new QuoteElement
                             {
                                 Name = dr.GetString(dr.GetOrdinal("ElementName")),
                                 Notes = GetSafeString(dr, "ElementNotes"),

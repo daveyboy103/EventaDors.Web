@@ -31,9 +31,9 @@
                 <tr><td><input checked="true" type="checkbox" value="true" name="Event_@evt.Id" id="Event_@evt.Id"/></td>
                     <td>
                         <h5>@evt.Event.Name</h5></td><td></td></tr>
-                @if (evt.Elements.Count > 0)
+                @if (evt.TemplateElements.Count > 0)
                 {
-                    foreach (QuoteElement quoteElement in evt.Elements)
+                    foreach (QuoteElement quoteElement in evt.TemplateElements)
                     {
                         <tr><td></td><td></td>
                             <td>

@@ -34,9 +34,9 @@ namespace EventaDors.WebApplication.Controllers
             foreach (var evt in quoteTemplate.First().Events)
             {
                 var elements = _wrapper.GetQuoteTemplateEvent(evt.Id);
-                foreach (var element in elements.Elements)
+                foreach (var element in elements.TemplateElements)
                 {
-                    evt.Elements.Add(element);
+                    evt.TemplateElements.Add(element);
                 }
             }
             

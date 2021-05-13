@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 
 namespace EventaDors.Entities.Classes
 {
@@ -10,6 +11,8 @@ namespace EventaDors.Entities.Classes
         
         public string UnderlyingElementNotes { get; set; }
         public double? BudgetTolerance { get; set; }
+
+        public double? Budget { get; set; }
         public double Quantity { get; set; }
         public int Id { get; set; }
         
@@ -17,5 +20,7 @@ namespace EventaDors.Entities.Classes
         public int? LeadWeeks { get; set;}
         public DateTime? Submitted { get; set; }
         public bool InheritTopLevelQuantity { get; set; }
+        public bool Completed { get; set; }
+        public DateTime DueDate { get; set; }
     }
 }

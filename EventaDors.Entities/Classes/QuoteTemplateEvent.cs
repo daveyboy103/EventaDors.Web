@@ -6,13 +6,13 @@ namespace EventaDors.Entities.Classes
     {
         public QuoteTemplateEvent()
         {
-            Elements = new List<QuoteElement>();
+            TemplateElements = new List<QuoteElement>();
         }
         public int Id { get; set; }
         public int Order { get; set; }
         public Event Event { get; set; }
         public bool Exclude { get; set; }
-        public IList<QuoteElement> Elements { get; }
+        public IList<QuoteElement> TemplateElements { get; }
 
         public override string ToString()
         {

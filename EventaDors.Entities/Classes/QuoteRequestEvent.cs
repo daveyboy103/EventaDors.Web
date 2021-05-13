@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace EventaDors.Entities.Classes
 {
@@ -6,6 +7,8 @@ namespace EventaDors.Entities.Classes
     {
         public QuoteRequestEvent()
         {
+            Elements = new List<QuoteRequestElement>();
+            
             HelpMessages.Add(nameof(EventDate), 
                 "This is the date of the event. This may differ from the main event date as some events happen in the run up period.");
             HelpMessages.Add(nameof(LeadWeeks),
@@ -21,5 +24,6 @@ namespace EventaDors.Entities.Classes
         public int? Attendees { get; set; }
         public int? LeadWeeks { get; set; }
         public string Name  { get; set; }
+        public IList<QuoteRequestElement> Elements { get; set; }
     }
 }

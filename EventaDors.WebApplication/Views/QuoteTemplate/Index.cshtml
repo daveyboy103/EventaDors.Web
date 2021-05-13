@@ -16,7 +16,7 @@
         <tr><td colspan="3"><span>@Html.Raw(Model.Event.Notes.Trim())</span></td></tr>
         <tr><td colspan="3"></tr>
         <tr><td colspan="3"><b>Elements</b></td></tr>
-        @foreach (var element in Model.Elements)
+        @foreach (var element in Model.TemplateElements)
         {
             <tr><td align="right">-</td><td>@element.Name</td><td>@element.Notes</td></tr>
         }

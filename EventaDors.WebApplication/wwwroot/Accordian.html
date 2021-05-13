@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>PlanMyAsianWedding</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/Article-List.css">
+    <link rel="stylesheet" href="assets/css/Features-Boxed.css">
+    <link rel="stylesheet" href="assets/css/Footer-Clean.css">
+    <link rel="stylesheet" href="assets/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/Team-Clean.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
+    <script src="/lib/signalr/signalr.min.js"></script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+    <div class="container"><img class="small_logo" src="assets/img/logo.jpeg" style="width: 34px;padding: 4px;">
+        <a class="navbar-brand" style="color: rgb(145,109,154);" href="/">Plan My Asian Wedding</a>
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="/Content/Features">Features</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Content/AboutUs">About Us</a></li>
+                <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">Functions&nbsp;</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/QuoteTemplate/ProcessTemplate">Wedding Set-up</a>
+                        <a class="dropdown-item" href="/TaskList/Index">Task List</a>
+                        <a class="dropdown-item" href="/GuestList/Index">Guest List</a>
+                        <a class="dropdown-item" href="/Directory/Index">Directory</a>
+                        <a class="dropdown-item" href="/Venues/Index">Venues</a>
+                    </div>
+                </li>
+            </ul><span class="navbar-text actions"> <a class="login" href="/Registration/Index"></a>
+                    <a class="btn btn-light action-button" role="button" style="background: rgb(144,109,154);color: rgb(252,209,91);" href="/Registration/Register?mode=Log%20Out">Log Out</a></span>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container">
+    <a href="javascript:history.back()" class="form-control" >&lt; Back</a>
+    <p></p>
+    <h4>Sam&#x27;s Secular Wedding</h4>
+    <form>
+        <div class="form-row">
+            <div class="col"><label class="col-form-label">Wedding Name:</label></div>
+            <div class="col"><input class="form-control" type="text" data-val="true" data-val-required="*" id="Name" name="Name" value="Sam&#x27;s Secular Wedding"></div>
+        </div>
+        <div class="form-row">
+            <div class="col"><label class="col-form-label">Notes:</label></div>
+            <div class="col"><textarea class="form-control" name="Notes">Tell us a bit more about your event...</textarea></div>
+        </div>
+        <div role="tablist" id="accordion-0">
+            <div class="card">
+                <div class="card-header" role="tab">
+                    <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-0 .item-0" href="#accordion-0 .item-0">Event: Rehearsal</a></h5>
+                </div>
+                <div class="collapse item-0" role="tabpanel" data-parent="#accordion-0">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="text" id="evt_Name" name="evt.Name" value="Rehearsal"></div>
+                            <div class="col-md-6"><label class="col-form-label">Event Date:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="date" data-val="true" data-val-required="The EventDate field is required." id="evt_EventDate" name="evt.EventDate" value="2022-05-13"></div>
+                            <div class="col-md-6"><label class="col-form-label">Lead Weeks:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="number" id="evt_LeadWeeks" name="evt.LeadWeeks" value="1"></div>
+                            <div class="col-md-6"><label class="col-form-label">Venue</label></div>
+                            <div class="col-md-6"><a href="#">(Not Set)</a></div>
+                        </div>
+                        <div role="tablist" id="accordian-1">
+                            <div class="card">
+                                <div class="card-header" role="tab">
+                                    <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordian-1 .item-1" href="#accordian-1 .item-1">Element: Rehearsal</a></h5>
+                                </div>
+                                <div class="collapse item-1" role="tabpanel" data-parent="#accordian-1">
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="card">
+                                <div class="card-header" role="tab">
+                                    <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordian-1 .item-2" href="#accordian-1 .item-2">Element: Rehearsal</a></h5>
+                                </div>
+                                <div class="collapse item-2" role="tabpanel" data-parent="#accordian-1">
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab">
+                    <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-0 .item-1" href="#accordion-0 .item-1">Event: Evening</a></h5>
+                </div>
+                <div class="collapse item-1" role="tabpanel" data-parent="#accordion-0">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="text" id="evt_Name" name="evt.Name" value="Rehearsal"></div>
+                            <div class="col-md-6"><label class="col-form-label">Event Date:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="date" data-val="true" data-val-required="The EventDate field is required." id="evt_EventDate" name="evt.EventDate" value="2022-05-13"></div>
+                            <div class="col-md-6"><label class="col-form-label">Lead Weeks:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="number" id="evt_LeadWeeks" name="evt.LeadWeeks" value="1"></div>
+                            <div class="col-md-6"><label class="col-form-label">Venue</label></div>
+                            <div class="col-md-6"><a href="#">(Not Set)</a></div>
+                            </div>
+                            <div role="tablist" id="accordian-2">
+                                <div class="card">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordian-2 .item-1" href="#accordian-2 .item-1">Element: Rehearsal</a></h5>
+                                    </div>
+                                    <div class="collapse item-1" role="tabpanel" data-parent="#accordian-2">
+                                        <div class="card-body">
+                                            <div class="form-row">
+                                                <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordian-2 .item-2" href="#accordian-2 .item-2">Element: Rehearsal</a></h5>
+                                    </div>
+                                    <div class="collapse item-2" role="tabpanel" data-parent="#accordian-2">
+                                        <div class="card-body">
+                                            <div class="form-row">
+                                                <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab">
+                    <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-0 .item-2" href="#accordion-0 .item-2">Event: Stag Night</a></h5>
+                </div>
+                <div class="collapse item-2" role="tabpanel" data-parent="#accordion-0">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="text" id="evt_Name" name="evt.Name" value="Rehearsal"></div>
+                            <div class="col-md-6"><label class="col-form-label">Event Date:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="date" data-val="true" data-val-required="The EventDate field is required." id="evt_EventDate" name="evt.EventDate" value="2022-05-13"></div>
+                            <div class="col-md-6"><label class="col-form-label">Lead Weeks:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="number" id="evt_LeadWeeks" name="evt.LeadWeeks" value="1"></div>
+                            <div class="col-md-6"><label class="col-form-label">Venue</label></div>
+                            <div class="col-md-6"><a href="#">(Not Set)</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab">
+                    <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-0 .item-3" href="#accordion-0 .item-3">Event: Hen Night</a></h5>
+                </div>
+                <div class="collapse item-3" role="tabpanel" data-parent="#accordion-0">
+                    <div class="card-body">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
+                                <div class="col-md-6"><input class="form-control" type="text" id="evt_Name" name="evt.Name" value="Rehearsal"></div>
+                                <div class="col-md-6"><label class="col-form-label">Event Date:</label></div>
+                                <div class="col-md-6"><input class="form-control" type="date" data-val="true" data-val-required="The EventDate field is required." id="evt_EventDate" name="evt.EventDate" value="2022-05-13"></div>
+                                <div class="col-md-6"><label class="col-form-label">Lead Weeks:</label></div>
+                                <div class="col-md-6"><input class="form-control" type="number" id="evt_LeadWeeks" name="evt.LeadWeeks" value="1"></div>
+                                <div class="col-md-6"><label class="col-form-label">Venue</label></div>
+                                <div class="col-md-6"><a href="#">(Not Set)</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab">
+                    <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-0 .item-4" href="#accordion-0 .item-4">Event: Church Service</a></h5>
+                </div>
+                <div class="collapse item-4" role="tabpanel" data-parent="#accordion-0">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="text" id="evt_Name" name="evt.Name" value="Rehearsal"></div>
+                            <div class="col-md-6"><label class="col-form-label">Event Date:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="date" data-val="true" data-val-required="The EventDate field is required." id="evt_EventDate" name="evt.EventDate" value="2022-05-13"></div>
+                            <div class="col-md-6"><label class="col-form-label">Lead Weeks:</label></div>
+                            <div class="col-md-6"><input class="form-control" type="number" id="evt_LeadWeeks" name="evt.LeadWeeks" value="1"></div>
+                            <div class="col-md-6"><label class="col-form-label">Venue</label></div>
+                            <div class="col-md-6"><a href="#">(Not Set)</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer class="footer-clean">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-4 col-md-3 item">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Web design</a></li>
+                    <li><a href="#">Bespoke Development</a></li>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="col-sm-4 col-md-3 item">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="#">Company</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="col-sm-4 col-md-3 item">
+                <h3>Careers</h3>
+                <ul>
+                    <li><a href="#">Job openings</a></li>
+                    <li><a href="#">Employee success</a></li>
+                    <li><a href="#">Benefits</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
+                <p class="copyright">Plan My Asian Wedding © 2021</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/site.js?v=BxFAw9RUJ1E4NycpKEjCNDeoSvr4RPHixdBq5wDnkeY"></script>
+
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $("#btnSend").click(function (e) {
+            let message = $('#messagebox').val();
+            let sender = $('#senderUId').text();
+            $('#messagebox').val('');
+            connection.invoke('SendMessage', sender, message);
+            e.preventDefault();
+        });
+    });
+    function appendLine(uid, message) {
+        let nameElement = document.createElement('strong');
+        nameElement.innerText = `${uid}:`;
+        let msgElement = document.createElement('em');
+        msgElement.innerText = ` ${message}`;
+        let li = document.createElement('li');
+        li.appendChild(nameElement);
+        li.appendChild(msgElement);
+        $('#messageList').append(li);
+    };
+</script>

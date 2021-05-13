@@ -17,20 +17,28 @@
                 <div class="col"><input class="form-control" type="text" asp-for="Name"></div>
             </div>
             <div class="form-row">
+                <div class="col"><label class="col-form-label">Attendees:</label></div>
+                <div class="col"><input type="number" class="form-control" asp-for="Attendees"/></div>
+            </div>
+            <div class="form-row">
                 <div class="col"><label class="col-form-label">Notes:</label></div>
                 <div class="col"><textarea class="form-control" name="Notes">@Model.Notes</textarea></div>
             </div>
+            <div role="tablist" id="accordion-0">
             @{
-                int i = 0;
+                int i = 1;
+                int item = 0;
+                int elementCount = 0;
             }
             @foreach (var evt in Model.Events)
             {
-                <div role="tablist" id="accordion-@i">
+                elementCount = 0;
+
                     <div class="card">
                         <div class="card-header" role="tab">
-                            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-@i .item-@i" href="#accordion-@i .item-@i">Event: @evt.Name</a></h5>
+                            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-0 .item-@item" href="#accordion-0 .item-@item">Event: @evt.Name</a></h5>
                         </div>
-                        <div class="collapse item-@i" role="tabpanel" data-parent="#accordion-@i">
+                        <div class="collapse item-@item" role="tabpanel" data-parent="#accordion-0">
                             <div class="card-body">
                                 <div class="form-row">
                                     <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
@@ -41,15 +49,47 @@
                                     <div class="col-md-6"><input class="form-control" type="number" asp-for="@evt.LeadWeeks"></div>
                                     <div class="col-md-6"><label class="col-form-label">Venue</label></div>
                                     <div class="col-md-6"><a href="#">@GetVenueName(evt.Venue)</a></div>
-                                    <div class="col-md-6"><label class="col-form-label"></label></div>
-                                    <div class="col-md-6" style="text-align: right;"><a asp-action="EditEventDetails" asp-route-eventId="@evt.Id" asp-route-quoteId="@Model.QuoteIdIdentity" style="text-align: right;">Edit Event &gt;</a></div>
+                                </div>
+                                    @foreach (var element in evt.Elements)
+                                    {
+                                        elementCount++;
+                                        <div role="tablist" id="accordion-@i">
+                                            <div class="card">
+                                                <div class="card-header" role="tab">
+                                                    <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-@i .item-@elementCount" href="#accordion-@i .item-@elementCount">Element: @element.Name</a></h5>
+                                                </div>
+                                                <div class="collapse item-@elementCount" role="tabpanel" data-parent="#accordion-@i">
+                                                    <div class="card-body">
+                                                        <div class="form-row">
+                                                            <div class="col-md-6"><label class="col-form-label">Element Name:</label></div>
+                                                            <div class="col-md-6"><input class="form-control" type="text" asp-for="@element.Name"></div>
+                                                            <div class="col-md-6"><label class="col-form-label">Budget:</label></div>
+                                                            <div class="col-md-6"><input class="form-control" type="text" asp-for="@element.Budget"></div> 
+                                                            <div class="col-md-6"><label class="col-form-label">Due Date:</label></div>
+                                                            <div class="col-md-6"><input class="form-control" type="date" asp-for="@element.DueDate"></div> 
+                                                            <div class="col-md-6"><label class="col-form-label">Quantity:</label></div>
+                                                            <div class="col-md-6"><input type="number" class="form-control"  asp-for="@element.Quantity"></div>
+                                                            <div class="col-md-6"><label class="col-form-label">Lead Weeks:</label></div>
+                                                            <div class="col-md-6"><input type="number" class="form-control"  asp-for="@element.LeadWeeks"></div>
+                                                            <div class="col-md-6"><label class="col-form-label">Completed:</label></div>
+                                                            <div class="col-md-6"><input type="checkbox" class="form-control"  asp-for="@element.Completed"></div> 
+                                                            <div class="col-md-6"><label class="col-form-label">Exclude:</label></div>
+                                                            <div class="col-md-6"><input type="checkbox" class="form-control"  asp-for="@element.Exclude"></div> 
+                                                            <div class="col-md-6"><label class="col-form-label">Notes:</label></div>
+                                                            <div class="col-md-6"><input class="form-control" type="text" asp-for="@element.Notes"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                item++;
                 i++;
             }
+            </div>
         </form>
     </div>
 @functions
