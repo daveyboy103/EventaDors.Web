@@ -316,6 +316,7 @@ namespace EventaDors.DataManagement
                             Attendees = GetSafeInt(dr, "Attendees"),
                             Created = dr.GetDateTime("Created"),
                             Modified = dr.GetDateTime("Modified"),
+                            Notes = GetSafeString(dr, "QuoteEventNotes"),
                             Event = new Event
                             {
                                 Name = dr.GetString(dr.GetOrdinal("EventName")),
@@ -328,7 +329,8 @@ namespace EventaDors.DataManagement
                             Exclude = dr.GetBoolean(dr.GetOrdinal("Exclude")),
                             LeadWeeks = GetSafeInt(dr, "LeadWeeks"),
                             Order = dr.GetInt32(dr.GetOrdinal("EventOrder")),
-                            Name = GetSafeString(dr, "DisplayName")
+                            Name = GetSafeString(dr, "DisplayName"),
+                            QuoteRequestEventId = dr.GetInt32(dr.GetOrdinal("QuoteRequestEventId"))
                         };
 
                         if (dr["VenueId"] != DBNull.Value)
@@ -348,6 +350,7 @@ namespace EventaDors.DataManagement
                                 SiteLink = GetSafeString(dr, "SiteLink"),
                                 Created = dr.GetDateTime(dr.GetOrdinal("Created")),
                                 Modified = dr.GetDateTime(dr.GetOrdinal("Modified"))
+                                
                             };
 
                             quoteRequestEvent.Venue = venue;
@@ -375,7 +378,8 @@ namespace EventaDors.DataManagement
                                 Modified = dr.GetDateTime(dr.GetOrdinal("Modified")),
                                 DueDate = GetSafeDate(dr, "DueDate"),
                                 Exclude = dr.GetBoolean(dr.GetOrdinal("Exclude")),
-                                UnderlyingElementNotes = GetSafeString(dr, "QuoteElementNotes")
+                                UnderlyingElementNotes = GetSafeString(dr, "QuoteElementNotes"),
+                                QuoteRequestElementId = GetSafeInt(dr, "QuoteRequestElementId")
                             };
 
                             quoteRequestElement.Parent.Elements.Add(quoteRequestElement);

@@ -56,7 +56,7 @@ $(document).ready(function () {
         let message = $('#messagebox').val();
         let sender = $('#senderUId').text();
         $('#messagebox').val('');  
-        connection.invoke('SendMessage', sender, message);
+        connection.invoke('SendProcessingMessage', sender, message);
         e.preventDefault();
     });
 });

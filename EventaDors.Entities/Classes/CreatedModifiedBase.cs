@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EventaDors.Entities.Classes
 {
-    public abstract class CreatedModifiedBase
+    public abstract class CreatedModifiedBase : ProcessStatus
     {
         protected CreatedModifiedBase()
         {
@@ -13,5 +13,19 @@ namespace EventaDors.Entities.Classes
         public DateTime Modified { get; set; }
         
         public IDictionary<string, string> HelpMessages { get; }
+    }
+
+    public abstract class ProcessStatus
+    {
+        public ProcessingResult ProcessingResult { get; set; }
+        public string ProcessingMessage { get; set; }
+    }
+
+    public enum ProcessingResult
+    {
+        None,
+        Success,
+        Failed,
+        Warning
     }
 }

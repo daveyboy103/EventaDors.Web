@@ -12,6 +12,7 @@ namespace EventaDors.Entities.Classes
         public int Order { get; set; }
         public Event Event { get; set; }
         public bool Exclude { get; set; }
+        public string Notes { get; set; }
         public IList<QuoteElement> TemplateElements { get; }
 
         public override string ToString()

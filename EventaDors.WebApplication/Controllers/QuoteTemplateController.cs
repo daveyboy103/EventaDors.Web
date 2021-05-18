@@ -97,6 +97,12 @@ namespace EventaDors.WebApplication.Controllers
                 quoteRequest = _wrapper.LoadQuoteRequest(id);
             }
 
+            if (Request.Query.ContainsKey(Statics.ProcessingStatus))
+            {
+                quoteRequest.ProcessingResult = Enum.Parse<ProcessingResult>(Request.Query[Statics.ProcessingStatus]);
+                quoteRequest.ProcessingMessage = Request.Query[Statics.ProcessingMessage];
+            }
+            
             return View(quoteRequest);
         }
 
@@ -111,6 +117,18 @@ namespace EventaDors.WebApplication.Controllers
             int eventId = int.Parse(Request.Query["eventId"]);
             int quoteId = int.Parse(Request.Query["quoteId"]);
             return View(quoteEvent);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateWedding(QuoteRequest request)
+        {
+            int id = int.Parse(Request.Form["QuoteIdIdentity"]);
+            return RedirectToAction("ProcessTemplate", "QuoteTemplate", new
+            {
+                quoteIdIdentity = id,
+                status = ProcessingResult.Success,
+                message = "Wedding event saved successfully"
+            });
         }
     }
 }

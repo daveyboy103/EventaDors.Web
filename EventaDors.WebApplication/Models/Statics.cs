@@ -13,7 +13,8 @@ namespace EventaDors.WebApplication.Models
         public static string ContactNumber => "ContactNumber";
         public static string PartnerEmail => "PartnerEmail";
         public static string EventDate => "EventDate";
-
         public static string EmailTempData => "email";
+        public static string ProcessingStatus => "status";
+        public static string ProcessingMessage => "message";
     }
 }

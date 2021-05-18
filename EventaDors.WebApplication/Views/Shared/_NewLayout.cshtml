@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -22,83 +23,104 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </head>
+
 <body>
-    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-        <div class="container"><img class="small_logo" src="~/assets/img/logo.jpeg" style="width: 34px;padding: 4px;">
-            <a class="navbar-brand" asp-action="Home" asp-controller="Content" style="color: rgb(145,109,154);">Plan My Asian Wedding</a>
+    <div class="container">
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean-button justify-content-center">
+            <img class="small_logo" src="~/assets/img/logo.jpeg" style="width: 34px;padding: 4px;">
+            <a class="navbar-brand" asp-action="Home" asp-controller="Content" style="color: rgb(145,109,154);">Plan My
+                Asian Wedding</a>
             <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navcol-1">
+            <div class="collapse navbar-collapse justify-content-between" id="navcol-1">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" asp-controller="Content" asp-action="Features">Features</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Content" asp-action="AboutUs">About Us</a></li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">Functions&nbsp;</a>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Content" asp-action="Features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Content" asp-action="AboutUs">About Us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown"
+                            href="#">Functions&nbsp;</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-action="ProcessTemplate" asp-controller="QuoteTemplate">Wedding Set-up</a>
+                            <a class="dropdown-item" asp-action="ProcessTemplate" asp-controller="QuoteTemplate">Wedding
+                                Set-up</a>
                             <a class="dropdown-item" asp-action="Index" asp-controller="TaskList">Task List</a>
                             <a class="dropdown-item" asp-action="Index" asp-controller="GuestList">Guest List</a>
                             <a class="dropdown-item" asp-action="Index" asp-controller="Directory">Directory</a>
                             <a class="dropdown-item" asp-action="Index" asp-controller="Venues">Venues</a>
                         </div>
                     </li>
-                </ul><span class="navbar-text actions"> <a class="login" asp-controller="Registration" asp-action="Index">@GetLoginText()</a>
-                    <a class="btn btn-light action-button" role="button" asp-controller="Registration" asp-action="Register" asp-route-mode="@GetButtonText()" style="background: rgb(144,109,154);color: rgb(252,209,91);">@GetButtonText()</a></span>
-            </div>
-        </div>
-    </nav>
-@RenderBody()
-<footer class="footer-clean">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-sm-4 col-md-3 item">
-                <h3>Services</h3>
-                <ul>
-                    <li><a href="#">Web design</a></li>
-                    <li><a href="#">Bespoke Development</a></li>
-                    <li></li>
                 </ul>
+                <span class="navbar-text actions">
+                    <a class="login" asp-controller="Registration" asp-action="Index">@GetLoginText()</a>
+                    <a class="btn btn-light action-button" role="button" asp-controller="Registration"
+                        asp-action="Register" asp-route-mode="@GetButtonText()"
+                        style="background: rgb(144,109,154);color: rgb(252,209,91);">@GetButtonText()</a>
+                </span>
             </div>
-            <div class="col-sm-4 col-md-3 item">
-                <h3>About</h3>
-                <ul>
-                    <li><a href="#">Company</a></li>
-                    <li><a href="#">Team</a></li>
-                    <li></li>
-                </ul>
+        </nav>
+        @RenderBody()
+
+        <footer class="footer-clean">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-4 col-md-3 item">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="#">Web design</a></li>
+                            <li><a href="#">Bespoke Development</a></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 col-md-3 item">
+                        <h3>Careers</h3>
+                        <ul>
+                            <li><a href="#">Job openings</a></li>
+                            <li><a href="#">Employee success</a></li>
+                            <li><a href="#">Benefits</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 item social">
+                        <a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i
+                                class="icon ion-social-twitter"></i></a><a href="#"><i
+                                class="icon ion-social-snapchat"></i></a><a href="#"><i
+                                class="icon ion-social-instagram"></i></a>
+                        <p class="copyright">Plan My Asian Wedding © 2021</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-4 col-md-3 item">
-                <h3>Careers</h3>
-                <ul>
-                    <li><a href="#">Job openings</a></li>
-                    <li><a href="#">Employee success</a></li>
-                    <li><a href="#">Benefits</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
-                <p class="copyright">Plan My Asian Wedding © 2021</p>
-            </div>
-        </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
     </div>
-</footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
 <script>
-$(document).ready(function () {
-    $("#btnSend").click(function (e) {   
-        let message = $('#messagebox').val();
-        let sender = $('#senderUId').text();
-        $('#messagebox').val('');  
-        connection.invoke('SendMessage', sender, message);
-        e.preventDefault();
+    $(document).ready(function () {
+        $("#btnSend").click(function (e) {
+            let message = $('#messagebox').val();
+            let sender = $('#senderUId').text();
+            $('#messagebox').val('');
+            connection.invoke('SendProcessingMessage', sender, message);
+            e.preventDefault();
+        });
     });
-});
-function appendLine(uid, message) {
+    function appendLine(uid, message) {
         let nameElement = document.createElement('strong');
         nameElement.innerText = `${uid}:`;
         let msgElement = document.createElement('em');
@@ -107,25 +129,23 @@ function appendLine(uid, message) {
         li.appendChild(nameElement);
         li.appendChild(msgElement);
         $('#messageList').append(li);
-};
+    };
 </script>
 @functions{
-    string GetLoginText()
+string GetLoginText()
+{
+    if(string.IsNullOrEmpty(this.Context.Session.GetString(Statics.EmailTempData)))
     {
-        if(string.IsNullOrEmpty(this.Context.Session.GetString(Statics.EmailTempData)))
-        {
-            return "Login";
-        }
-
+        return "Login";
+    }
         return "";
-        
-    }string GetButtonText()
+}
+    string GetButtonText()
     {
         if(string.IsNullOrEmpty(this.Context.Session.GetString(Statics.EmailTempData)))
-        {
-            return "Sign Up";
-        }
-
+    {
+        return "Sign Up";
+    }
         return "Log Out";
     }
 }

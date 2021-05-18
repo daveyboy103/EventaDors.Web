@@ -6,7 +6,7 @@
 }
 <script>
 const connection = new signalR.HubConnectionBuilder()
-.withUrl("/MessageHub")
+.withUrl("/ProcessingMessageHub")
 .build();
 connection.start()
 .catch(err => alert(err.toString()));
@@ -20,7 +20,7 @@ connection.on('UserDisconnected', (ConnectionId) => {
     appendLine(sender, _message);
 });
 
-connection.on('SendMessage', (sender, message) => {
+connection.on('SendProcessingMessage', (sender, message) => {
     let _message = message;
     appendLine(sender, _message);
 });
@@ -31,7 +31,7 @@ connection.on('SendMessage', (sender, message) => {
     <div id="senderUId">@Model.Id</div>
     <form id="messageform">            
         <input type="text" id="messagebox" />
-        <input type="button" value="Send Message" id="btnSend" />
+        <input type="button" value="Send ProcessingMessage" id="btnSend" />
     </form>
     <hr />
     <ul id="messageList" style="text-align:left;"></ul>

@@ -7,24 +7,51 @@
 }
 
 
- <div class="container">
-     <a href="javascript:history.back()" class="form-control" >&lt; Back</a>
-     <p></p>
-     <h4>@Model.Name</h4>
-        <form>
-            <div class="form-row">
-                <div class="col"><label class="col-form-label">Wedding Name:</label></div>
-                <div class="col"><input class="form-control" type="text" asp-for="Name"></div>
+<div class="container">
+    @if (Model.ProcessingResult == ProcessingResult.Success)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>@Model.ProcessingResult.ToString()</strong> @Model.ProcessingMessage
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    <form asp-action="UpdateWedding" asp-controller="QuoteTemplate">
+        <div class="container" style="align: right">
+            <a style="background: rgb(144,109,154);color: rgb(252,209,91);" class="btn btn-light action-button" href="javascript:history.back()" class="form-control">&lt; Back</a>
+            <input type="submit" class="btn btn-light action-button" style="background: rgb(144,109,154);color: rgb(252,209,91);" value="Save Changes">
+        </div>
+        <p></p>
+        <div class="row">
+            <h4><i class="fa fa-heart"></i> @Model.Name</h4>
+        </div>
+        <input name="QuoteIdIdentity" type="hidden" value="@Model.QuoteIdIdentity"/>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="Wedding_Name" name="Wedding_Name" asp-for="Name">
+                    <label for="Wedding_Name">Wedding Name</label>
+                </div>
             </div>
-            <div class="form-row">
-                <div class="col"><label class="col-form-label">Attendees:</label></div>
-                <div class="col"><input type="number" class="form-control" asp-for="Attendees"/></div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-floating">
+                    <input type="number" class="form-control" id="Wedding_Attendees" name="Wedding_Attendees" asp-for="Attendees">
+                    <label for="Wedding_Attendees">Attendees</label>
+                </div>
             </div>
-            <div class="form-row">
-                <div class="col"><label class="col-form-label">Notes:</label></div>
-                <div class="col"><textarea class="form-control" name="Notes">@Model.Notes</textarea></div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-floating">
+                    <textarea name="Wedding_Notes" class="form-control" id="Wedding_Notes">@Model.Notes</textarea>
+                    <label for="Wedding_Notes">Notes</label>
+                </div>
             </div>
-            <div role="tablist" id="accordion-0">
+        </div>
+        <div role="tablist" id="accordion-0">
             @{
                 int i = 1;
                 int item = 0;
@@ -36,67 +63,125 @@
 
                     <div class="card">
                         <div class="card-header" role="tab">
-                            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-0 .item-@item" href="#accordion-0 .item-@item">Event: @evt.Name</a></h5>
+                            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-0 .item-@item" href="#accordion-0 .item-@item"><i class="fa fa-tags"></i> @evt.Name</a></h5>
                         </div>
-                        <div class="collapse item-@item" role="tabpanel" data-parent="#accordion-0">
-                            <div class="card-body">
-                                <div class="form-row">
-                                    <div class="col-md-6"><label class="col-form-label">Event Name:</label></div>
-                                    <div class="col-md-6"><input class="form-control" type="text" asp-for="@evt.Name"></div>
-                                    <div class="col-md-6"><label class="col-form-label">Event Date:</label></div>
-                                    <div class="col-md-6"><input class="form-control" type="date" asp-for="@evt.EventDate"></div>
-                                    <div class="col-md-6"><label class="col-form-label">Lead Weeks:</label></div>
-                                    <div class="col-md-6"><input class="form-control" type="number" asp-for="@evt.LeadWeeks"></div>
-                                    <div class="col-md-6"><label class="col-form-label">Venue</label></div>
-                                    <div class="col-md-6"><a href="#">@GetVenueName(evt.Venue)</a></div>
+                    <div class="collapse item-@item" role="tabpanel" data-parent="#accordion-0">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input name="event.Name.@evt.QuoteRequestEventId" class="form-control" id="event.Name.@evt.QuoteRequestEventId" asp-for="@evt.Name">
+                                        <label for="event.Name.@evt.QuoteRequestEventId">Event Name</label>
+                                    </div>
                                 </div>
-                                    @foreach (var element in evt.Elements)
-                                    {
-                                        elementCount++;
-                                        <div role="tablist" id="accordion-@i">
-                                            <div class="card">
-                                                <div class="card-header" role="tab">
-                                                    <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-@i .item-@elementCount" href="#accordion-@i .item-@elementCount">Element: @element.Name</a></h5>
-                                                </div>
-                                                <div class="collapse item-@elementCount" role="tabpanel" data-parent="#accordion-@i">
-                                                    <div class="card-body">
-                                                        <div class="form-row">
-                                                            <div class="col-md-6"><label class="col-form-label">Element Name:</label></div>
-                                                            <div class="col-md-6"><input class="form-control" type="text" asp-for="@element.Name"></div>
-                                                            <div class="col-md-6"><label class="col-form-label">Budget:</label></div>
-                                                            <div class="col-md-6"><input class="form-control" type="text" asp-for="@element.Budget"></div> 
-                                                            <div class="col-md-6"><label class="col-form-label">Due Date:</label></div>
-                                                            <div class="col-md-6"><input class="form-control" type="date" asp-for="@element.DueDate"></div> 
-                                                            <div class="col-md-6"><label class="col-form-label">Quantity:</label></div>
-                                                            <div class="col-md-6"><input type="number" class="form-control"  asp-for="@element.Quantity"></div>
-                                                            <div class="col-md-6"><label class="col-form-label">Lead Weeks:</label></div>
-                                                            <div class="col-md-6"><input type="number" class="form-control"  asp-for="@element.LeadWeeks"></div>
-                                                            <div class="col-md-6"><label class="col-form-label">Completed:</label></div>
-                                                            <div class="col-md-6"><input type="checkbox" class="form-control"  asp-for="@element.Completed"></div> 
-                                                            <div class="col-md-6"><label class="col-form-label">Exclude:</label></div>
-                                                            <div class="col-md-6"><input type="checkbox" class="form-control"  asp-for="@element.Exclude"></div> 
-                                                            <div class="col-md-6"><label class="col-form-label">Notes:</label></div>
-                                                            <div class="col-md-6"><input class="form-control" type="text" asp-for="@element.Notes"></div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input name="event.Notes.@evt.QuoteRequestEventId" class="form-control" id="event.Notes.@evt.QuoteRequestEventId" asp-for="@evt.Notes">
+                                        <label for="event.Notes.@evt.QuoteRequestEventId">Event Notes</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="date" name="event.EventDate.@evt.QuoteRequestEventId" class="form-control" id="event.EventDate.@evt.QuoteRequestEventId" asp-for="@evt.EventDate">
+                                        <label for="event.EventDate.@evt.QuoteRequestEventId">Event Date/Time</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input name="event.LeadWeeks.@evt.QuoteRequestEventId" class="form-control" id="event.LeadWeeks.@evt.QuoteRequestEventId" asp-for="@evt.LeadWeeks">
+                                        <label for="event.LeadWeeks.@evt.QuoteRequestEventId">Lead Weeks</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input list="datalistOptions" type="text" name="event.Venue.@evt.QuoteRequestEventId" placeholder="No venues set up for this event"
+                                               class="form-control" id="event.Venue.@evt.QuoteRequestEventId" value="@GetVenueName(evt.Venue)">
+                                        <label for="event.Venue.@evt.QuoteRequestEventId">Venue (Must be set up first)</label>
+                                        <datalist id="datalistOptions">
+                                            <option value="The Basement, Leicester, LE1 6HH"/>
+                                            <option value="St Andrew's Church, Leicester, LE4"/>
+                                            <option value="Quorn Country Hotel, Leicester, LE12 8BB"/>
+                                            <option value="Bride's Home, Leicester, LE3 4ER"/>
+                                            <option value="Grooms's Home, Leicester, LE3 6UR"/>
+                                            <option value="(none)"/>
+                                        </datalist>
+                                    </div>
+                                </div>
+                                <div class="col" align="right"><a asp-action="Index" asp-controller="Venues">Manage Venues</a></div>
+                            </div>
+                            @foreach (var element in evt.Elements)
+                            {
+                                elementCount++;
+                                <div role="tablist" id="accordion-@i">
+                                    <div class="card">
+                                        <div class="card-header" role="tab">
+                                            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-@i .item-@elementCount" href="#accordion-@i .item-@elementCount"><i class="far fa-list-alt"></i> @element.Name</a></h5>
+                                        </div>
+                                        <div class="collapse item-@elementCount" role="tabpanel" data-parent="#accordion-@i">
+                                            <div class="card-body">
+                                                <div class="form-row">
+                                                     <div class="col">
+                                                        <div class="form-floating">
+                                                            <input name="element.Name.@element.QuoteRequestElementId" class="form-control" id="element.Name.@element.QuoteRequestElementId" asp-for="@element.Name">
+                                                            <label for="element.Name.@element.QuoteRequestElementId">Element Name</label>
                                                         </div>
+                                                     </div> 
+                                                    <div class="col">
+                                                        <div class="form-floating">
+                                                            <input name="element.Notes.@element.QuoteRequestElementId" class="form-control" id="element.Notes.@element.QuoteRequestElementId" asp-for="@element.Notes">
+                                                            <label for="element.Notes.@element.QuoteRequestElementId">Notes</label>
+                                                        </div>
+                                                     </div> 
+                                                    <div class="col">
+                                                        <div class="form-floating">
+                                                            <input name="element.Budget.@element.QuoteRequestElementId" class="form-control" id="element.Budget.@element.QuoteRequestElementId" type="number" asp-for="@element.Budget">
+                                                            <label for="element.Budget.@element.QuoteRequestElementId">Budget</label>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col">
+                                                        <div class="form-floating">
+                                                            <input name="element.DueDate.@element.QuoteRequestElementId" class="form-control" id="element.DueDate.@element.QuoteRequestElementId" type="date" asp-for="@element.DueDate">
+                                                            <label for="element.DueDate.@element.QuoteRequestElementId">Due Date</label>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col">
+                                                        <div class="form-floating">
+                                                            <input name="element.Quantity.@element.QuoteRequestElementId" class="form-control" id="element.Quantity.@element.QuoteRequestElementId" type="number" asp-for="@element.Quantity">
+                                                            <label for="element.Quantity.@element.QuoteRequestElementId">Quantity</label>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col">
+                                                        <div class="form-floating">
+                                                            <input name="element.LeadWeeks.@element.QuoteRequestElementId" class="form-control" id="element.LeadWeeks.@element.QuoteRequestElementId" type="number" asp-for="@element.LeadWeeks">
+                                                            <label for="element.LeadWeeks.@element.QuoteRequestElementId">Lead Weeks</label>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="form-row" align="right">
+                                                        <input type="checkbox" name="element.Completed.@element.QuoteRequestElementId" id="element.Completed.@element.QuoteRequestElementId" asp-for="@element.Completed"/>
+                                                        <label for="element.Completed.@element.QuoteRequestElementId">Completed</label>
+                                                        <input type="checkbox" name="element.Exclude.@element.QuoteRequestElementId" id="element.Exclude.@element.QuoteRequestElementId" asp-for="@element.Exclude"/>
+                                                        <label for="element.Exclude.@element.QuoteRequestElementId">Exclude this element</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    }
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         </div>
+                    </div>
+                </div>
                 item++;
                 i++;
             }
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
 @functions
 {
     string GetVenueName(Venue venue)
     {
-        string ret = "(Not Set)";
+        string ret = "(none)";
         if (venue != null)
             ret = venue.ToString();
         return ret;
