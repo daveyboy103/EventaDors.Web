@@ -1,0 +1,102 @@
+@model EventWrapper
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<div class="text-center">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" hidden="@ShowAlert(Model)">
+      <strong>Record Saved</strong> Record saved successfully
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <h1>Events</h1>
+    <p class="p-4 text-muted">This form manages the list of events that can be assigned to a template, for example for a wedding these might be <strong>Church Service,</strong> <strong>Reception</strong>, <strong>Rehearsal</strong> and so on.</p>
+    <form asp-action="Events">
+        <div class="container">
+            <div class="row pb-3">
+                <div class="col-md-12 align-items-center m-auto">
+                    <div class="dropdown m-auto pb-1 bg-primary">
+                        <button class="btn btn-secondary dropdown-toggle bg-primary" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select Existing Event
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="max-height: 400px; overflow: hidden; overflow-y: auto">
+                            @foreach (var evt in Model.List)
+                            {
+                                <li>
+                                    <a class="dropdown-item" type="button" asp-action="LoadEvent" asp-route-eventid="@evt.Id">@evt.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="form-floating">
+                        <input class="form-control form-control" type="text" id="EventName" asp-for="Event.Name" disabled="@GetDisabledState(Model)">
+                        <label class="form-label" for="EventName">Event Name</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="form-floating">
+                        <input class="form-control form-control" type="text" id="Link" asp-for="Event.Link" disabled="@GetDisabledState(Model)">
+                        <label class="form-label" for="Link">Web Link</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <textarea class="form-control" id="Notes" style="height:150px" asp-for="Event.Notes" disabled="@GetDisabledState(Model)"></textarea>
+                        <label class="form-label" for="Notes">Notes</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="Event.Id"/>
+        <footer class="p-4" style="text-align: right;">
+            <div class="btn-group m-2" role="group">
+                <button class="btn btn-primary" type="submit">Save</button>
+                <button class="btn btn-primary" asp-action="Events" asp-route-new="true" type="submit">New</button>
+                <button asp-action="Events" asp-route-delete="@GetSafeId(Model)" class="btn btn-primary" type="submit">Delete</button>
+            </div>
+        </footer>
+    </form>
+</div>
+
+@functions{
+
+    bool GetDisabledState(EventWrapper model)
+    {
+        if (model.Event == null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    bool ShowAlert(EventWrapper model)
+    {
+        if (model.Action == FormAction.Success)
+        {
+            return false;
+        }
+
+        return true;
+    }
+    
+
+    int GetSafeId(EventWrapper model)
+    {
+        if (model.Event == null)
+        {
+            return -1;
+        }
+
+        return model.Event.Id;
+    }
+
+}

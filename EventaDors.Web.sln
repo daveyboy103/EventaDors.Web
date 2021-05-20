@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.Batch", "EventaD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.Xamarin", "EventaDors.Xamarin\EventaDors.Xamarin\EventaDors.Xamarin\EventaDors.Xamarin.csproj", "{9F7CCF52-8774-4A4C-908F-47AF48FB0561}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticDataMaintenence", "StaticDataMaintenence\StaticDataMaintenence.csproj", "{72214252-BDF3-4BE6-9B24-5828F0471B0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +56,9 @@ Global
 		{9F7CCF52-8774-4A4C-908F-47AF48FB0561}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F7CCF52-8774-4A4C-908F-47AF48FB0561}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F7CCF52-8774-4A4C-908F-47AF48FB0561}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72214252-BDF3-4BE6-9B24-5828F0471B0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72214252-BDF3-4BE6-9B24-5828F0471B0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72214252-BDF3-4BE6-9B24-5828F0471B0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72214252-BDF3-4BE6-9B24-5828F0471B0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

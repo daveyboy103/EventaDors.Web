@@ -1225,5 +1225,62 @@ namespace EventaDors.DataManagement
                 }
             }
         }
+
+        public IEnumerable<Event> ListEvents(int? eventId = null)
+        {
+            var ret = new List<Event>();
+            
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn, "EVENTS_List"))
+                {
+                    if (eventId.HasValue)
+                    {
+                        cmd.Parameters.AddWithValue("eventId", eventId.Value);
+                    }
+                    
+                    var dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        var evt = new Event()
+                        {
+                            Name = dr.GetString(dr.GetOrdinal("Name")),
+                            Id = dr.GetInt32(dr.GetOrdinal("Id")),
+                            Notes = GetSafeString(dr, "Notes"),
+                            Link = GetSafeString(dr, "Link"),
+                            Created = dr.GetDateTime(dr.GetOrdinal("Created")),
+                            Modified = dr.GetDateTime(dr.GetOrdinal("Modified")),
+                        };
+                        
+                        ret.Add(evt);
+                    }
+                }
+            }
+
+            return ret;
+        }
+
+        public Event SaveEvent(Event eventIn)
+        {
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn, "EVENTS_Save"))
+                {
+                    cmd.Parameters.AddWithValue("name", eventIn.Name);
+                    cmd.Parameters.AddWithValue("notes", eventIn.Notes);
+                    cmd.Parameters.AddWithValue("link", eventIn.Link);
+                    cmd.Parameters.AddWithValue("id", eventIn.Id);
+                    cmd.Parameters.Add("return", SqlDbType.Int);
+                    cmd.Parameters["return"].Direction = ParameterDirection.ReturnValue;
+
+                    cmd.ExecuteNonQuery();
+
+                    int ret = int.Parse(cmd.Parameters["return"].Value.ToString() ?? string.Empty);
+
+                    return ListEvents(ret).First();
+                }
+            }
+        }
     }
 }

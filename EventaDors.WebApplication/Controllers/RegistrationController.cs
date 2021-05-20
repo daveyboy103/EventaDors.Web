@@ -1,15 +1,12 @@
 using System;
-using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using EventaDors.DataManagement;
 using EventaDors.Entities.Classes;
 using EventaDors.Entities.Interfaces;
-using EventaDors.WebApplication.Helpers;
 using EventaDors.WebApplication.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Internal;
 using Microsoft.Extensions.Logging;
 
 namespace EventaDors.WebApplication.Controllers
@@ -24,17 +21,21 @@ namespace EventaDors.WebApplication.Controllers
             _wrapper = wrapper;
             _logger = logger;
         }
+
         // GET
         public IActionResult Index(Journey journey)
         {
             ModelState.ClearValidationState("Email");
             ModelState.ClearValidationState("Password");
-            
+
             if (journey.Email == null)
             {
-                journey.Email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData) ? HttpContext.Session.GetString(Statics.EmailTempData) : string.Empty) ;;
+                journey.Email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData)
+                    ? HttpContext.Session.GetString(Statics.EmailTempData)
+                    : string.Empty);
+                ;
             }
-            
+
             return View(journey);
         }
 
@@ -47,7 +48,7 @@ namespace EventaDors.WebApplication.Controllers
 
                 journey = _wrapper.GetJourney(journey.Email);
                 journey.Password = password;
-                
+
                 if (_wrapper.LoginUser(new User
                 {
                     PrimaryEmail = journey.Email,
@@ -55,21 +56,22 @@ namespace EventaDors.WebApplication.Controllers
                     CurrentPassword = journey.Password
                 }))
                 {
-                    if(!HttpContext.Session.Keys.Contains(Statics.EmailTempData))
+                    if (!HttpContext.Session.Keys.Contains(Statics.EmailTempData))
                         HttpContext.Session.SetString(Statics.EmailTempData, journey.Email);
 
                     if (journey.QuoteIdIdentity.HasValue)
                     {
-                        return RedirectToAction("ProcessTemplate", "QuoteTemplate", new { quoteIdIdentity = journey.QuoteIdIdentity});
+                        return RedirectToAction("ProcessTemplate", "QuoteTemplate",
+                            new {quoteIdIdentity = journey.QuoteIdIdentity});
                     }
 
                     if (journey.Completed.HasValue)
                     {
-                        if(!HttpContext.Session.Keys.Contains(Statics.EmailTempData))
+                        if (!HttpContext.Session.Keys.Contains(Statics.EmailTempData))
                             HttpContext.Session.SetString(Statics.EmailTempData, journey.Email);
                         return RedirectToAction("Step3");
                     }
-                
+
                     return View(journey);
                 }
             }
@@ -87,8 +89,8 @@ namespace EventaDors.WebApplication.Controllers
         public IActionResult LoginFailed()
         {
             return View();
-        }       
-        
+        }
+
         public IActionResult ForgotPassword()
         {
             return View();
@@ -103,22 +105,24 @@ namespace EventaDors.WebApplication.Controllers
                 HttpContext.Session.Remove(Statics.EmailTempData);
                 return RedirectToAction("Index", "Registration");
             }
-       
+
             return View(journey);
         }
-        
+
         [HttpPost]
         public IActionResult Step2(Journey journey, string YourStory)
         {
             if (journey.Email == null)
             {
-                journey.Email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData) ? HttpContext.Session.GetString(Statics.EmailTempData) : string.Empty) ;
+                journey.Email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData)
+                    ? HttpContext.Session.GetString(Statics.EmailTempData)
+                    : string.Empty);
             }
 
             journey.YourStory = YourStory;
             User u = _wrapper.CreateUser(journey.Email);
-            
-            if(!u.MetaData.ContainsKey(nameof(journey.Title)))
+
+            if (!u.MetaData.ContainsKey(nameof(journey.Title)))
             {
                 u.MetaData.Add(nameof(journey.Title), new MetaDataItem
                 {
@@ -236,15 +240,17 @@ namespace EventaDors.WebApplication.Controllers
             _wrapper.PutJourney(journey);
             return View();
         }
-        
+
         public IActionResult Step3(Journey journey)
         {
             if (journey.Email == null)
             {
-                journey.Email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData) ? HttpContext.Session.GetString(Statics.EmailTempData) : string.Empty) ;
+                journey.Email = (HttpContext.Session.Keys.Contains(Statics.EmailTempData)
+                    ? HttpContext.Session.GetString(Statics.EmailTempData)
+                    : string.Empty);
             }
 
-            var user  = _wrapper.CreateUser(journey.Email);
+            var user = _wrapper.CreateUser(journey.Email);
 
             var templates = _wrapper.GetQuoteTemplates();
 
@@ -253,10 +259,10 @@ namespace EventaDors.WebApplication.Controllers
                 Email = journey.Email,
                 Payload = templates
             };
-            
+
             return View(payloadWrapper);
         }
-        
+
         [HttpPost]
         public IActionResult Step4(Journey journey)
         {
@@ -268,8 +274,8 @@ namespace EventaDors.WebApplication.Controllers
             string g = Request.QueryString.ToString();
 
             User u = _wrapper.VerifyUser(new Guid(g.Replace("?", "")));
-            
-            if(u != null)
+
+            if (u != null)
             {
                 HttpContext.Session.SetString(Statics.EmailTempData, u.PrimaryEmail);
                 return RedirectToAction("Index");
@@ -287,13 +293,13 @@ namespace EventaDors.WebApplication.Controllers
                 UserName = journey.Email
             });
             _wrapper.PutJourney(journey);
-            
+
             var link = new LinkWrapper
             {
                 Text = "Click here to verify new account",
                 Link = $"Verify/?{u.Uuid}"
             };
-            
+
             return View(link);
         }
 

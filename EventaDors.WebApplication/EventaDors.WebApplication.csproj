@@ -32,6 +32,13 @@
       <Content Remove="Views\Users\**" />
       <Content Remove="Views\Templates\**" />
       <Content Remove="Views\PhoneSimulator\**" />
+      <Content Remove="Views\Shared\_Layout.cshtml" />
+      <Content Remove="Views\Shared\_LoggedOutLayout.cshtml" />
+      <Content Remove="Views\YourStory\**" />
+      <Content Remove="Views\AboutUs\**" />
+      <Content Remove="Views\AboutYou\**" />
+      <Content Remove="Views\Contact\**" />
+      <Content Remove="Views\ElementDetail\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -75,6 +82,18 @@
       <Compile Remove="Controllers\AboutYouController.cs" />
       <Compile Remove="Views\PhoneSimulator\**" />
       <Compile Remove="Controllers\PhoneSimulatorController.cs" />
+      <Compile Remove="Controllers\HomeController.cs" />
+      <Compile Remove="Controllers\ContactController.cs" />
+      <Compile Remove="Controllers\ChooseTemplateController.cs" />
+      <Compile Remove="Controllers\TemplatesController.cs" />
+      <Compile Remove="Controllers\UsersController.cs" />
+      <Compile Remove="Views\YourStory\**" />
+      <Compile Remove="Views\AboutUs\**" />
+      <Compile Remove="Views\AboutYou\**" />
+      <Compile Remove="Views\Contact\**" />
+      <Compile Remove="Views\ElementDetail\**" />
+      <Compile Remove="Controllers\YourStoryController.cs" />
+      <Compile Remove="Controllers\ElementDetailController.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -91,6 +110,11 @@
       <EmbeddedResource Remove="Views\Users\**" />
       <EmbeddedResource Remove="Views\Templates\**" />
       <EmbeddedResource Remove="Views\PhoneSimulator\**" />
+      <EmbeddedResource Remove="Views\YourStory\**" />
+      <EmbeddedResource Remove="Views\AboutUs\**" />
+      <EmbeddedResource Remove="Views\AboutYou\**" />
+      <EmbeddedResource Remove="Views\Contact\**" />
+      <EmbeddedResource Remove="Views\ElementDetail\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -108,6 +132,11 @@
       <None Remove="Views\Users\**" />
       <None Remove="Views\Templates\**" />
       <None Remove="Views\PhoneSimulator\**" />
+      <None Remove="Views\YourStory\**" />
+      <None Remove="Views\AboutUs\**" />
+      <None Remove="Views\AboutYou\**" />
+      <None Remove="Views\Contact\**" />
+      <None Remove="Views\ElementDetail\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -192,6 +221,9 @@
       <_ContentIncludedByDefault Remove="Views\Templates\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\YourStory\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\PhoneSimulator\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\AboutYou\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Contact\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\ElementDetail\Index.cshtml" />
     </ItemGroup>
 
 </Project>

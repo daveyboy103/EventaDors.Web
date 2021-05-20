@@ -4,7 +4,7 @@
 
 @{
     ViewBag.Title = "EventaDors Data Maintenance - Users";
-    Layout = "_Layout";
+    Layout = "_NewLayout";
 }
 
 <h2>Status Screen</h2>
@@ -52,7 +52,7 @@ else
                     <td align="center"><img src="@GetStatusImage(d)" alt="@GetStatusAlt(d)" style="width:20px;height:20px" /></td>
                     <td align="center"><img src="@GetProgressImage(d)" alt="@GetProgressAlt(d)" style="width:20px;height:20px" /></td>
                     <td align="center"><img src="@GetChatIcon(d)" alt="@GetChatAlt(d)" style="width:20px;height:20px" /></td>
-                    <td align="center" style="padding: 10px" ><a asp-controller="ElementDetail" asp-action="Index" asp-route-ElementId="@d.QuoteRequestElementId" class="btn btn-success w-100">View</a></td>
+                    <td align="center" style="padding: 10px" ><a asp-controller="" asp-action="Index" asp-route-ElementId="@d.QuoteRequestElementId" class="btn btn-success w-100">View</a></td>
                 </tr>
             }
             </tbody>

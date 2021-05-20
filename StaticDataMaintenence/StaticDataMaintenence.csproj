@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EventaDors.DataManagement\EventaDors.DataManagement.csproj" />
+      <ProjectReference Include="..\EventaDors.Entities\EventaDors.Entities.csproj" />
+    </ItemGroup>
+
+</Project>

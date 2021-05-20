@@ -1,0 +1,32 @@
+
+<div class="text-center">
+    <h1>Events</h1>
+    <p class="p-4">This form manages the list of events that can be assigned to a template, for example for a wedding these might be <strong>Church Service,</strong> <strong>Reception</strong>, <strong>Rehearsal</strong> and so on.</p>
+    <form>
+        <div class="container">
+            <div class="row pb-3">
+                <div class="col-md-6"><label class="col-form-label">Select Event:</label></div>
+                <div class="col-md-6"><select class="form-select">
+                        <optgroup label="This is a group">
+                            <option value="12" selected="">This is item 1</option>
+                            <option value="13">This is item 2</option>
+                            <option value="14">This is item 3</option>
+                        </optgroup>
+                    </select></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="form-floating"><input class="form-control form-control" type="text" id="EventName"><label class="form-label" for="EventName">Event Name</label></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-floating"><textarea class="form-control" id="Notes" style="height:150px"></textarea><label class="form-label" for="Notes">Notes</label></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<footer class="p-4" style="text-align: right;">
+    <div class="btn-group m-2" role="group"><button class="btn btn-primary" type="button">Save</button><button class="btn btn-primary" type="button">New</button><button class="btn btn-primary" type="button">Delete</button></div>
+</footer>
