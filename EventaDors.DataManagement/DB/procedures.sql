@@ -11,6 +11,66 @@ As
     values(@userId, @dateTimeFrom, @dateTimeTo)
 go
 
+CREATE procedure EVENTS_List
+    @eventId int = null
+As
+    if(@eventId is null)
+select * from Event
+order by Name
+    else
+begin
+select * from Event
+where id = @eventID
+order by Name
+
+select
+    est.SubTypeId,
+    qst.Name,
+    qst.Link,
+    qst.Notes,
+    qst.Modified,
+    qst.Created
+from EventSubType est
+         inner join Event ev on ev.Id = est.EventId
+         inner join QuoteSubType QST on est.SubTypeId = QST.id
+where ev.Id = @eventId
+order by ev.Name
+
+end
+go
+
+CREATE procedure EVENTS_ListSubTypes
+    As
+
+select * from QuoteSubType
+order by Name
+    go
+
+create procedure EVENTS_Save
+    @id int,
+    @name varchar(255),
+    @notes varchar(max),
+    @link varchar(1200)
+
+As
+
+    if exists(select * from Event where Id = @id)
+begin
+update Event
+set Name = @name, Notes = @notes, Link = @link, Modified = getdate()
+where id = @id
+end
+else
+begin
+insert into Event(Name, Notes, Link)
+values(@name, @notes, @link)
+
+    set @id = scope_identity()
+end
+
+return @id
+    go
+
 CREATE procedure JOURNEY_GetJourney
     @emailAddress varchar(255)
 
@@ -38,11 +98,15 @@ CREATE procedure JOURNEY_PutJourney
 @yourStory varchar(max) = null,
 @registered bit = 0,
 @password varchar(255) = null,
-@completed datetime = null
+@completed datetime = null,
+@quoteIdIdentity int = null
 As
     if exists(select * from Journey where EmailAddress = @emailAddress)
 begin
-            declare @isregistered bit
+update Journey set QuoteIdIdentity = @quoteIdIdentity -- always update the quoteId
+where EmailAddress = @emailAddress
+
+declare @isregistered bit
             declare @completedDate datetime
 select @isregistered = Registered,
        @completedDate = Completed
@@ -127,14 +191,26 @@ BEGIN TRAN
 	
 	DECLARE @id UNIQUEIDENTIFIER
 	DECLARE @QuoteidIdentity int
-	
-	SET @id = NEWID()
-		
-	INSERT INTO QuoteRequest(QuoteId, Name, Notes, QuoteTypeId, QuoteSubTypeId, Owner, Attendees, DueDate, SourceTemplateId)
+    DECLARE @FirstName varchar(255)
+    DECLARE @Notes varchar(max)
+
+SELECT @FirstName = Value FROM MetaData md
+                                   INNER JOIN MetaDataName MDN on md.NameId = MDN.Id
+WHERE md.TableName = 'User' AND mdn.Name = 'FirstName'
+  AND KeyId = @OwnerId
+
+SELECT @Notes = Value FROM MetaData md
+                               INNER JOIN MetaDataName MDN on md.NameId = MDN.Id
+WHERE md.TableName = 'User' AND mdn.Name = 'YourStory'
+  AND KeyId = @OwnerId
+
+    SET @id = NEWID()
+
+INSERT INTO QuoteRequest(QuoteId, Name, Notes, QuoteTypeId, QuoteSubTypeId, Owner, Attendees, DueDate, SourceTemplateId)
 SELECT
     @id,
-    'From Template: ' + qt.Name,
-    Notes,
+    @FirstName+ '''s ' + qt.Name,
+    @Notes,
     QuoteTypeId,
     QuoteSubTypeId,
     @OwnerId,
@@ -146,10 +222,12 @@ WHERE qt.Id = @TemplateId
 
     SET @QuoteIdIdentity = SCOPE_IDENTITY()
 
-INSERT INTO QuoteRequestEvent(QuoteId, EventId, EventDate, EventOrder, Attendees, LeadWeeks)
+INSERT INTO QuoteRequestEvent(QuoteId, EventId, EventDate, EventOrder, Attendees, LeadWeeks, Name)
 SELECT
-    @id, qte.EventId, @DueDate, qte.EventOrder, @Attendees, qte.LeadWeeks
-FROM QuoteTemplateEvent qte WHERE QuoteTemplateId = @TemplateId
+    @id, qte.EventId, @DueDate, qte.EventOrder, @Attendees, qte.LeadWeeks, e.Name
+FROM QuoteTemplateEvent qte
+         INNER JOIN Event E on qte.EventId = E.Id
+WHERE QuoteTemplateId = @TemplateId
 
     INSERT INTO QuoteRequestElement(QuoteId, EventId, Budget, BudgetTolerance, Quantity, LeadWeeks, DueDate, SourceElementId)
 SELECT
@@ -199,6 +277,12 @@ FROM QuoteRequestElement qre
          INNER JOIN MetaData MD on md.KeyId = qe.Id and md.TableName = 'QuoteElement'
 WHERE qre.QuoteId = @id
 
+DECLARE @Email varchar(255)
+SELECT @Email = Email FROM [User] u
+WHERE u.id = @OwnerId
+
+UPDATE Journey Set QuoteIdIdentity = @QuoteidIdentity
+WHERE EmailAddress = @Email
 
     COMMIT TRAN
 	
@@ -331,7 +415,6 @@ CREATE PROCEDURE dbo.QUOTE_LoadQuote
     @QuoteIdIdentity int
 
 AS
-
 SELECT
     qr.QuoteId,
     qr.QuoteIdIdentity,
@@ -340,38 +423,82 @@ SELECT
     qr.DueDate,
     qr.Created,
     qr.Modified,
+    qr.Attendees,
     qt.Name As QuoteTypeName,
     qt.Notes As QuoteTypeNotes,
     qt.Link As QuoteTypeLink,
     qt.Name As QuoteSubTypeName,
     qt.Notes As QuoteSubTypeNotes,
-    qt.Link As QuoteSubTypeLink
+    qt.Link As QuoteSubTypeLink	,
+    u.id as UserId,
+    u.Email As UserEmail,
+    u.UserName As UserName,
+    u.UserKey As UserKey,
+    u.uuid As UserUUid
 FROM QuoteRequest qr
          LEFT JOIN QuoteType qt ON qt.Id = qr.QuoteTypeId
          LEFT JOIN QuoteSubType qst ON qst.Id = qr.QuoteSubTypeId
+         LEFT JOIN [User] u on u.id = qr.Owner
 WHERE qr.QuoteIdIdentity = @QuoteIdIdentity
 
 SELECT
-    qe.Name As QuoteElementType,
-    qe.Notes As QuoteElementNotes,
-    qe.id As QuoteElementId,
-    qre.QuoteRequestElementId,
-    qre.DueDate,
-    qe.LeadWeeks,
-    qre.Completed,
-    qre.Notes As QuoteRequestElementNotes,
-    qre.Budget As Budget,
-    qre.BudgetTolerance,
-    qre.Quantity,
-    qre.Created As QuoteRequestElementCreated,
-    qre.Modified As QuoteRequestElementModified,
-    qre.Submitted As QuoteRequestElementSubmitted,
-    qre.Exclude As QuoteRequestElementExclude
+    q.QuoteId,
+    qre.EventDate,
+    qre.Exclude,
+    qre.Created,
+    qre.Modified,
+    qre.EventOrder,
+    e.id As EventId,
+    e.Name As EventName,
+    qre.Name As DisplayName,
+    e.Notes As EventNotes,
+    qre.Notes As QuoteEventNotes,
+    e.Link As EventLink,
+    e.Created As EventCreated,
+    e.Modified As EventModified,
+    qre.Attendees,
+    qre.LeadWeeks,
+    qre.QuoteRequestEventId,
+    QRV.venueid,
+    QRV.name as VenueName,
+    QRV.address1,
+    QRV.address2,
+    QRV.address3,
+    QRV.posttown,
+    QRV.postcode,
+    QRV.country,
+    QRV.contactnumber,
+    QRV.maplink,
+    QRV.sitelink,
+    QRV.created as VenueCreated,
+    QRV.modified As VenueModified
+FROM QuoteRequestEvent qre
+         INNER JOIN Event E on qre.EventId = E.Id
+         INNER JOIn QuoteRequest Q on qre.QuoteId = Q.QuoteId
+         LEFT JOIN QuoteRequestVenue QRV on QRV.Venueid = qre.VenueId
+WHERE q.QuoteIdIdentity = @QuoteIdIdentity
 
-FROM QuoteRequestElement qre
-         INNER JOIN QuoteRequest qr On qr.QuoteId = qre.QuoteId
-         INNER Join QuoteElement qe ON qe.Id = qre.QuoteElementId
-WHERE qr.QuoteIdIdentity = @QuoteIdIdentity
+SELECT
+    qrel.QuoteRequestElementId as Id,
+    qre.EventId,
+    qe.Name,
+    qe.Notes,
+    qrel.Budget,
+    qrel.BudgetTolerance,
+    qrel.Quantity,
+    qrel.Exclude,
+    qrel.LeadWeeks,
+    qrel.DueDate,
+    qrel.Notes As QuoteElementNotes,
+    qrel.Completed  ,
+    qrel.Created,
+    qrel.Modified,
+    qrel.QuoteRequestElementId
+FROM QuoteRequestElement qrel
+         INNER JOIN QuoteRequestEvent qre ON qrel.QuoteId = qre.QuoteId and qrel.EventId = qre.EventId
+         INNER JOIN QuoteElement qe on qe.id = qrel.SourceElementId
+         INNER JOIn QuoteRequest Q on qre.QuoteId = Q.QuoteId
+WHERE q.QuoteIdIdentity = @QuoteIdIdentity
     go
 
 CREATE procedure QUOTE_LoadQuoteRequestElement
@@ -854,6 +981,36 @@ SELECT
 FROM dbo.[User] u
     LEFT JOIN dbo.UserPasswordHistory uph ON u.id = uph.UserId
 WHERE u.id = @userId
+    go
+
+create procedure USER_GetUserByGuid
+    @uuid uniqueidentifier
+As
+SELECT
+    u.id,
+    u.UserName,
+    u.uuid,
+    u.Email,
+    u.Created,
+    u.Modified,
+    u.Verified,
+    u.UserKey,
+    uph.Password
+FROM [User] u
+    INNER JOIN UserPasswordHistory uph On uph.UserId = u.id
+    AND uph.Expired IS NULL
+WHERE u.uuid = @uuid
+
+SELECT
+    mdn.Name,
+    md.Value,
+    md.Type,
+    md.Created,
+    md.Modified
+FROM MetaData md
+         INNER JOIN MetaDataName mdn on md.NameId = MDN.Id
+         INNER JOIN [User] u on u.uuid = @uuid
+WHERE md.TableName = 'User' And md.KeyId = u.id
     go
 
 
