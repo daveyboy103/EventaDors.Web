@@ -9,6 +9,7 @@ namespace StaticDataMaintenence.Models
         public EventWrapper()
         {
             List = new List<Event>();
+            SubTypes = new List<QuoteSubType>();
         }
         
         public EventWrapper(Event @event, IEnumerable<Event> list)
@@ -19,6 +20,7 @@ namespace StaticDataMaintenence.Models
         
         public Event Event { get; set; }
         public IEnumerable<Event> List { get; set; } 
+        public IEnumerable<QuoteSubType> SubTypes { get; set; }
     }
 
     public class FormActionBase

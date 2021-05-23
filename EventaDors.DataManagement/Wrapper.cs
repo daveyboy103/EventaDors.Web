@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http.Headers;
 using EventaDors.Entities.Classes;
 using EventaDors.Entities.Interfaces;
 
@@ -1252,6 +1253,26 @@ namespace EventaDors.DataManagement
                             Created = dr.GetDateTime(dr.GetOrdinal("Created")),
                             Modified = dr.GetDateTime(dr.GetOrdinal("Modified")),
                         };
+
+                        if (eventId.HasValue)
+                        {
+                            if (dr.NextResult())
+                            {
+                                while (dr.Read())
+                                {
+                                    var subType = new QuoteSubType
+                                    {
+                                        Id = dr.GetInt32(dr.GetOrdinal("SubTypeId")),
+                                        Name = dr.GetString(dr.GetOrdinal("Name")),
+                                        Notes = GetSafeString(dr, "Notes"),
+                                        Link = GetSafeString(dr, "Link"),
+                                        Created = dr.GetDateTime((dr.GetOrdinal("Created"))),
+                                        Modified = dr.GetDateTime((dr.GetOrdinal("Modified"))),
+                                    };
+                                    evt.SubTypes.Add(subType);
+                                }
+                            }
+                        }
                         
                         ret.Add(evt);
                     }
@@ -1281,6 +1302,36 @@ namespace EventaDors.DataManagement
                     return ListEvents(ret).First();
                 }
             }
+        }
+
+        public IList<QuoteSubType> ListSubTypes()
+        {
+            var ret = new List<QuoteSubType>();
+            
+            using (var cn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = GetCommand(cn, "EVENTS_ListSubTypes"))
+                {
+                    var dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        var subType = new QuoteSubType
+                        {
+                            Id = dr.GetInt32(dr.GetOrdinal("Id")),
+                            Name = dr.GetString(dr.GetOrdinal("Name")),
+                            Link = GetSafeString(dr, "Link"),
+                            Notes = GetSafeString(dr, "Notes"),
+                            Created = dr.GetDateTime(dr.GetOrdinal("Created")),
+                            Modified = dr.GetDateTime(dr.GetOrdinal("Modified")),
+                        };
+                        
+                        ret.Add(subType);
+                    }
+                }
+            }
+
+            return ret;
         }
     }
 }

@@ -1,3 +1,4 @@
+@using EventaDors.Entities.Classes
 @model EventWrapper
 
 @{
@@ -5,9 +6,9 @@
     Layout = "_Layout";
 }
 <div class="text-center">
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" hidden="@ShowAlert(Model)">
-      <strong>Record Saved</strong> Record saved successfully
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" hidden="@ShowAlert(Model)">
+        <strong>Record Saved</strong> Record saved successfully
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <h1>Events</h1>
     <p class="p-4 text-muted">This form manages the list of events that can be assigned to a template, for example for a wedding these might be <strong>Church Service,</strong> <strong>Reception</strong>, <strong>Rehearsal</strong> and so on.</p>
@@ -54,6 +55,28 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col align-items-start">
+                    <label class="form-label font-weight-bold pt-3">Available for Event Types</label>
+                </div>
+            </div>
+            <div class="row">
+                <div style="max-height: 200px; overflow: hidden; overflow-y: auto; border: 1px solid lightgrey;">
+                    <div class="col">
+                        <ul class="list-group ">
+                            @foreach (var subType in Model.SubTypes)
+                            { 
+                                <li class="list-group-item">
+                                     <div class="form-check form-switch">
+                                         <input class="form-check-input" checked="@GetChecked(subType, Model.Event)" type="checkbox" id="SubType_@subType.Id">
+                                         <label class="form-check-label" for="SubType_@subType.Id">@subType.Name</label>
+                                     </div>
+                                 </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
         <input type="hidden" asp-for="Event.Id"/>
         <footer class="p-4" style="text-align: right;">
@@ -68,6 +91,19 @@
 
 @functions{
 
+    bool GetChecked(QuoteSubType subType, Event eventObj)
+    {
+        if (eventObj != null)
+        {
+            if (eventObj.HasSubType(subType))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
     bool GetDisabledState(EventWrapper model)
     {
         if (model.Event == null)
@@ -87,7 +123,7 @@
 
         return true;
     }
-    
+
 
     int GetSafeId(EventWrapper model)
     {

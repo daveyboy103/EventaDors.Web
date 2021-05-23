@@ -45,6 +45,8 @@ namespace StaticDataMaintenence.Controllers
             EventWrapper ret = new EventWrapper();
             
             FormAction action = GetAction(Request, "eventId");
+            IList<QuoteSubType> subTypes = _wrapper.ListSubTypes();
+            ret.SubTypes = subTypes;
             
             switch (action)
             {
@@ -67,6 +69,7 @@ namespace StaticDataMaintenence.Controllers
                     ret.Action = FormAction.Success;
                     break;
             }
+            
             ret.List = _wrapper.ListEvents();
             
             return View(ret);
@@ -152,7 +155,9 @@ namespace StaticDataMaintenence.Controllers
         {
             var eventList = _wrapper.ListEvents();
             Event evt = _wrapper.ListEvents(int.Parse(Request.Query["eventid"])).First();
+            IList<QuoteSubType> subTypes = _wrapper.ListSubTypes();
             EventWrapper evtWrapper = new EventWrapper(evt, eventList);
+            evtWrapper.SubTypes = subTypes;
             // return RedirectToAction("Events", "Home", evtWrapper);
             //return Events(evtWrapper);
             return View("Events", evtWrapper);
