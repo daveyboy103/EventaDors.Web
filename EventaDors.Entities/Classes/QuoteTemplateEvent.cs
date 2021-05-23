@@ -14,7 +14,6 @@ namespace EventaDors.Entities.Classes
         public bool Exclude { get; set; }
         public string Notes { get; set; }
         public IList<QuoteElement> TemplateElements { get; }
-
         public override string ToString()
         {
             return $"{Event.Name} - {Order}";

@@ -14,18 +14,4 @@ namespace EventaDors.Entities.Classes
         
         public IDictionary<string, string> HelpMessages { get; }
     }
-
-    public abstract class ProcessStatus
-    {
-        public ProcessingResult ProcessingResult { get; set; }
-        public string ProcessingMessage { get; set; }
-    }
-
-    public enum ProcessingResult
-    {
-        None,
-        Success,
-        Failed,
-        Warning
-    }
 }

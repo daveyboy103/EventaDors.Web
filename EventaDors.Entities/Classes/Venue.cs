@@ -16,7 +16,6 @@ namespace EventaDors.Entities.Classes
         public string ContactNumber { get; set; }
         public string MapLink { get; set; }
         public string SiteLink { get; set; }
-
         public override string ToString()
         {
             return $"{Name} - {PostTown}, {PostCode}, {Country}: Tel: {ContactNumber}";

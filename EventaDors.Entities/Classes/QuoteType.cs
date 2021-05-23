@@ -16,7 +16,6 @@ namespace EventaDors.Entities.Classes
         public string Notes { get; set; }
         public string Link { get; set; }
         public IList<QuoteSubType> SubTypes { get; }
-        
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
     }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EventaDors.Entities.Classes
 {
-    public class Event
+    public class Event : CreatedModifiedBase
     {
         public Event()
         {
@@ -16,8 +16,6 @@ namespace EventaDors.Entities.Classes
         public string Name { get; set; }
         public string Notes { get; set; }
         public string Link { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
 
         public bool HasSubType(QuoteSubType subType)
         {

@@ -19,8 +19,6 @@ namespace EventaDors.Entities.Classes
         public double? AmountHigh { get; set; }
         public string Notes { get; set; }
         public string Link { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
         public DateTime? Submitted { get; set; }
         public QuoteElement ParentElement { get; set; }
         public List<string> Images { get; set; }

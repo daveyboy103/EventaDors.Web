@@ -25,7 +25,6 @@ namespace EventaDors.Entities.Classes
         [Required]
         [Range( 2, Int32.MaxValue)]
         public int Attendees { get; set; }
-
         public override string ToString()
         {
             return $"{Name} - Events {Events.Count} - Attendees {Attendees}";

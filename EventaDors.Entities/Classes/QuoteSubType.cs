@@ -2,7 +2,7 @@ using System;
 
 namespace EventaDors.Entities.Classes
 {
-    public class QuoteSubType
+    public class QuoteSubType : CreatedModifiedBase
     {
         public QuoteSubType()
         {
@@ -12,8 +12,5 @@ namespace EventaDors.Entities.Classes
         public string Name { get; set; }
         public string Notes { get; set; }
         public string Link { get; set; }
-        
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
     }
 }

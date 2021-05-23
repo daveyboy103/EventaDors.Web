@@ -24,7 +24,6 @@ namespace EventaDors.Entities.Classes
         public int? Attendees { get; set; }
         public int? LeadWeeks { get; set; }
         public string Name  { get; set; }
-        
         public int QuoteRequestEventId { get; set; }
         public IList<QuoteRequestElement> Elements { get; set; }
     }
