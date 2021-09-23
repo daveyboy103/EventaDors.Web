@@ -8,4 +8,6 @@
     &lt;TestId&gt;NUnit3x::F308BE1C-ADE9-4BE9-9111-A67B7A6D74F4::net5.0::EventaDors.Test.CalendarTests.ShouldImportAvailabilityFromCsv&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Dors/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Eventa/@EntryIndexedValue">True</s:Boolean>
 	</wpf:ResourceDictionary>

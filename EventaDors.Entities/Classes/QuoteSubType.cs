@@ -1,5 +1,3 @@
-using System;
-
 namespace EventaDors.Entities.Classes
 {
     public class QuoteSubType : CreatedModifiedBase

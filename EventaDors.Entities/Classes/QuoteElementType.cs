@@ -6,9 +6,9 @@ namespace EventaDors.Entities.Classes
         {
             Id = -1;
         }
-        public string Name { get; set; }
-        public string Notes { get; set; }
-        public string Link { get; set; }
+        public string Name { get; init; }
+        public string Notes { get; init; }
+        public string Link { get; init; }
         public int Id { get; set; }
     }
 }

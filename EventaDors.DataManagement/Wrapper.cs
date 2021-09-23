@@ -9,9 +9,14 @@ using EventaDors.Entities.Interfaces;
 
 namespace EventaDors.DataManagement
 {
+    /// <summary>
+    /// Wrapper class for data access to SQl Database
+    /// </summary>
     public class Wrapper : IWrapper
     {
         private const string ReturnParamName = "return";
+        private const string EmailAddress = "emailAddress";
+        private const string EventDate = "eventDate";
         private readonly string _connectionString;
 
         public Wrapper(string connectionString)
@@ -25,7 +30,7 @@ namespace EventaDors.DataManagement
             {
                 using (var cmd = GetCommand(cn, "JOURNEY_GetJourney"))
                 {
-                    cmd.Parameters.AddWithValue("emailAddress", emailAddress);
+                    cmd.Parameters.AddWithValue(EmailAddress, emailAddress);
                     return new Journey(cmd.ExecuteReader());
                 }
             }
@@ -37,8 +42,8 @@ namespace EventaDors.DataManagement
             {
                 using (var cmd = GetCommand(cn, "JOURNEY_PutJourney"))
                 {
-                    cmd.Parameters.AddWithValue("emailAddress", journey.Email);
-                    cmd.Parameters.AddWithValue("eventDate", journey.EventDate);
+                    cmd.Parameters.AddWithValue(EmailAddress, journey.Email);
+                    cmd.Parameters.AddWithValue(EventDate, journey.EventDate);
                     cmd.Parameters.AddWithValue("firstName", journey.FirstName);
                     cmd.Parameters.AddWithValue("surname", journey.Surname);
                     cmd.Parameters.AddWithValue("title", journey.Title);
@@ -166,7 +171,7 @@ namespace EventaDors.DataManagement
                 {
                     cmd.Connection = cn;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("emailAddress", emailAddress);
+                    cmd.Parameters.AddWithValue(EmailAddress, emailAddress);
 
                     cn.Open();
 
@@ -357,7 +362,7 @@ namespace EventaDors.DataManagement
                             quoteRequestEvent.Venue = venue;
                         }
 
-                        ret.Events.Add(quoteRequestEvent);
+                        ret?.Events.Add(quoteRequestEvent);
                     }
 
                 if (dr.NextResult())
@@ -779,7 +784,7 @@ namespace EventaDors.DataManagement
 
                     cmd.ExecuteNonQuery();
 
-                    var id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString());
+                    var id = int.Parse(cmd.Parameters[ReturnParamName].Value.ToString() ?? throw new InvalidOperationException());
                     quoteType.Id = id;
                 }
             }
@@ -1018,7 +1023,7 @@ namespace EventaDors.DataManagement
 
                     cmd.ExecuteNonQuery();
 
-                    var ret = int.Parse(cmd.Parameters["return"].Value.ToString());
+                    var ret = int.Parse(cmd.Parameters["return"].Value.ToString() ?? throw new InvalidOperationException());
 
                     if (ret != 0)
                     {
@@ -1054,7 +1059,7 @@ namespace EventaDors.DataManagement
                         cmd.Parameters["proposedDate"].Value = proposedDate;
                         cmd.ExecuteNonQuery();
 
-                        var ret = int.Parse(cmd.Parameters["return"].Value.ToString());
+                        var ret = int.Parse(cmd.Parameters["return"].Value.ToString() ?? throw new InvalidOperationException());
 
                         if (ret == 0)
                             list.Add(new AvailabilityResult {ProposedDate = proposedDate, Available = false});
@@ -1157,7 +1162,7 @@ namespace EventaDors.DataManagement
                             };
                         }
 
-                        template.Events.Add(new QuoteTemplateEvent
+                        template?.Events.Add(new QuoteTemplateEvent
                         {
                             Id = dr.GetInt32(dr.GetOrdinal("QuoteTemplateEventId")),
                             Created = dr.GetDateTime(dr.GetOrdinal("EventCreated")),
@@ -1214,7 +1219,7 @@ namespace EventaDors.DataManagement
                         }
 
                         if (dr["ElementName"] != DBNull.Value)
-                            ret.TemplateElements.Add(new QuoteElement
+                            ret?.TemplateElements.Add(new QuoteElement
                             {
                                 Name = dr.GetString(dr.GetOrdinal("ElementName")),
                                 Notes = GetSafeString(dr, "ElementNotes"),

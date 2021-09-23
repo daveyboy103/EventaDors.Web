@@ -76,29 +76,29 @@ namespace EventaDors.Entities.Classes
         [Compare("RepeatPassword")]
         public string Password { get; set; }
         [Required]
-        public DateTime? EventDate { get; set; }
-        public string Title { get; set; }
+        public DateTime? EventDate { get; init; }
+        public string Title { get; init; }
         [Required(ErrorMessage = "*")]
-        public string FirstName { get; set; }
+        public string FirstName { get; init; }
         [Required(ErrorMessage = "*")]
-        public string Surname { get; set; }
+        public string Surname { get; init; }
         [Required(ErrorMessage = "*")]
-        public string PostalCode { get; set; }
+        public string PostalCode { get; init; }
         [Required(ErrorMessage = "*")]
         [Phone]
-        public string ContactNumber { get; set; }
+        public string ContactNumber { get; init; }
         [EmailAddress]
-        public string PartnerEmail { get; set; }
-        public bool InformPartner { get; set; }
-        public string CurrentPage { get; set; }
+        public string PartnerEmail { get; init; }
+        public bool InformPartner { get; init; }
+        public string CurrentPage { get; }
         [Required(ErrorMessage = "*")]
         public string YourStory { get; set; }
-        public bool Registered { get; set; }
-        public DateTime Created { get; set; }
+        public bool Registered { get; }
+        public DateTime Created { get; }
         
         public bool AgreeConditions { get; set; }
 
         public DateTime? Completed { get; set; }
-        public string RepeatPassword { get; set; }
+        public string RepeatPassword { get; init; }
     }
 }

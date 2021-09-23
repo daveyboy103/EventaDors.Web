@@ -11,11 +11,11 @@ namespace EventaDors.Entities.Classes
             SubTypes = new List<QuoteSubType>();
         }
         
-        public int Id { get; set; }
+        public int Id { get; init; }
         [Required(ErrorMessage = "Event name is required")]
-        public string Name { get; set; }
-        public string Notes { get; set; }
-        public string Link { get; set; }
+        public string Name { get; init; }
+        public string Notes { get; init; }
+        public string Link { get; init; }
 
         public bool HasSubType(QuoteSubType subType)
         {

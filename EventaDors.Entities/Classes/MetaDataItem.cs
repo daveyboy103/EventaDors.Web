@@ -4,7 +4,7 @@ namespace EventaDors.Entities.Classes
 {
     public class MetaDataItem : CreatedModifiedBase
     {
-        public string Name { get; set; }
+        public string Name { get; init; }
         public string Value { get; set; }
         /// <summary>
         /// When a meta data item is used on a QuoteElement then

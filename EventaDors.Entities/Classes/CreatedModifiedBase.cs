@@ -9,8 +9,8 @@ namespace EventaDors.Entities.Classes
         {
             HelpMessages = new Dictionary<string, string>();
         }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
+        public DateTime Created { get; set; } = DateTime.UtcNow;
+        public DateTime Modified { get; set; } = DateTime.UtcNow;
         
         public IDictionary<string, string> HelpMessages { get; }
     }

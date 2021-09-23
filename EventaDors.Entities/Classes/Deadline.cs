@@ -6,12 +6,12 @@ namespace EventaDors.Entities.Classes
     {
         private int _responses;
         private string _name;
-        public int QuoteRequestElementId { get; set; }
+        public int QuoteRequestElementId { get; init; }
 
         public string Name
         {
             get => _name;
-            set
+            init
             {
                 _name = value;
                 
@@ -22,16 +22,13 @@ namespace EventaDors.Entities.Classes
             }
         }
 
-        public DateTime? DueDate { get; set; }
-        public DateTime? Submitted { get; set; }
-        public int? Weeks { get; set; }
-        public string Status { get; set; }
+        public DateTime? DueDate { get; init; }
+        public DateTime? Submitted { get; init; }
+        public int? Weeks { get; init; }
+        public string Status { get; init; }
         public int Responses
         {
-            get
-            {
-                return _responses;
-            }
+            get => _responses;
 
             set
             {
@@ -43,6 +40,6 @@ namespace EventaDors.Entities.Classes
                 }
             }
         }
-        public int Chats { get; set; }
+        public int Chats { get; init; }
     }
 }
