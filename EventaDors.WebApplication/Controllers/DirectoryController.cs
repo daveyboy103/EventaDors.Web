@@ -18,19 +18,6 @@ namespace EventaDors.WebApplication.Controllers
         }
     }
 
-    public class AboutUsController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-        
-        public IActionResult LoggedIn()
-        {
-            return View();
-        }
-    }
-
     public class GuestListController : Controller
     {
         public IActionResult Index()

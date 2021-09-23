@@ -8,11 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.Test", "EventaDo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.DataManagement", "EventaDors.DataManagement\EventaDors.DataManagement.csproj", "{ECD855BA-A50A-408E-873E-8B27882741CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.Batch", "EventaDors.Batch\EventaDors.Batch.csproj", "{C2FE4BB4-7729-4612-AAC8-BC484FC93E2E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.WebApplication", "EventaDors.WebApplication\EventaDors.WebApplication.csproj", "{199E6DB8-E2BA-4487-B052-4417282BCF69}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.Batch", "EventaDors.Batch\EventaDors.Batch.csproj", "{41E2F51D-04DA-4D41-975A-6F17A63D501C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventaDors.Xamarin", "EventaDors.Xamarin\EventaDors.Xamarin\EventaDors.Xamarin\EventaDors.Xamarin.csproj", "{9F7CCF52-8774-4A4C-908F-47AF48FB0561}"
 EndProject
@@ -40,18 +36,10 @@ Global
 		{ECD855BA-A50A-408E-873E-8B27882741CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECD855BA-A50A-408E-873E-8B27882741CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECD855BA-A50A-408E-873E-8B27882741CB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2FE4BB4-7729-4612-AAC8-BC484FC93E2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2FE4BB4-7729-4612-AAC8-BC484FC93E2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2FE4BB4-7729-4612-AAC8-BC484FC93E2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2FE4BB4-7729-4612-AAC8-BC484FC93E2E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{199E6DB8-E2BA-4487-B052-4417282BCF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{199E6DB8-E2BA-4487-B052-4417282BCF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{199E6DB8-E2BA-4487-B052-4417282BCF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{199E6DB8-E2BA-4487-B052-4417282BCF69}.Release|Any CPU.Build.0 = Release|Any CPU
-		{41E2F51D-04DA-4D41-975A-6F17A63D501C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41E2F51D-04DA-4D41-975A-6F17A63D501C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41E2F51D-04DA-4D41-975A-6F17A63D501C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{41E2F51D-04DA-4D41-975A-6F17A63D501C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9F7CCF52-8774-4A4C-908F-47AF48FB0561}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9F7CCF52-8774-4A4C-908F-47AF48FB0561}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F7CCF52-8774-4A4C-908F-47AF48FB0561}.Release|Any CPU.ActiveCfg = Release|Any CPU
