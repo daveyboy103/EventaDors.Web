@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/EventaDors.DataManagement/DB/TestNewSchema.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/EventaDors.DataManagement/DB/Tester.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/EventaDors.DataManagement/DB/db_create_script.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/EventaDors.DataManagement/DB/procedures.sql" dialect="TSQL" />
+  </component>
+</project>
